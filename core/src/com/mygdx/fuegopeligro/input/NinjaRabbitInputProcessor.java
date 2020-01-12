@@ -23,14 +23,17 @@ public class NinjaRabbitInputProcessor extends InputAdapter implements Telegraph
     private final static int RIGHT_KEY = Keys.D;
     private final static int RESET_KEY = Keys.BACKSPACE;
 
-    private final Entity character;
+    private Entity character;
+    private NinjaRabbit ninjaRabbits;
 
     public NinjaRabbitInputProcessor(final NinjaRabbit ninjaRabbit) {
+        ninjaRabbits = ninjaRabbit;
         if (ninjaRabbit == null) {
             throw new IllegalArgumentException("'character' cannot be null"); }
         this.character = ninjaRabbit;
         MessageManager.getInstance().addListener(this, MessageType.EXIT.code());
     }
+
 
     @Override
     public boolean keyDown(final int keycode) {
@@ -87,6 +90,13 @@ public class NinjaRabbitInputProcessor extends InputAdapter implements Telegraph
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        if (button == 0) {
+            moveLeft();
+        } else if (button == 1) {
+            moveRight();
+        } else if (button == 2) {
+            moveJump();
+        }
         /*if(Gdx.input.isTouched()) {
             float pointerFirst = Gdx.input.getX(0);
             float pointerSecond = Gdx.input.getX(1);

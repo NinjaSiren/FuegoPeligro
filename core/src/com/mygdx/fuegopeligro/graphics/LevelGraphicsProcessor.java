@@ -13,7 +13,6 @@ import com.mygdx.fuegopeligro.GameOverOverlay;
 import com.mygdx.fuegopeligro.LevelEndOverlay;
 import com.mygdx.fuegopeligro.ai.msg.MessageType;
 import com.mygdx.fuegopeligro.entity.Entity;
-import com.mygdx.fuegopeligro.entity.EntityFactory;
 import com.mygdx.fuegopeligro.map.LevelRenderer;
 import com.mygdx.fuegopeligro.minigames.FourPicsOneWord;
 import com.mygdx.fuegopeligro.minigames.LetterPuzzle;
@@ -106,7 +105,6 @@ public class LevelGraphicsProcessor implements GraphicsProcessor, Telegraph {
                         }
                         break;
                 }
-                new EntityFactory();
             } else if (worldValue == 2) {
                 //short hardValue = status.getHqaValue();
                 switch (mgValue) {
@@ -135,7 +133,6 @@ public class LevelGraphicsProcessor implements GraphicsProcessor, Telegraph {
                         }
                         break;
                 }
-                new EntityFactory();
             }
         }
     }

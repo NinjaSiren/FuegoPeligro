@@ -50,7 +50,7 @@ public final class EntityFactory {
     /**
      * This should be used as a static factory. No instances allowed.
      */
-    public EntityFactory() {
+    EntityFactory() {
 
     }
 

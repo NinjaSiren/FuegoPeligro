@@ -1,6 +1,6 @@
 package com.mygdx.fuegopeligro.input;
 
-import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -13,11 +13,10 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.fuegopeligro.Assets;
 import com.mygdx.fuegopeligro.FuegoPeligro;
-import com.mygdx.fuegopeligro.ai.msg.MessageType;
 
-public class ControlButtons extends InputAdapter {
+public class ControlButtons {
 
-    private final Stage overlay;
+    private Stage overlay;
     private Telegram msg;
 
     public ControlButtons(final Batch batch, final AssetManager assets, final FuegoPeligro game) {
@@ -30,7 +29,6 @@ public class ControlButtons extends InputAdapter {
         left.addListener(new ClickListener() {
             @Override
             public void clicked(final InputEvent event, final float x, final float y) {
-                msg.message = MessageType.MOVE_LEFT.code();
             }
         });
 
@@ -38,7 +36,6 @@ public class ControlButtons extends InputAdapter {
         right.addListener(new ClickListener() {
             @Override
             public void clicked(final InputEvent event, final float x, final float y) {
-                msg.message = MessageType.MOVE_RIGHT.code();
             }
         });
 
@@ -46,7 +43,6 @@ public class ControlButtons extends InputAdapter {
         jump.addListener(new ClickListener() {
             @Override
             public void clicked(final InputEvent event, final float x, final float y) {
-                msg.message = MessageType.MOVE_JUMP.code();
             }
         });
 
@@ -69,7 +65,7 @@ public class ControlButtons extends InputAdapter {
     public void render() {
         overlay.act();
         overlay.draw();
-        //Gdx.input.setInputProcessor(overlay);
+        Gdx.input.setInputProcessor(overlay);
     }
 
     public void dispose() {
