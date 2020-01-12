@@ -49,7 +49,11 @@ public enum MessageType {
     BACK_TO_MENU(12),
     LOAD_CURRENT_GAME(13),
     PREFERENCES_SCREEN(14),
-    LEVEL_SELECTION(15);
+    LEVEL_SELECTION(15),
+    MOVE_LEFT(16),
+    MOVE_RIGHT(17),
+    MOVE_JUMP(18),
+    END_MINIGAME_OVERLAY(19);
 
     /**
      * The inner code of the message.

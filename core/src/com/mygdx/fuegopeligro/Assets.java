@@ -41,6 +41,10 @@ public final class Assets {
             Music.class);
     public static final AssetDescriptor<Skin> GAME_UI_SKIN = new AssetDescriptor<Skin>("skins" + File.separator + "comic-ui.json",
             Skin.class);
+    public static final AssetDescriptor<Texture> MENU_BG = new AssetDescriptor<Texture>("menubg.png",
+            Texture.class);
+    public static final AssetDescriptor<Texture> DIRECTIONAL_PAD = new AssetDescriptor<Texture>("arrow" + File.separator + "DPAD.png",
+            Texture.class);
 
     private Assets() {
     }

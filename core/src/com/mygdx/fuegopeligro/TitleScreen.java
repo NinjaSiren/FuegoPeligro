@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -13,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.fuegopeligro.ai.msg.MessageType;
 
@@ -23,7 +26,7 @@ import com.mygdx.fuegopeligro.ai.msg.MessageType;
  * @author JDEsguerra
  */
 public class TitleScreen extends AbstractScreen {
-    private static final String WALK_REGION = "walk";
+    private static final String CARROT_REGION = "carrot";
     private static final String TITLE = "Fuego Peligro";
     private static final String BEGIN_OPTION = "New Game";
     private static final String RETURN_OPTION = "Continue Game";
@@ -42,7 +45,7 @@ public class TitleScreen extends AbstractScreen {
         Label.LabelStyle style = new Label.LabelStyle();
         style.fontColor = Color.WHITE;
         style.font = game.getAssetsManager().get(Assets.HUD_FONT);
-        Image logo = new Image(game.getAssetsManager().get(Assets.NINJA_RABBIT_ATLAS).findRegion(WALK_REGION));
+        Image logo = new Image(game.getAssetsManager().get(Assets.NINJA_RABBIT_ATLAS).findRegion(CARROT_REGION));
 
         Label titleLabel = new Label(TITLE, style);
         titleLabel.setFontScale(1.2f);
@@ -133,6 +136,7 @@ public class TitleScreen extends AbstractScreen {
             }
         });
 
+        table.setBackground(new TextureRegionDrawable(new TextureRegion(new Texture("menubg.png"))));
         table.add(beginIcon);
         table.add(beginButton).right().row();
         table.add(returnIcon);

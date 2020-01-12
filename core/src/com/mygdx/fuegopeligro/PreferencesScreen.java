@@ -39,7 +39,7 @@ public class PreferencesScreen extends AbstractScreen {
     private Stage stage;
     private Telegram msg;
 
-    PreferencesScreen(final FuegoPeligro game) {
+    public PreferencesScreen(final FuegoPeligro game) {
         super(game);
         msg = new Telegram();
         stage = new Stage(new ScreenViewport(), game.getBatch());

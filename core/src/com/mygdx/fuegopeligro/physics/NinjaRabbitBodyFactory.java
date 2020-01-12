@@ -33,7 +33,7 @@ public final class NinjaRabbitBodyFactory implements BodyFactory {
         bdef.type = BodyType.DynamicBody;
         bdef.position.set(INITIAL_POSITION);
         bdef.fixedRotation = true;
-        bdef.gravityScale = 2.0f;
+        bdef.gravityScale = 1.75f;
         // bdef.bullet = true;
 
         fdef = new FixtureDef();

@@ -20,7 +20,7 @@ import com.mygdx.fuegopeligro.player.PlayerStatus;
  */
 public class FuegoPeligro extends Game implements Telegraph {
     public static final float PPM = 92.0f;
-    private static final String GAME_TITLE = "Fuego Peligro Alpha v0.1 test [fps: %s]";
+    private static final String GAME_TITLE = "Fuego Peligro Alpha v0.2 test [fps: %s]";
     /**
      * The state of the current player. Placed here for convenient use and access.
      */
@@ -50,6 +50,8 @@ public class FuegoPeligro extends Game implements Telegraph {
         assetsManager.load(Assets.GRASSLAND_BACKGROUND);
         assetsManager.load(Assets.SWORD);
         assetsManager.load(Assets.GAME_UI_SKIN);
+        assetsManager.load(Assets.MENU_BG);
+        assetsManager.load(Assets.DIRECTIONAL_PAD);
         assetsManager.finishLoading();
         setScreen(new TitleScreen(this));
     }
@@ -87,7 +89,6 @@ public class FuegoPeligro extends Game implements Telegraph {
      * Disposes of the current {@link Screen} and replaces it with a new {@link LevelStartScreen}.
      */
     private void resetLevel() {
-        status.reset();
         addListeners();
         setScreen(new LevelStartScreen(this));
     }
@@ -97,6 +98,7 @@ public class FuegoPeligro extends Game implements Telegraph {
      */
     private void nextLevel() {
         addListeners();
+        status.levelEndOver();
         int levelNumber = getPlayerStatus().getLevel();
         int worldNumber = getPlayerStatus().getWorld();
         LevelFactory.LEVEL_MAP_FILE = String.format("map/level.%s.%s.tmx", worldNumber, levelNumber);
@@ -108,6 +110,7 @@ public class FuegoPeligro extends Game implements Telegraph {
      */
     private void newGame() {
         addListeners();
+        status.reset();
         setScreen(new LevelStartScreen(this));
     }
 
@@ -122,6 +125,7 @@ public class FuegoPeligro extends Game implements Telegraph {
 
     private void loadGame() {
         addListeners();
+        status.resetGameOver();
         int levelNumber = getPlayerStatus().getCurrentLevel();
         int worldNumber = getPlayerStatus().getCurrentWorld();
         LevelFactory.LEVEL_MAP_FILE = String.format("map/level.%s.%s.tmx", levelNumber, worldNumber);
@@ -136,6 +140,10 @@ public class FuegoPeligro extends Game implements Telegraph {
     private void levelSelection() {
         addListeners();
         setScreen(new LevelSelectionScreen(this));
+    }
+
+    private void respawnAtCheckpoint() {
+        addListeners();
     }
 
     /**
@@ -154,9 +162,7 @@ public class FuegoPeligro extends Game implements Telegraph {
         return assetsManager;
     }
 
-    public Batch getBatch() {
-        return batch;
-    }
+    public Batch getBatch() { return batch; }
 
     /**
      * Provides a way of polling the latest {@link PlayerStatus}.
@@ -172,7 +178,7 @@ public class FuegoPeligro extends Game implements Telegraph {
         if (msg.message == MessageType.RESET_PLAYER_STATUS.code()) {
             reset();
         } else if (msg.message == MessageType.RESET_CURRENT_LEVEL.code()) {
-            resetLevel();
+            loadGame();
         } else if (msg.message == MessageType.LOAD_NEXT_LEVEL.code()) {
             nextLevel();
         } else if (msg.message == MessageType.LOAD_NEW_GAME.code()) {

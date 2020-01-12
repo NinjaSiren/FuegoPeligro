@@ -50,6 +50,19 @@ public final class CurrentPlayerStatus implements PlayerStatus, Poolable {
 
     private byte currentLevel;
 
+
+    private short mgValue;
+
+
+    private short eqaValue;
+
+
+    private short hqaValue;
+
+
+    private long goResetCounter;
+
+
     public CurrentPlayerStatus() {
         lives = DEFAULT_LIVES;
         time = DEFAULT_TIME;
@@ -57,6 +70,10 @@ public final class CurrentPlayerStatus implements PlayerStatus, Poolable {
         world = DEFAULT_WORLD;
         currentLevel = CURRENT_LEVEL;
         currentWorld = CURRENT_WORLD;
+        mgValue = CURRENT_MG;
+        eqaValue = CURRENT_EQA;
+        hqaValue = CURRENT_HQA;
+        goResetCounter = CURRENT_RECOUNT;
     }
 
     /*
@@ -171,6 +188,26 @@ public final class CurrentPlayerStatus implements PlayerStatus, Poolable {
         this.currentLevel = currentLevels;
     }
 
+    @Override
+    public short getMGValue() { return mgValue; }
+
+    protected void setMGValue(final short mgValue) { this.mgValue = mgValue; }
+
+    @Override
+    public short getEqaValue() { return eqaValue; }
+
+    protected void setEqavalue(final short eqaValue) { this.eqaValue = eqaValue; }
+
+    @Override
+    public short getHqaValue() { return hqaValue; }
+
+    protected void setHqaValue (final short hqaValue) { this.hqaValue = hqaValue; }
+
+    @Override
+    public long getGoResetCounter() { return goResetCounter; }
+
+    protected void setGoResetCounter(long goResetCounter) { this.goResetCounter = goResetCounter; }
+
     /*
      * (non-Javadoc)
      *
@@ -186,6 +223,32 @@ public final class CurrentPlayerStatus implements PlayerStatus, Poolable {
         currentLevel = 1;
         collectibles = 0;
         score = 0;
+        mgValue = 1;
+        eqaValue = 1;
+        hqaValue = 1;
+        goResetCounter = 0;
+    }
+
+    private int prevScore;
+    private short prevCollectibles;
+
+    public void resetGameOver() {
+        lives = DEFAULT_LIVES;
+        time = DEFAULT_TIME;
+        if(goResetCounter == 0) {
+            prevScore = score;
+            prevCollectibles = collectibles;
+            goResetCounter = +1;
+        } else if(goResetCounter >= 1) {
+            score = prevScore;
+            collectibles = prevCollectibles;
+        }
+    }
+
+    public void levelEndOver() {
+        lives = DEFAULT_LIVES;
+        time = DEFAULT_TIME;
+        goResetCounter = 0;
     }
 
     /*
@@ -200,5 +263,4 @@ public final class CurrentPlayerStatus implements PlayerStatus, Poolable {
                 .append(score).append(", time=").append(time).append("]");
         return builder.toString();
     }
-
 }

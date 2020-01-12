@@ -12,6 +12,10 @@ public interface PlayerStatus {
     short DEFAULT_LEVEL = 1;
     short CURRENT_WORLD = 1;
     short CURRENT_LEVEL = 1;
+    short CURRENT_MG = 1;
+    short CURRENT_EQA = 1;
+    short CURRENT_HQA = 1;
+    long CURRENT_RECOUNT = 0;
 
     /**
      * Returns the count of gathered collectibles so far.
@@ -73,4 +77,12 @@ public interface PlayerStatus {
      * @return The number of the level the player was lastly in.
      */
     byte getCurrentLevel();
+
+    short getMGValue();
+
+    short getEqaValue();
+
+    short getHqaValue();
+
+    long getGoResetCounter();
 }
