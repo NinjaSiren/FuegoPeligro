@@ -1,0 +1,9 @@
+<application>
+  <component name="ParameterNameHintsSettings">
+    <blacklists>
+      <blacklist language="Java">
+        <added pattern="com.badlogic.gdx.scenes.scene2d.ui.Label.Label(text,skin)" />
+      </blacklist>
+    </blacklists>
+  </component>
+</application>
