@@ -12,7 +12,8 @@ import com.mygdx.fuegopeligro.physics.BodyEditorLoader;
  * @author JDEsguerra
  */
 public final class LevelFactory {
-    private static final String COLLECTIBLES_LAYER = "collectibles";
+    private static final String CHECKPOINT_LAYER = "checkpoints";
+    private static final String COINS_LAYER = "coins";
     public static String LEVEL_MAP_FILE = "";
 
     public LevelFactory() {
@@ -41,10 +42,14 @@ public final class LevelFactory {
         LevelRenderer renderer = new LevelRenderer(tiledMap, assets, batch, unitScale);
 
         for (MapLayer ml : tiledMap.getLayers()) {
-            if (ml.getName().toLowerCase().startsWith(COLLECTIBLES_LAYER)) {
+            if (ml.getName().toLowerCase().startsWith(CHECKPOINT_LAYER)) {
                 CollectibleRenderer carrots = new CollectibleRenderer(unitScale);
                 carrots.load(world, loader, assets, ml);
                 renderer.addCollectibleRenderer(carrots);
+            } else if (ml.getName().toLowerCase().startsWith(COINS_LAYER)) {
+                CollectibleRenderer coins = new CollectibleRenderer(unitScale);
+                coins.load(world, loader, assets, ml);
+                renderer.addCollectibleRenderer(coins);
             }
         }
         return renderer;

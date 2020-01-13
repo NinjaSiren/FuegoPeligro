@@ -30,7 +30,7 @@ import net.dermetfan.gdx.physics.box2d.Box2DUtils;
 public class NinjaRabbitGraphicsProcessor implements GraphicsProcessor, Telegraph {
     private static final String WALK_REGION = "walk";
     private static final String JUMP_REGION = "jump";
-    private static final Vector2 RESPAWN_POSITION = new Vector2(0.6f, 3.2f);
+    private static Vector2 RESPAWN_POSITION = new Vector2(0.6f, 3.2f);
 
     private final TextureAtlas textureAtlas;
     private final Box2DSprite standingSprite;
@@ -79,6 +79,10 @@ public class NinjaRabbitGraphicsProcessor implements GraphicsProcessor, Telegrap
     public void update(final Entity character, final Camera camera) {
         camera.position.x = character.getBody() == null ? 0.0f :
                 character.getBody().getPosition().x + camera.viewportWidth * 0.25f;
+        /*
+        LEFT FOR THE MEAN TIME
+         */
+        RESPAWN_POSITION = new Vector2(camera.position.x - camera.viewportWidth * 0.125f, camera.position.y);
     }
 
     /*

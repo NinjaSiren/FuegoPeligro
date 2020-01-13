@@ -34,7 +34,7 @@ public class LevelStartScreen extends AbstractScreen {
     private static final String LIVES_REGION = "lives";
     private static final String SMALL_CARROT_REGION = "carrot-small";
 
-    private final Stage stage;
+    private Stage stage;
     private Screen levelScreen;
 
     public LevelStartScreen(final FuegoPeligro game) {

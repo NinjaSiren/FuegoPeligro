@@ -34,12 +34,10 @@ public class LevelScreen extends AbstractScreen {
 
     public LevelScreen(final FuegoPeligro game) {
         super(game);
-
         world = new World(new Vector2(0.0f, GRAVITY), true);
-        hud = new StatusBar(game.getBatch(), game.getAssetsManager());
-
         BodyEditorLoader bodyLoader = new BodyEditorLoader(Gdx.files.internal(BODIES_DEFINITION_FILE));
-        ninjaRabbit = EntityFactory.createNinjaRabbit(world, bodyLoader, game.getAssetsManager(), game.getPlayerStatus(), hud);
+        hud = new StatusBar(game.getBatch(), game.getAssetsManager());
+        ninjaRabbit = EntityFactory.createNinjaRabbit(game, world, bodyLoader, game.getAssetsManager(), game.getPlayerStatus(), hud);
         LevelRenderer mapRenderer = LevelFactory.create(world, bodyLoader, game.getBatch(), game.getAssetsManager(), game.getPlayerStatus()
                         .getWorld(), game.getPlayerStatus().getLevel(),
                 1 / FuegoPeligro.PPM);
@@ -51,7 +49,6 @@ public class LevelScreen extends AbstractScreen {
                 mapRenderer.getTiledMap().getProperties().get("width", Integer.class).floatValue()
                         * mapRenderer.getTiledMap().getProperties().get("tilewidth", Integer.class).floatValue()
                         / FuegoPeligro.PPM));
-
     }
 
     /*

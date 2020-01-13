@@ -4,6 +4,7 @@
 package com.mygdx.fuegopeligro.entity;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.controllers.mappings.Ouya;
@@ -24,6 +25,10 @@ import com.mygdx.fuegopeligro.graphics.NinjaRabbitGraphicsProcessor;
 import com.mygdx.fuegopeligro.input.NinjaRabbitControllerProcessor;
 import com.mygdx.fuegopeligro.input.NinjaRabbitInputProcessor;
 import com.mygdx.fuegopeligro.map.LevelRenderer;
+import com.mygdx.fuegopeligro.minigames.FourPicsOneWord;
+import com.mygdx.fuegopeligro.minigames.LetterPuzzle;
+import com.mygdx.fuegopeligro.minigames.MultipleChoice;
+import com.mygdx.fuegopeligro.minigames.Wordscapes;
 import com.mygdx.fuegopeligro.physics.BodyEditorLoader;
 import com.mygdx.fuegopeligro.physics.BodyProcessor;
 import com.mygdx.fuegopeligro.physics.CarrotPhysicsProcessor;
@@ -50,10 +55,9 @@ public final class EntityFactory {
     /**
      * This should be used as a static factory. No instances allowed.
      */
-    private EntityFactory() {
+    EntityFactory() {
 
     }
-
     /**
      * Creates a new instance of {@link Collectible}, defining its graphical, audio and physical
      * properties.
@@ -75,28 +79,8 @@ public final class EntityFactory {
         return new Collectible(graphics, physics, audio);
     }
 
-    /**
-     * Creates a new instance of {@link NinjaRabbit}, defining its graphical, audio and physical
-     * properties.
-     *
-     * @param world
-     *            The Box2D {@link World} onto which to create the {@link Body} and {@link Fixture}
-     *            of the {@link Entity}.
-     * @param loader
-     *            A {@link BodyEditorLoader} to handle creation of the Entity body and fixtures.
-     * @param assets
-     *            The {@link AssetManager} from where to extract the graphical and audio resources.
-     *            Those resources should be loaded in the manager before calling this method and
-     *            won't be disposed.
-     * @param status
-     *            A reference to the global status of the player to be updated from the changes in
-     *            the returned entity inner state.
-     * @param observers
-     *            An array of event receivers. Events will fire when the active player status
-     *            changes (such as losing lives, collecting items, etc.).
-     * @return A ready to use instance of a new {@link NinjaRabbit}.
-     */
-    public static Entity createNinjaRabbit(final World world, final BodyEditorLoader loader, final AssetManager assets,
+    private static NinjaRabbit ninjaRabbit;
+    public static Entity createNinjaRabbit(final FuegoPeligro game, final World world, final BodyEditorLoader loader, final AssetManager assets,
                                            final CurrentPlayerStatus status, final PlayerStatusObserver... observers) {
         PhysicsProcessor physics = new NinjaRabbitPhysicsProcessor();
         CONTACT_LISTENER.add(physics);
@@ -110,13 +94,40 @@ public final class EntityFactory {
                 player.addObserver(o);
             }
         }
-        NinjaRabbit ninjaRabbit = new NinjaRabbit(player, bodyProcessor, graphics, physics, audio);
+        /**
+         * Creates a new instance of {@link NinjaRabbit}, defining its graphical, audio and physical
+         * properties.
+         *
+         * @param world
+         *            The Box2D {@link World} onto which to create the {@link Body} and {@link Fixture}
+         *            of the {@link Entity}.
+         * @param loader
+         *            A {@link BodyEditorLoader} to handle creation of the Entity body and fixtures.
+         * @param assets
+         *            The {@link AssetManager} from where to extract the graphical and audio resources.
+         *            Those resources should be loaded in the manager before calling this method and
+         *            won't be disposed.
+         * @param status
+         *            A reference to the global status of the player to be updated from the changes in
+         *            the returned entity inner state.
+         * @param observers
+         *            An array of event receivers. Events will fire when the active player status
+         *            changes (such as losing lives, collecting items, etc.).
+         * @return A ready to use instance of a new {@link NinjaRabbit}.
+         */
+        ninjaRabbit = new NinjaRabbit(player, bodyProcessor, graphics, physics, audio);
 
         if (Ouya.isRunningOnOuya()) {
             Controllers.clearListeners();
             Controllers.addListener(new NinjaRabbitControllerProcessor(ninjaRabbit));
         } else {
-            Gdx.input.setInputProcessor(new NinjaRabbitInputProcessor(ninjaRabbit));
+            InputMultiplexer inputMultiplexer = new InputMultiplexer();
+            inputMultiplexer.addProcessor(new NinjaRabbitInputProcessor(ninjaRabbit));
+            inputMultiplexer.addProcessor(new FourPicsOneWord(assets, game, ninjaRabbit).stage);
+            inputMultiplexer.addProcessor(new LetterPuzzle(assets, game, ninjaRabbit).stage);
+            inputMultiplexer.addProcessor(new MultipleChoice(assets, game, ninjaRabbit).stage);
+            inputMultiplexer.addProcessor(new Wordscapes(assets, game, ninjaRabbit).stage);
+            Gdx.input.setInputProcessor(inputMultiplexer);
         }
         return ninjaRabbit;
     }
@@ -137,7 +148,7 @@ public final class EntityFactory {
         PhysicsProcessor physics = new LevelPhysicsProcessor(world, renderer.getTiledMap(), renderer.getUnitScale());
         CONTACT_LISTENER.add(physics);
         world.setContactListener(CONTACT_LISTENER);
-        GraphicsProcessor graphics = new LevelGraphicsProcessor(assets, batch, renderer, game);
+        GraphicsProcessor graphics = new LevelGraphicsProcessor(assets, renderer, game, ninjaRabbit, status);
         AudioProcessor audio = new LevelAudioProcessor(assets, renderer.getTiledMap().getProperties());
         PlayerStatusProcessor player = new LevelPlayerStatusProcessor(status);
         if (observers != null) {

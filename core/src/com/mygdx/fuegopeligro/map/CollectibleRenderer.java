@@ -43,12 +43,13 @@ public class CollectibleRenderer implements Telegraph {
         MessageManager.getInstance().addListener(this, MessageType.COLLECTED.code());
     }
 
-    public void load(final World world, final BodyEditorLoader loader, final AssetManager assets, final MapLayer layer) {
+    public void load(final World world, final BodyEditorLoader loader, final AssetManager assets,
+                     final MapLayer layer) {
         load(world, loader, assets, layer, null);
     }
 
-    public void load(final World world, final BodyEditorLoader loader, final AssetManager assets, final MapLayer layer,
-                     final Object userData) {
+    public void load(final World world, final BodyEditorLoader loader, final AssetManager assets,
+                     final MapLayer layer, final Object userData) {
         if (layer == null) {
             return;
         }
@@ -67,7 +68,8 @@ public class CollectibleRenderer implements Telegraph {
                 bodyFactory = new CarrotBodyFactory(loader);
                 entity = EntityFactory.createCollectible(world, assets);
             } else {
-                throw new IllegalArgumentException("Unknown collectible type {" + mo.getProperties().get(TYPE_PROPERTY, String.class) + "}");
+                throw new IllegalArgumentException("Unknown collectible type {"
+                        + mo.getProperties().get(TYPE_PROPERTY, String.class) + "}");
             }
 
             Body body = bodyFactory.create(world, bodyDefinition);
