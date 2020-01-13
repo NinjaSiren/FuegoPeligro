@@ -37,17 +37,11 @@ public class LevelGraphicsProcessor implements GraphicsProcessor, Telegraph {
     private boolean renderLevelEnd;
     private boolean minicamSelection;
     private final CurrentPlayerStatus status;
-    private final AssetManager manager;
-    private final FuegoPeligro peligro;
-    private final NinjaRabbit rabbit;
 
     public LevelGraphicsProcessor(final AssetManager assets, final LevelRenderer mapRenderer,
                                   final FuegoPeligro game, final NinjaRabbit ninjaRabbit,
                                   final CurrentPlayerStatus stat) {
         status = stat;
-        manager = assets;
-        peligro = game;
-        rabbit = ninjaRabbit;
         gameOver = new GameOverOverlay(game.getBatch(), assets, game);
         levelEnd = new LevelEndOverlay(game.getBatch(), assets, game);
         multipleChoice = new MultipleChoice(assets, game, ninjaRabbit);
