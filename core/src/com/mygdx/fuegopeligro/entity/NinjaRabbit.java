@@ -27,9 +27,9 @@ public class NinjaRabbit extends Entity {
      */
     private final PlayerStatusProcessor player;
 
-    NinjaRabbit(final PlayerStatusProcessor player, final BodyProcessor bodyProcessor, final GraphicsProcessor graphics,
-                final PhysicsProcessor physics,
-                final AudioProcessor audio) {
+    public NinjaRabbit(final PlayerStatusProcessor player, final BodyProcessor bodyProcessor, final GraphicsProcessor graphics,
+                       final PhysicsProcessor physics,
+                       final AudioProcessor audio) {
         super(graphics, physics, audio, NinjaRabbitState.IDLE);
         this.bodyProcessor = bodyProcessor;
         this.player = player;

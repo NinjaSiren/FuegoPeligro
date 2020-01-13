@@ -47,9 +47,9 @@ public final class LevelFactory {
                 carrots.load(world, loader, assets, ml);
                 renderer.addCollectibleRenderer(carrots);
             } else if (ml.getName().toLowerCase().startsWith(COINS_LAYER)) {
-                CollectibleRenderer carrots = new CollectibleRenderer(unitScale);
-                carrots.load(world, loader, assets, ml);
-                renderer.addCollectibleRenderer(carrots);
+                CollectibleRenderer coins = new CollectibleRenderer(unitScale);
+                coins.load(world, loader, assets, ml);
+                renderer.addCollectibleRenderer(coins);
             }
         }
         return renderer;

@@ -9,7 +9,6 @@ import com.mygdx.fuegopeligro.entity.Entity;
 import com.mygdx.fuegopeligro.entity.EntityFactory;
 import com.mygdx.fuegopeligro.graphics.BoundedCamera;
 import com.mygdx.fuegopeligro.graphics.hud.StatusBar;
-import com.mygdx.fuegopeligro.input.ControlButtons;
 import com.mygdx.fuegopeligro.map.LevelFactory;
 import com.mygdx.fuegopeligro.map.LevelRenderer;
 import com.mygdx.fuegopeligro.physics.BodyEditorLoader;
@@ -31,18 +30,14 @@ public class LevelScreen extends AbstractScreen {
     private final Entity ninjaRabbit;
     private final Entity environment;
     private final StatusBar hud;
-    private final ControlButtons hud2;
     private float accumulator;
 
     public LevelScreen(final FuegoPeligro game) {
         super(game);
-
         world = new World(new Vector2(0.0f, GRAVITY), true);
-        hud = new StatusBar(game.getBatch(), game.getAssetsManager());
-        hud2 = new ControlButtons(game.getBatch(), game.getAssetsManager(), game);
-
         BodyEditorLoader bodyLoader = new BodyEditorLoader(Gdx.files.internal(BODIES_DEFINITION_FILE));
-        ninjaRabbit = EntityFactory.createNinjaRabbit(world, bodyLoader, game.getAssetsManager(), game.getPlayerStatus(), hud);
+        hud = new StatusBar(game.getBatch(), game.getAssetsManager());
+        ninjaRabbit = EntityFactory.createNinjaRabbit(game, world, bodyLoader, game.getAssetsManager(), game.getPlayerStatus(), hud);
         LevelRenderer mapRenderer = LevelFactory.create(world, bodyLoader, game.getBatch(), game.getAssetsManager(), game.getPlayerStatus()
                         .getWorld(), game.getPlayerStatus().getLevel(),
                 1 / FuegoPeligro.PPM);
@@ -82,7 +77,6 @@ public class LevelScreen extends AbstractScreen {
         MessageManager.getInstance().update();
 
         hud.render();
-        hud2.render();
     }
 
     /*
@@ -94,7 +88,6 @@ public class LevelScreen extends AbstractScreen {
     public void resize(final int width, final int height) {
         viewport.update(width, height, true);
         hud.resize(width, height);
-        hud2.resize(width, height);
         ninjaRabbit.resize(width, height);
         environment.resize(width, height);
     }
@@ -148,6 +141,5 @@ public class LevelScreen extends AbstractScreen {
         environment.dispose();
         world.dispose();
         hud.dispose();
-        hud2.dispose();
     }
 }

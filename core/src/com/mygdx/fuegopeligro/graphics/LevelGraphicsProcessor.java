@@ -13,6 +13,7 @@ import com.mygdx.fuegopeligro.GameOverOverlay;
 import com.mygdx.fuegopeligro.LevelEndOverlay;
 import com.mygdx.fuegopeligro.ai.msg.MessageType;
 import com.mygdx.fuegopeligro.entity.Entity;
+import com.mygdx.fuegopeligro.entity.NinjaRabbit;
 import com.mygdx.fuegopeligro.map.LevelRenderer;
 import com.mygdx.fuegopeligro.minigames.FourPicsOneWord;
 import com.mygdx.fuegopeligro.minigames.LetterPuzzle;
@@ -27,30 +28,36 @@ public class LevelGraphicsProcessor implements GraphicsProcessor, Telegraph {
     private final LevelRenderer mapRenderer;
     private final GameOverOverlay gameOver;
     private final LevelEndOverlay levelEnd;
-    private final MultipleChoice multipleChoice;
-    private final FourPicsOneWord fourPicsOneWord;
-    private final LetterPuzzle letterPuzzle;
-    private final Wordscapes wordscapes;
+    private MultipleChoice multipleChoice;
+    private FourPicsOneWord fourPicsOneWord;
+    private LetterPuzzle letterPuzzle;
+    private Wordscapes wordscapes;
 
     private boolean renderGameOver;
     private boolean renderLevelEnd;
     private boolean minicamSelection;
-    private boolean minigameEnd;
     private final CurrentPlayerStatus status;
+    private final AssetManager manager;
+    private final FuegoPeligro peligro;
+    private final NinjaRabbit rabbit;
 
-    public LevelGraphicsProcessor(final AssetManager assets, final Batch batch, final LevelRenderer mapRenderer, final FuegoPeligro game) {
-        status = new CurrentPlayerStatus();
-        gameOver = new GameOverOverlay(batch, assets, game);
-        levelEnd = new LevelEndOverlay(batch, assets, game);
-        multipleChoice = new MultipleChoice(batch, assets, game, this);
-        fourPicsOneWord = new FourPicsOneWord(batch, assets, game, this);
-        letterPuzzle = new LetterPuzzle(batch, assets, game, this);
-        wordscapes = new Wordscapes(batch, assets, game, this);
+    public LevelGraphicsProcessor(final AssetManager assets, final LevelRenderer mapRenderer,
+                                  final FuegoPeligro game, final NinjaRabbit ninjaRabbit,
+                                  final CurrentPlayerStatus stat) {
+        status = stat;
+        manager = assets;
+        peligro = game;
+        rabbit = ninjaRabbit;
+        gameOver = new GameOverOverlay(game.getBatch(), assets, game);
+        levelEnd = new LevelEndOverlay(game.getBatch(), assets, game);
+        multipleChoice = new MultipleChoice(assets, game, ninjaRabbit);
+        fourPicsOneWord = new FourPicsOneWord(assets, game, ninjaRabbit);
+        letterPuzzle = new LetterPuzzle(assets, game, ninjaRabbit);
+        wordscapes = new Wordscapes(assets, game, ninjaRabbit);
         this.mapRenderer = mapRenderer;
         MessageManager.getInstance().addListeners(this, MessageType.GAME_OVER.code());
         MessageManager.getInstance().addListeners(this, MessageType.FINISH_LEVEL.code());
         MessageManager.getInstance().addListeners(this, MessageType.COLLECTED.code());
-        MessageManager.getInstance().addListeners(this, MessageType.END_MINIGAME_OVERLAY.code());
     }
 
     @Override
@@ -79,59 +86,57 @@ public class LevelGraphicsProcessor implements GraphicsProcessor, Telegraph {
 
             if (worldValue == 1) {
                 //short easyValue = status.getEqaValue();
-                switch (mgValue) {
-                    case 1:
-                        multipleChoice.render(Gdx.graphics.getDeltaTime());
-                        if (minigameEnd) {
-                            multipleChoice.dispose();
-                        }
-                        break;
-                    case 2:
-                        wordscapes.render(Gdx.graphics.getDeltaTime());
-                        if (minigameEnd) {
-                            wordscapes.dispose();
-                        }
-                        break;
-                    case 3:
-                        letterPuzzle.render(Gdx.graphics.getDeltaTime());
-                        if (minigameEnd) {
-                            letterPuzzle.dispose();
-                        }
-                        break;
-                    case 4:
-                        fourPicsOneWord.render(Gdx.graphics.getDeltaTime());
-                        if (minigameEnd) {
-                            fourPicsOneWord.dispose();
-                        }
-                        break;
+                if (mgValue == 1) {
+                    multipleChoice.render(Gdx.graphics.getDeltaTime());
+                    multipleChoice.table.setVisible(true);
+                    if (multipleChoice.enterAnswer.isPressed()) {
+                        multipleChoice.table.setVisible(false);
+                    }
+                } else if (mgValue == 2) {
+                    wordscapes.render(Gdx.graphics.getDeltaTime());
+                    wordscapes.table.setVisible(true);
+                    if (wordscapes.enterAnswer.isPressed()) {
+                        wordscapes.table.setVisible(false);
+                    }
+                } else if (mgValue == 3) {
+                    letterPuzzle.render(Gdx.graphics.getDeltaTime());
+                    wordscapes.table.setVisible(true);
+                    if (letterPuzzle.enterAnswer.isPressed()) {
+                        letterPuzzle.table.setVisible(false);
+                    }
+                } else if (mgValue == 4) {
+                    fourPicsOneWord.render(Gdx.graphics.getDeltaTime());
+                    wordscapes.table.setVisible(true);
+                    if (fourPicsOneWord.enterAnswer.isPressed()) {
+                        fourPicsOneWord.table.setVisible(false);
+                    }
                 }
             } else if (worldValue == 2) {
                 //short hardValue = status.getHqaValue();
-                switch (mgValue) {
-                    case 1:
-                        multipleChoice.render(Gdx.graphics.getDeltaTime());
-                        if (minigameEnd) {
-                            multipleChoice.dispose();
-                        }
-                        break;
-                    case 2:
-                        wordscapes.render(Gdx.graphics.getDeltaTime());
-                        if (minigameEnd) {
-                            wordscapes.dispose();
-                        }
-                        break;
-                    case 3:
-                        letterPuzzle.render(Gdx.graphics.getDeltaTime());
-                        if (minigameEnd) {
-                            letterPuzzle.dispose();
-                        }
-                        break;
-                    case 4:
-                        fourPicsOneWord.render(Gdx.graphics.getDeltaTime());
-                        if (minigameEnd) {
-                            fourPicsOneWord.dispose();
-                        }
-                        break;
+                if (mgValue == 1) {
+                    multipleChoice.render(Gdx.graphics.getDeltaTime());
+                    multipleChoice.table.setVisible(true);
+                    if (multipleChoice.enterAnswer.isPressed()) {
+                        multipleChoice.table.setVisible(false);
+                    }
+                } else if (mgValue == 2) {
+                    wordscapes.render(Gdx.graphics.getDeltaTime());
+                    wordscapes.table.setVisible(true);
+                    if (wordscapes.enterAnswer.isPressed()) {
+                        wordscapes.table.setVisible(false);
+                    }
+                } else if (mgValue == 3) {
+                    letterPuzzle.render(Gdx.graphics.getDeltaTime());
+                    wordscapes.table.setVisible(true);
+                    if (letterPuzzle.enterAnswer.isPressed()) {
+                        letterPuzzle.table.setVisible(false);
+                    }
+                } else if (mgValue == 4) {
+                    fourPicsOneWord.render(Gdx.graphics.getDeltaTime());
+                    wordscapes.table.setVisible(true);
+                    if (fourPicsOneWord.enterAnswer.isPressed()) {
+                        fourPicsOneWord.table.setVisible(false);
+                    }
                 }
             }
         }
@@ -142,7 +147,6 @@ public class LevelGraphicsProcessor implements GraphicsProcessor, Telegraph {
         renderGameOver = msg.message == MessageType.GAME_OVER.code();
         renderLevelEnd = msg.message == MessageType.FINISH_LEVEL.code();
         minicamSelection = msg.message == MessageType.COLLECTED.code();
-        minigameEnd = msg.message == MessageType.END_MINIGAME_OVERLAY.code();
         return true;
     }
 

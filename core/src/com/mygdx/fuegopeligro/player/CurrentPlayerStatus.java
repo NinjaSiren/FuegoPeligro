@@ -63,6 +63,9 @@ public final class CurrentPlayerStatus implements PlayerStatus, Poolable {
     private long goResetCounter;
 
 
+    private int moveValue;
+
+
     public CurrentPlayerStatus() {
         lives = DEFAULT_LIVES;
         time = DEFAULT_TIME;
@@ -74,6 +77,7 @@ public final class CurrentPlayerStatus implements PlayerStatus, Poolable {
         eqaValue = CURRENT_EQA;
         hqaValue = CURRENT_HQA;
         goResetCounter = CURRENT_RECOUNT;
+        moveValue = CURRENT_MOVEVALUE;
     }
 
     /*
@@ -262,5 +266,13 @@ public final class CurrentPlayerStatus implements PlayerStatus, Poolable {
         builder.append("[collectibles=").append(collectibles).append(", lives=").append(lives).append(", score=")
                 .append(score).append(", time=").append(time).append("]");
         return builder.toString();
+    }
+
+    public int getMoveValue() {
+        return moveValue;
+    }
+
+    public void setMoveValue(int moveValue) {
+        this.moveValue = moveValue;
     }
 }

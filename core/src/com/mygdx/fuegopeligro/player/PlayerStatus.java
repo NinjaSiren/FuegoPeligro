@@ -16,6 +16,7 @@ public interface PlayerStatus {
     short CURRENT_EQA = 1;
     short CURRENT_HQA = 1;
     long CURRENT_RECOUNT = 0;
+    int CURRENT_MOVEVALUE = 0;
 
     /**
      * Returns the count of gathered collectibles so far.
