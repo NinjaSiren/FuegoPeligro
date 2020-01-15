@@ -1,130 +1,153 @@
+
 ninja-rabbit.png
+size: 2048,256
 format: RGBA8888
-filter: Linear,Linear
+filter: Nearest,Nearest
 repeat: none
-walk
+carrot
   rotate: false
-  xy: 105, 2
-  size: 101, 164
-  orig: 101, 164
-  offset: 0, 0
-  index: 1
-walk
-  rotate: false
-  xy: 2, 2
-  size: 101, 164
-  orig: 101, 164
-  offset: 0, 0
-  index: 5
-jump
-  rotate: false
-  xy: 208, 2
-  size: 101, 164
-  orig: 101, 164
-  offset: 0, 0
-  index: 1
-jump
-  rotate: false
-  xy: 105, 334
-  size: 101, 164
-  orig: 101, 164
-  offset: 0, 0
-  index: 5
-walk
-  rotate: false
-  xy: 105, 168
-  size: 101, 164
-  orig: 101, 164
-  offset: 0, 0
-  index: 0
-walk
-  rotate: false
-  xy: 2, 168
-  size: 101, 164
-  orig: 101, 164
-  offset: 0, 0
-  index: 4
-jump
-  rotate: false
-  xy: 412, 330
-  size: 101, 160
-  orig: 101, 160
-  offset: 0, 0
-  index: 2
-jump
-  rotate: false
-  xy: 412, 168
-  size: 101, 160
-  orig: 101, 160
-  offset: 0, 0
-  index: 6
-walk
-  rotate: false
-  xy: 309, 168
-  size: 101, 163
-  orig: 101, 163
-  offset: 0, 0
-  index: 3
-carrot-small
-  rotate: false
-  xy: 364, 399
-  size: 40, 42
-  orig: 40, 42
-  offset: 0, 0
-  index: -1
-time
-  rotate: false
-  xy: 375, 333
-  size: 32, 32
-  orig: 32, 32
-  offset: 0, 0
-  index: -1
-jump
-  rotate: false
-  xy: 208, 168
-  size: 99, 164
-  orig: 99, 164
+  xy: 1440, 171
+  size: 51, 61
+  orig: 51, 61
   offset: 0, 0
   index: 3
 carrot
   rotate: false
-  xy: 311, 399
-  size: 51, 54
-  orig: 51, 54
+  xy: 66, 7
+  size: 51, 59
+  orig: 51, 59
   offset: 0, 0
-  index: -1
-walk
+  index: 1
+carrot
   rotate: false
-  xy: 2, 334
-  size: 101, 164
-  orig: 101, 164
+  xy: 1440, 110
+  size: 51, 59
+  orig: 51, 59
   offset: 0, 0
   index: 2
-walk
+carrot
   rotate: false
-  xy: 208, 334
-  size: 101, 163
-  orig: 101, 163
+  xy: 1493, 173
+  size: 51, 59
+  orig: 51, 59
   offset: 0, 0
-  index: 6
+  index: 4
+carrot-small
+  rotate: false
+  xy: 119, 24
+  size: 40, 42
+  orig: 40, 42
+  offset: 0, 0
+  index: -1
 jump
   rotate: false
-  xy: 311, 2
+  xy: 2, 68
   size: 101, 164
   orig: 101, 164
   offset: 0, 0
   index: 0
 jump
   rotate: false
-  xy: 414, 2
+  xy: 105, 68
+  size: 101, 164
+  orig: 101, 164
+  offset: 0, 0
+  index: 1
+jump
+  rotate: false
+  xy: 208, 68
+  size: 101, 164
+  orig: 101, 164
+  offset: 0, 0
+  index: 5
+jump
+  rotate: false
+  xy: 1032, 68
+  size: 99, 164
+  orig: 99, 164
+  offset: 0, 0
+  index: 3
+jump
+  rotate: false
+  xy: 1133, 68
   size: 99, 164
   orig: 99, 164
   offset: 0, 0
   index: 4
+jump
+  rotate: false
+  xy: 1234, 72
+  size: 101, 160
+  orig: 101, 160
+  offset: 0, 0
+  index: 2
+jump
+  rotate: false
+  xy: 1337, 72
+  size: 101, 160
+  orig: 101, 160
+  offset: 0, 0
+  index: 6
 lives
   rotate: false
-  xy: 311, 333
+  xy: 2, 2
   size: 62, 64
   orig: 62, 64
   offset: 0, 0
   index: -1
+time
+  rotate: false
+  xy: 1440, 76
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+walk
+  rotate: false
+  xy: 311, 68
+  size: 101, 164
+  orig: 101, 164
+  offset: 0, 0
+  index: 0
+walk
+  rotate: false
+  xy: 414, 68
+  size: 101, 164
+  orig: 101, 164
+  offset: 0, 0
+  index: 1
+walk
+  rotate: false
+  xy: 517, 68
+  size: 101, 164
+  orig: 101, 164
+  offset: 0, 0
+  index: 2
+walk
+  rotate: false
+  xy: 620, 68
+  size: 101, 164
+  orig: 101, 164
+  offset: 0, 0
+  index: 4
+walk
+  rotate: false
+  xy: 723, 68
+  size: 101, 164
+  orig: 101, 164
+  offset: 0, 0
+  index: 5
+walk
+  rotate: false
+  xy: 826, 69
+  size: 101, 163
+  orig: 101, 163
+  offset: 0, 0
+  index: 6
+walk
+  rotate: false
+  xy: 929, 69
+  size: 101, 163
+  orig: 101, 163
+  offset: 0, 0
+  index: 3
