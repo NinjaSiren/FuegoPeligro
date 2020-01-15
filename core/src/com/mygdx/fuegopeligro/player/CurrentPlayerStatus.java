@@ -22,7 +22,7 @@ public final class CurrentPlayerStatus implements PlayerStatus, Poolable {
     /**
      * How many lives are left for the left.
      */
-    private short lives;
+    private byte lives;
 
     /**
      * The current score points.
@@ -51,19 +51,16 @@ public final class CurrentPlayerStatus implements PlayerStatus, Poolable {
     private byte currentLevel;
 
 
-    private short mgValue;
+    private byte mgValue;
 
 
-    private short eqaValue;
+    private byte eqaValue;
 
 
-    private short hqaValue;
+    private byte hqaValue;
 
 
-    private long goResetCounter;
-
-
-    private int moveValue;
+    private byte goResetCounter;
 
 
     public CurrentPlayerStatus() {
@@ -77,7 +74,6 @@ public final class CurrentPlayerStatus implements PlayerStatus, Poolable {
         eqaValue = CURRENT_EQA;
         hqaValue = CURRENT_HQA;
         goResetCounter = CURRENT_RECOUNT;
-        moveValue = CURRENT_MOVEVALUE;
     }
 
     /*
@@ -90,7 +86,7 @@ public final class CurrentPlayerStatus implements PlayerStatus, Poolable {
         return collectibles;
     }
 
-    protected void setCollectibles(final short collectibles) {
+    protected void setCollectibles(short collectibles) {
         this.collectibles = collectibles;
     }
 
@@ -100,11 +96,11 @@ public final class CurrentPlayerStatus implements PlayerStatus, Poolable {
      * @see com.mygdx.fuegopeligro.player.PlayerStatus#getLives()
      */
     @Override
-    public short getLives() {
+    public byte getLives() {
         return lives;
     }
 
-    protected void setLives(final short lives) {
+    protected void setLives(byte lives) {
         this.lives = lives;
     }
 
@@ -118,7 +114,7 @@ public final class CurrentPlayerStatus implements PlayerStatus, Poolable {
         return score;
     }
 
-    protected void setScore(final int score) {
+    protected void setScore(int score) {
         this.score = score;
     }
 
@@ -132,7 +128,7 @@ public final class CurrentPlayerStatus implements PlayerStatus, Poolable {
         return time;
     }
 
-    protected void setTime(final short time) {
+    protected void setTime(short time) {
         this.time = time;
     }
 
@@ -146,7 +142,7 @@ public final class CurrentPlayerStatus implements PlayerStatus, Poolable {
         return level;
     }
 
-    protected void setLevel(final byte level) {
+    protected void setLevel(byte level) {
         this.level = level;
     }
 
@@ -160,7 +156,7 @@ public final class CurrentPlayerStatus implements PlayerStatus, Poolable {
         return world;
     }
 
-    protected void setWorld(final byte world) {
+    protected void setWorld(byte world) {
         this.world = world;
     }
 
@@ -174,7 +170,7 @@ public final class CurrentPlayerStatus implements PlayerStatus, Poolable {
         return world;
     }
 
-    protected void setCurrentWorld(final byte currentWorlds) {
+    protected void setCurrentWorld(byte currentWorlds) {
         this.currentWorld = currentWorlds;
     }
 
@@ -188,29 +184,29 @@ public final class CurrentPlayerStatus implements PlayerStatus, Poolable {
         return level;
     }
 
-    protected void setCurrentLevel(final byte currentLevels) {
+    protected void setCurrentLevel(byte currentLevels) {
         this.currentLevel = currentLevels;
     }
 
     @Override
-    public short getMGValue() { return mgValue; }
+    public byte getMGValue() { return mgValue; }
 
-    protected void setMGValue(final short mgValue) { this.mgValue = mgValue; }
-
-    @Override
-    public short getEqaValue() { return eqaValue; }
-
-    protected void setEqavalue(final short eqaValue) { this.eqaValue = eqaValue; }
+    protected void setMGValue(byte mgValue) { this.mgValue = mgValue; }
 
     @Override
-    public short getHqaValue() { return hqaValue; }
+    public byte getEqaValue() { return eqaValue; }
 
-    protected void setHqaValue (final short hqaValue) { this.hqaValue = hqaValue; }
+    protected void setEqavalue(byte eqaValue) { this.eqaValue = eqaValue; }
 
     @Override
-    public long getGoResetCounter() { return goResetCounter; }
+    public byte getHqaValue() { return hqaValue; }
 
-    protected void setGoResetCounter(long goResetCounter) { this.goResetCounter = goResetCounter; }
+    protected void setHqaValue (byte hqaValue) { this.hqaValue = hqaValue; }
+
+    @Override
+    public byte getGoResetCounter() { return goResetCounter; }
+
+    protected void setGoResetCounter(byte goResetCounter) { this.goResetCounter = goResetCounter; }
 
     /*
      * (non-Javadoc)
@@ -266,13 +262,5 @@ public final class CurrentPlayerStatus implements PlayerStatus, Poolable {
         builder.append("[collectibles=").append(collectibles).append(", lives=").append(lives).append(", score=")
                 .append(score).append(", time=").append(time).append("]");
         return builder.toString();
-    }
-
-    public int getMoveValue() {
-        return moveValue;
-    }
-
-    public void setMoveValue(int moveValue) {
-        this.moveValue = moveValue;
     }
 }

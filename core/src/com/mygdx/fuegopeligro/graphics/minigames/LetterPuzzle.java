@@ -1,7 +1,6 @@
-package com.mygdx.fuegopeligro.minigames;
+package com.mygdx.fuegopeligro.graphics.minigames;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -17,7 +16,6 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.fuegopeligro.Assets;
 import com.mygdx.fuegopeligro.FuegoPeligro;
 import com.mygdx.fuegopeligro.entity.NinjaRabbit;
-import com.mygdx.fuegopeligro.input.NinjaRabbitInputProcessor;
 
 public class LetterPuzzle implements Disposable {
     private static final String QUESTION_LABEL = "CHECKPOINT: LETTER PUZZLE";
@@ -34,7 +32,7 @@ public class LetterPuzzle implements Disposable {
     private final TextButton answer4;
     public final TextButton enterAnswer;
     private final TextButton enterHints;
-    public final Table table;
+    private final Table table;
 
     public LetterPuzzle(final AssetManager assets, final FuegoPeligro game,
                         final NinjaRabbit ninjaRabbit) {
@@ -127,19 +125,22 @@ public class LetterPuzzle implements Disposable {
     public void render(final float delta) {
         Gdx.gl20.glEnable(GL20.GL_BLEND);
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+
         Gdx.gl20.glDisable(GL20.GL_BLEND);
         stage.getBatch().end();
         stage.act(delta);
         stage.draw();
         stage.getBatch().begin();
-        InputMultiplexer inputMultiplexer = new InputMultiplexer();
-        inputMultiplexer.addProcessor(new NinjaRabbitInputProcessor(ninja));
-        inputMultiplexer.addProcessor(stage);
-        Gdx.input.setInputProcessor(inputMultiplexer);
     }
 
     public void resize(final int width, final int height) { stage.getViewport().update(width, height); }
 
     @Override
-    public void dispose() { stage.dispose(); }
+    public void dispose() {
+        stage.dispose();
+    }
+
+    public void setVisible(boolean value) {
+        table.setVisible(value);
+    }
 }

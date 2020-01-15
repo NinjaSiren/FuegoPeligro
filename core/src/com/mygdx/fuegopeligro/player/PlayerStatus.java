@@ -7,16 +7,15 @@ package com.mygdx.fuegopeligro.player;
  */
 public interface PlayerStatus {
     short DEFAULT_TIME = 400;
-    short DEFAULT_LIVES = 3;
-    short DEFAULT_WORLD = 1;
-    short DEFAULT_LEVEL = 1;
-    short CURRENT_WORLD = 1;
-    short CURRENT_LEVEL = 1;
-    short CURRENT_MG = 1;
-    short CURRENT_EQA = 1;
-    short CURRENT_HQA = 1;
-    long CURRENT_RECOUNT = 0;
-    int CURRENT_MOVEVALUE = 0;
+    byte DEFAULT_LIVES = 3;
+    byte DEFAULT_WORLD = 1;
+    byte DEFAULT_LEVEL = 1;
+    byte CURRENT_WORLD = 1;
+    byte CURRENT_LEVEL = 1;
+    byte CURRENT_MG = 1;
+    byte CURRENT_EQA = 1;
+    byte CURRENT_HQA = 1;
+    byte CURRENT_RECOUNT = 0;
 
     /**
      * Returns the count of gathered collectibles so far.
@@ -30,7 +29,7 @@ public interface PlayerStatus {
      *
      * @return The number of lives left for the player.
      */
-    short getLives();
+    byte getLives();
 
     /**
      * Returns the current score of the player.
@@ -79,11 +78,11 @@ public interface PlayerStatus {
      */
     byte getCurrentLevel();
 
-    short getMGValue();
+    byte getMGValue();
 
-    short getEqaValue();
+    byte getEqaValue();
 
-    short getHqaValue();
+    byte getHqaValue();
 
-    long getGoResetCounter();
+    byte getGoResetCounter();
 }

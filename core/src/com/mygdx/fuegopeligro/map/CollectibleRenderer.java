@@ -38,7 +38,7 @@ public class CollectibleRenderer implements Telegraph {
 
     public CollectibleRenderer(final float unitScale) {
         this.collectibles = new Array<Entity>();
-        this.removed = new ObjectSet<Entity>(16);
+        this.removed = new ObjectSet<Entity>(64);
         this.unitScale = unitScale;
         MessageManager.getInstance().addListener(this, MessageType.COLLECTED.code());
     }

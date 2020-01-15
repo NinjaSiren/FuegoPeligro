@@ -11,14 +11,16 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.mygdx.fuegopeligro.FuegoPeligro;
 import com.mygdx.fuegopeligro.GameOverOverlay;
 import com.mygdx.fuegopeligro.LevelEndOverlay;
+import com.mygdx.fuegopeligro.ai.fsm.NinjaRabbitState;
 import com.mygdx.fuegopeligro.ai.msg.MessageType;
 import com.mygdx.fuegopeligro.entity.Entity;
 import com.mygdx.fuegopeligro.entity.NinjaRabbit;
+import com.mygdx.fuegopeligro.graphics.minigames.FourPicsOneWord;
+import com.mygdx.fuegopeligro.graphics.minigames.LetterPuzzle;
+import com.mygdx.fuegopeligro.graphics.minigames.MultipleChoice;
+import com.mygdx.fuegopeligro.graphics.minigames.Wordscapes;
+import com.mygdx.fuegopeligro.input.NinjaRabbitInputProcessor;
 import com.mygdx.fuegopeligro.map.LevelRenderer;
-import com.mygdx.fuegopeligro.minigames.FourPicsOneWord;
-import com.mygdx.fuegopeligro.minigames.LetterPuzzle;
-import com.mygdx.fuegopeligro.minigames.MultipleChoice;
-import com.mygdx.fuegopeligro.minigames.Wordscapes;
 import com.mygdx.fuegopeligro.player.CurrentPlayerStatus;
 
 /**
@@ -37,11 +39,18 @@ public class LevelGraphicsProcessor implements GraphicsProcessor, Telegraph {
     private boolean renderLevelEnd;
     private boolean minicamSelection;
     private final CurrentPlayerStatus status;
+    private final NinjaRabbit ninja;
+    private final Entity entity;
 
     public LevelGraphicsProcessor(final AssetManager assets, final LevelRenderer mapRenderer,
                                   final FuegoPeligro game, final NinjaRabbit ninjaRabbit,
-                                  final CurrentPlayerStatus stat) {
-        status = stat;
+                                  final CurrentPlayerStatus player) {
+        status = player;
+        ninja = ninjaRabbit;
+        if (ninjaRabbit == null) {
+            throw new IllegalArgumentException("'character' cannot be null"); }
+        this.entity = ninjaRabbit;
+
         gameOver = new GameOverOverlay(game.getBatch(), assets, game);
         levelEnd = new LevelEndOverlay(game.getBatch(), assets, game);
         multipleChoice = new MultipleChoice(assets, game, ninjaRabbit);
@@ -74,62 +83,76 @@ public class LevelGraphicsProcessor implements GraphicsProcessor, Telegraph {
         } else if (renderLevelEnd) {
             levelEnd.render(Gdx.graphics.getDeltaTime());
         } else if (minicamSelection) {
-            short worldValue = status.getCurrentWorld();
+            multipleChoice.render(Gdx.graphics.getDeltaTime());
+            wordscapes.render(Gdx.graphics.getDeltaTime());
+            letterPuzzle.render(Gdx.graphics.getDeltaTime());
+            fourPicsOneWord.render(Gdx.graphics.getDeltaTime());
+
+            entity.changeState(NinjaRabbitState.IDLE);
+            byte worldValue = status.getCurrentWorld();
             //short levelValue = status.getCurrentLevel();
             short mgValue = status.getMGValue();
 
             if (worldValue == 1) {
                 //short easyValue = status.getEqaValue();
                 if (mgValue == 1) {
-                    multipleChoice.render(Gdx.graphics.getDeltaTime());
-                    multipleChoice.table.setVisible(true);
+                    multipleChoice.setVisible(true);
+                    Gdx.input.setInputProcessor(multipleChoice.stage);
                     if (multipleChoice.enterAnswer.isPressed()) {
-                        multipleChoice.table.setVisible(false);
+                        multipleChoice.setVisible(false);
+                        Gdx.input.setInputProcessor(new NinjaRabbitInputProcessor(ninja));
                     }
                 } else if (mgValue == 2) {
-                    wordscapes.render(Gdx.graphics.getDeltaTime());
-                    wordscapes.table.setVisible(true);
+                    wordscapes.setVisible(true);
+                    Gdx.input.setInputProcessor(wordscapes.stage);
                     if (wordscapes.enterAnswer.isPressed()) {
-                        wordscapes.table.setVisible(false);
+                        wordscapes.setVisible(false);
+                        Gdx.input.setInputProcessor(new NinjaRabbitInputProcessor(ninja));
                     }
                 } else if (mgValue == 3) {
-                    letterPuzzle.render(Gdx.graphics.getDeltaTime());
-                    wordscapes.table.setVisible(true);
+                    letterPuzzle.setVisible(true);
+                    Gdx.input.setInputProcessor(letterPuzzle.stage);
                     if (letterPuzzle.enterAnswer.isPressed()) {
-                        letterPuzzle.table.setVisible(false);
+                        letterPuzzle.setVisible(false);
+                        Gdx.input.setInputProcessor(new NinjaRabbitInputProcessor(ninja));
                     }
                 } else if (mgValue == 4) {
-                    fourPicsOneWord.render(Gdx.graphics.getDeltaTime());
-                    wordscapes.table.setVisible(true);
+                    fourPicsOneWord.setVisible(true);
+                    Gdx.input.setInputProcessor(fourPicsOneWord.stage);
                     if (fourPicsOneWord.enterAnswer.isPressed()) {
-                        fourPicsOneWord.table.setVisible(false);
+                        fourPicsOneWord.setVisible(false);
+                        Gdx.input.setInputProcessor(new NinjaRabbitInputProcessor(ninja));
                     }
                 }
             } else if (worldValue == 2) {
                 //short hardValue = status.getHqaValue();
                 if (mgValue == 1) {
-                    multipleChoice.render(Gdx.graphics.getDeltaTime());
-                    multipleChoice.table.setVisible(true);
+                    multipleChoice.setVisible(true);
+                    Gdx.input.setInputProcessor(multipleChoice.stage);
                     if (multipleChoice.enterAnswer.isPressed()) {
-                        multipleChoice.table.setVisible(false);
+                        multipleChoice.setVisible(false);
+                        Gdx.input.setInputProcessor(new NinjaRabbitInputProcessor(ninja));
                     }
                 } else if (mgValue == 2) {
-                    wordscapes.render(Gdx.graphics.getDeltaTime());
-                    wordscapes.table.setVisible(true);
+                    wordscapes.setVisible(true);
+                    Gdx.input.setInputProcessor(wordscapes.stage);
                     if (wordscapes.enterAnswer.isPressed()) {
-                        wordscapes.table.setVisible(false);
+                        wordscapes.setVisible(false);
+                        Gdx.input.setInputProcessor(new NinjaRabbitInputProcessor(ninja));
                     }
                 } else if (mgValue == 3) {
-                    letterPuzzle.render(Gdx.graphics.getDeltaTime());
-                    wordscapes.table.setVisible(true);
+                    letterPuzzle.setVisible(true);
+                    Gdx.input.setInputProcessor(letterPuzzle.stage);
                     if (letterPuzzle.enterAnswer.isPressed()) {
-                        letterPuzzle.table.setVisible(false);
+                        letterPuzzle.setVisible(false);
+                        Gdx.input.setInputProcessor(new NinjaRabbitInputProcessor(ninja));
                     }
                 } else if (mgValue == 4) {
-                    fourPicsOneWord.render(Gdx.graphics.getDeltaTime());
-                    wordscapes.table.setVisible(true);
+                    fourPicsOneWord.setVisible(true);
+                    Gdx.input.setInputProcessor(fourPicsOneWord.stage);
                     if (fourPicsOneWord.enterAnswer.isPressed()) {
-                        fourPicsOneWord.table.setVisible(false);
+                        fourPicsOneWord.setVisible(false);
+                        Gdx.input.setInputProcessor(new NinjaRabbitInputProcessor(ninja));
                     }
                 }
             }

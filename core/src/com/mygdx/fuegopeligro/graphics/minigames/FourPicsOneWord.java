@@ -1,7 +1,6 @@
-package com.mygdx.fuegopeligro.minigames;
+package com.mygdx.fuegopeligro.graphics.minigames;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -17,16 +16,9 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.fuegopeligro.Assets;
 import com.mygdx.fuegopeligro.FuegoPeligro;
 import com.mygdx.fuegopeligro.entity.NinjaRabbit;
-import com.mygdx.fuegopeligro.input.NinjaRabbitInputProcessor;
 
-/**
- * Shows a transparent overlay splash screen with a "Minigame" legend every time the player in in
- * a checkpoint.
- *
- * @author JDEsguerra
- */
-public class MultipleChoice implements Disposable {
-    private static final String QUESTION_LABEL = "CHECKPOINT: MULTIPLE CHOICE";
+public class FourPicsOneWord implements Disposable {
+    private static final String QUESTION_LABEL = "CHECKPOINT: 4 PICS 1 WORD";
     private static final String ENTER_ANSWER = "ENTER";
     private static final String HINT_ANSWER = "HINT";
 
@@ -40,10 +32,10 @@ public class MultipleChoice implements Disposable {
     private final TextButton answer4;
     public final TextButton enterAnswer;
     private final TextButton enterHints;
-    public final Table table;
+    private final Table table;
 
-    public MultipleChoice(final AssetManager assets, final FuegoPeligro game,
-                          final NinjaRabbit ninjaRabbit) {
+    public FourPicsOneWord(final AssetManager assets, final FuegoPeligro game,
+                           final NinjaRabbit ninjaRabbit) {
         stage = new Stage(new ScreenViewport(), game.getBatch());
         ninja = ninjaRabbit;
 
@@ -133,19 +125,22 @@ public class MultipleChoice implements Disposable {
     public void render(final float delta) {
         Gdx.gl20.glEnable(GL20.GL_BLEND);
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+
         Gdx.gl20.glDisable(GL20.GL_BLEND);
         stage.getBatch().end();
         stage.act(delta);
         stage.draw();
         stage.getBatch().begin();
-        InputMultiplexer inputMultiplexer = new InputMultiplexer();
-        inputMultiplexer.addProcessor(new NinjaRabbitInputProcessor(ninja));
-        inputMultiplexer.addProcessor(stage);
-        Gdx.input.setInputProcessor(inputMultiplexer);
     }
 
     public void resize(final int width, final int height) { stage.getViewport().update(width, height); }
 
     @Override
-    public void dispose() { stage.dispose(); }
+    public void dispose() {
+        stage.dispose();
+    }
+
+    public void setVisible(boolean value) {
+        table.setVisible(value);
+    }
 }

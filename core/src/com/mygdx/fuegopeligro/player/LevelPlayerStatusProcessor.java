@@ -32,7 +32,7 @@ public class LevelPlayerStatusProcessor extends PlayerStatusProcessor implements
          */
         if (getStatus().getTime() > 0 && gameOverSignaled) {
             short time = 400;
-            short lives = 3;
+            byte lives = 3;
             getStatus().setTime(time);
             getStatus().setLives(lives);
             gameOverSignaled = false;

@@ -1010,16 +1010,16 @@
   </data>
  </layer>
  <objectgroup name="checkpoints" offsetx="434" offsety="-14">
-  <object id="153" x="5459.67" y="404.333">
+  <object id="153" x="5565" y="420">
    <ellipse/>
   </object>
-  <object id="179" x="2800" y="544">
+  <object id="179" x="2730" y="420">
    <ellipse/>
   </object>
-  <object id="180" x="8434.33" y="265.667">
+  <object id="180" x="8435" y="315">
    <ellipse/>
   </object>
-  <object id="183" x="10499.7" y="228">
+  <object id="183" x="10430" y="525">
    <ellipse/>
   </object>
  </objectgroup>
@@ -1167,7 +1167,7 @@
     <property name="body" value="environment"/>
     <property name="userData" value="ground"/>
    </properties>
-   <polyline points="0,0 0,-70.6667 138.667,-70 142.667,-93.3333 151.333,-91.3333 194.667,-138 208.667,-142 282,-139.333 280,7.33333 0.666667,2.66667"/>
+   <polyline points="0.664063,2.66406 0,-70.6667 138.667,-70 142.667,-93.3333 151.333,-91.3333 194.667,-138 208.667,-142 282,-139.333 280,7.33333 0.666667,2.66667"/>
   </object>
   <object id="181" name="platform" type="fixture" x="8081.33" y="314.667" width="181.333" height="66.6667">
    <properties>

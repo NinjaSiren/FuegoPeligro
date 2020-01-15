@@ -30,29 +30,29 @@ public class NinjaRabbitPlayerStatusProcessor extends PlayerStatusProcessor impl
 
     private void LoadEasy(int levelValue) {
         if(levelValue == 1) {
-            getStatus().setEqavalue((short)((Math.random() * 31) + 1));
+            getStatus().setEqavalue((byte)((Math.random() * 31) + 1));
         } else if(levelValue == 2) {
-            getStatus().setEqavalue((short)((Math.random() * 31) + 7));
+            getStatus().setEqavalue((byte)((Math.random() * 31) + 7));
         } else if(levelValue == 3) {
-            getStatus().setEqavalue((short)((Math.random() * 31) + 13));
+            getStatus().setEqavalue((byte)((Math.random() * 31) + 13));
         } else if(levelValue == 4) {
-            getStatus().setEqavalue((short)((Math.random() * 31) + 19));
+            getStatus().setEqavalue((byte)((Math.random() * 31) + 19));
         } else if(levelValue == 5) {
-            getStatus().setEqavalue((short)((Math.random() * 31) + 25));
+            getStatus().setEqavalue((byte)((Math.random() * 31) + 25));
         }
     }
 
     private void LoadHard(int levelValue) {
         if(levelValue == 1) {
-            getStatus().setHqaValue((short)((Math.random() * 41) + 1));
+            getStatus().setHqaValue((byte)((Math.random() * 41) + 1));
         } else if(levelValue == 2) {
-            getStatus().setHqaValue((short)((Math.random() * 41) + 9));
+            getStatus().setHqaValue((byte)((Math.random() * 41) + 9));
         } else if(levelValue == 3) {
-            getStatus().setHqaValue((short)((Math.random() * 41) + 17));
+            getStatus().setHqaValue((byte)((Math.random() * 41) + 17));
         } else if(levelValue == 4) {
-            getStatus().setHqaValue((short)((Math.random() * 41) + 25));
+            getStatus().setHqaValue((byte)((Math.random() * 41) + 25));
         } else if(levelValue == 5) {
-            getStatus().setHqaValue((short)((Math.random() * 41) + 33));
+            getStatus().setHqaValue((byte)((Math.random() * 41) + 33));
         }
     }
 
@@ -79,7 +79,7 @@ public class NinjaRabbitPlayerStatusProcessor extends PlayerStatusProcessor impl
     public boolean handleMessage(final Telegram msg) {
         if (msg.message == MessageType.COLLECTED.code()) {
             Randomize();
-            getStatus().setMGValue((short)((Math.random() * range) + min));
+            getStatus().setMGValue((byte)((Math.random() * range) + min));
             getStatus().setCollectibles((short) (getStatus().getCollectibles() + 1));
             getStatus().setScore(getStatus().getScore() + COLLECTIBLE_POINTS);
         } else if (msg.message == MessageType.LOAD_NEW_GAME.code()) {
@@ -88,7 +88,7 @@ public class NinjaRabbitPlayerStatusProcessor extends PlayerStatusProcessor impl
             Randomize();
         } else if (msg.message == MessageType.DEAD.code()) {
             if (getStatus().getLives() > 0) {
-                getStatus().setLives((short) (getStatus().getLives() - 1));
+                getStatus().setLives((byte) (getStatus().getLives() - 1));
             }
             System.out.println("Dead received!");
         }
