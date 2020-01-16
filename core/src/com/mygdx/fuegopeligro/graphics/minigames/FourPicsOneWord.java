@@ -15,15 +15,18 @@ import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.fuegopeligro.Assets;
 import com.mygdx.fuegopeligro.FuegoPeligro;
-import com.mygdx.fuegopeligro.entity.Fireman;
+import com.mygdx.fuegopeligro.QAReader;
+import com.mygdx.fuegopeligro.player.CurrentPlayerStatus;
 
 public class FourPicsOneWord implements Disposable {
     private static final String QUESTION_LABEL = "CHECKPOINT: 4 PICS 1 WORD";
     private static final String ENTER_ANSWER = "ENTER";
     private static final String HINT_ANSWER = "HINT";
+    private static byte value;
+    private static String fileName;
 
     public final Stage stage;
-    private final Fireman ninja;
+    private QAReader qaReader;
     private final Label QuestionLabel;
     private final Label QuestionText;
     private final TextButton answer1;
@@ -35,9 +38,17 @@ public class FourPicsOneWord implements Disposable {
     private final Table table;
 
     public FourPicsOneWord(final AssetManager assets, final FuegoPeligro game,
-                           final Fireman fireman) {
+                           final CurrentPlayerStatus status) {
         stage = new Stage(new ScreenViewport(), game.getBatch());
-        ninja = fireman;
+
+        if (status.getCurrentWorld() == 1) {
+            value = status.getEqaValue();
+            fileName = "minigames/easyQA.csv";
+        } else if (status.getCurrentWorld() == 2) {
+            value = status.getHqaValue();
+            fileName = "minigames/hardQA.csv";
+        }
+        qaReader = new QAReader(fileName, (int)value);
 
         Label.LabelStyle style = new Label.LabelStyle();
         AssetManager assetManager = new AssetManager();
@@ -51,15 +62,16 @@ public class FourPicsOneWord implements Disposable {
 
         style.fontColor = Color.WHITE;
         style.font = assets.get(Assets.HUD_FONT);
-        QuestionText = new Label("", style);
+        QuestionText = new Label(qaReader.getQaQuestion(), style);
 
-        answer1 = new TextButton("", skin);
+        answer1 = new TextButton(qaReader.getQaAnswer1(), skin);
         answer1.addListener(new ClickListener() {
             @Override
             public void clicked(final InputEvent event, final float x, final float y) {
 
             }
         });
+
         answer2 = new TextButton("", skin);
         answer2.addListener(new ClickListener() {
             @Override
@@ -67,6 +79,7 @@ public class FourPicsOneWord implements Disposable {
 
             }
         });
+
         answer3 = new TextButton("", skin);
         answer3.addListener(new ClickListener() {
             @Override
@@ -74,6 +87,7 @@ public class FourPicsOneWord implements Disposable {
 
             }
         });
+
         answer4 = new TextButton("", skin);
         answer4.addListener(new ClickListener() {
             @Override
@@ -101,6 +115,7 @@ public class FourPicsOneWord implements Disposable {
         });
 
         table = new Table();
+        table.setVisible(true);
         table.setFillParent(true);
         table.setDebug(true);
 
@@ -116,7 +131,6 @@ public class FourPicsOneWord implements Disposable {
         table.row().pad(10, 0, 0, 20);
         table.add(enterAnswer).expand(true, false);
         table.add(enterHints).expand(true, false);
-        table.setVisible(false);
 
         stage.addActor(table);
         stage.setKeyboardFocus(table);

@@ -2,11 +2,11 @@ package com.mygdx.fuegopeligro.input;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.ai.msg.MessageManager;
 import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
+import com.badlogic.gdx.input.GestureDetector;
 import com.mygdx.fuegopeligro.ai.fsm.FiremanState;
 import com.mygdx.fuegopeligro.ai.msg.MessageType;
 import com.mygdx.fuegopeligro.entity.Entity;
@@ -17,7 +17,7 @@ import com.mygdx.fuegopeligro.entity.Fireman;
  *
  * @author JDEsguerra
  */
-public class FiremanInputProcessor extends InputAdapter implements Telegraph, InputProcessor {
+public class FiremanInputProcessor extends GestureDetector.GestureAdapter implements Telegraph, InputProcessor, GestureDetector.GestureListener {
     private final static int JUMP_KEY = Keys.W;
     private final static int LEFT_KEY = Keys.A;
     private final static int RIGHT_KEY = Keys.D;
@@ -28,7 +28,7 @@ public class FiremanInputProcessor extends InputAdapter implements Telegraph, In
     public FiremanInputProcessor(final Fireman fireman) {
         if (fireman == null) {
             throw new IllegalArgumentException("'character' cannot be null"); }
-        this.character = fireman;
+        character = fireman;
         MessageManager.getInstance().addListener(this, MessageType.EXIT.code());
         MessageManager.getInstance().addListener(this, MessageType.MOVE_LEFT.code());
         MessageManager.getInstance().addListener(this, MessageType.MOVE_RIGHT.code());
@@ -53,7 +53,7 @@ public class FiremanInputProcessor extends InputAdapter implements Telegraph, In
             default:
                 break;
         }
-        return super.keyDown(keycode);
+        return false;
     }
 
     @Override
@@ -85,18 +85,70 @@ public class FiremanInputProcessor extends InputAdapter implements Telegraph, In
             default:
                 break;
         }
-        return super.keyUp(keycode);
+        return false;
     }
 
     @Override
-    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+    public boolean keyTyped(char character) {
+        return false;
+    }
 
+    // Move left or right
+    @Override
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        int leftRight;
+        if (Gdx.input.isTouched()) {
+            if (Gdx.input.getX() < Gdx.graphics.getWidth() / 2){
+                //left
+                leftRight = 1;
+                moveLeftRight(leftRight);
+            } else {
+                //right
+                leftRight = 2;
+                moveLeftRight(leftRight);
+            }
+        }
+        return false;
+    }
+
+    private void moveLeftRight(int value) {
+        switch (value) {
+            case 1:
+                character.changeState(FiremanState.LEFT);
+                break;
+            case 2:
+                character.changeState(FiremanState.RIGHT);
+                break;
+        }
+    }
+
+    @Override
+    public boolean tap(float x, float y, int count, int button) {
+        if (count == 2) {
+            character.changeState(FiremanState.JUMP);
+            return true;
+        }
         return false;
     }
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        return true;
+        return false;
+    }
+
+    @Override
+    public boolean touchDragged(int screenX, int screenY, int pointer) {
+        return false;
+    }
+
+    @Override
+    public boolean mouseMoved(int screenX, int screenY) {
+        return false;
+    }
+
+    @Override
+    public boolean scrolled(int amount) {
+        return false;
     }
 
     @Override

@@ -28,7 +28,7 @@ public class FiremanPlayerStatusProcessor extends PlayerStatusProcessor implemen
                 MessageType.LOAD_NEXT_LEVEL.code(), MessageType.LOAD_NEW_GAME.code());
     }
 
-    private void LoadEasy(int levelValue) {
+    private void LoadEasy(byte levelValue) {
         if(levelValue == 1) {
             getStatus().setEqavalue((byte)((Math.random() * 31) + 1));
         } else if(levelValue == 2) {
@@ -42,7 +42,7 @@ public class FiremanPlayerStatusProcessor extends PlayerStatusProcessor implemen
         }
     }
 
-    private void LoadHard(int levelValue) {
+    private void LoadHard(byte levelValue) {
         if(levelValue == 1) {
             getStatus().setHqaValue((byte)((Math.random() * 41) + 1));
         } else if(levelValue == 2) {
@@ -57,12 +57,20 @@ public class FiremanPlayerStatusProcessor extends PlayerStatusProcessor implemen
     }
 
     private void Randomize() {
-        int levelNumber = getStatus().getCurrentLevel();
+        getStatus().setMGValue((byte)((Math.random() * range) + min));
+        getStatus().setCollectibles((short)(getStatus().getCollectibles() + 1));
+        getStatus().setScore(getStatus().getScore() + COLLECTIBLE_POINTS);
 
-        if(levelNumber == 1) {
-            LoadEasy(levelNumber);
-        } else {
-            LoadHard(levelNumber);
+        if (getStatus().getCurrentWorld() == 1) {
+            LoadEasy(getStatus().getCurrentLevel());
+        } else if (getStatus().getCurrentWorld() == 2) {
+            LoadHard(getStatus().getCurrentLevel());
+        }
+    }
+
+    private void doIfDead() {
+        if (getStatus().getLives() > 0) {
+            getStatus().setLives((byte)(getStatus().getLives() - 1));
         }
     }
 
@@ -73,24 +81,19 @@ public class FiremanPlayerStatusProcessor extends PlayerStatusProcessor implemen
      */
     @Override
     protected void doUpdate(final Entity character) {
+
     }
 
     @Override
     public boolean handleMessage(final Telegram msg) {
         if (msg.message == MessageType.COLLECTED.code()) {
             Randomize();
-            getStatus().setMGValue((byte)((Math.random() * range) + min));
-            getStatus().setCollectibles((short) (getStatus().getCollectibles() + 1));
-            getStatus().setScore(getStatus().getScore() + COLLECTIBLE_POINTS);
         } else if (msg.message == MessageType.LOAD_NEW_GAME.code()) {
             Randomize();
         } else if (msg.message == MessageType.LOAD_CURRENT_GAME.code()) {
             Randomize();
         } else if (msg.message == MessageType.DEAD.code()) {
-            if (getStatus().getLives() > 0) {
-                getStatus().setLives((byte) (getStatus().getLives() - 1));
-            }
-            System.out.println("Dead received!");
+            doIfDead();
         }
         return true;
     }

@@ -4,7 +4,6 @@
 package com.mygdx.fuegopeligro.entity;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.controllers.mappings.Ouya;
@@ -22,10 +21,6 @@ import com.mygdx.fuegopeligro.graphics.CheckpointGraphicsProcessor;
 import com.mygdx.fuegopeligro.graphics.FiremanGraphicsProcessor;
 import com.mygdx.fuegopeligro.graphics.GraphicsProcessor;
 import com.mygdx.fuegopeligro.graphics.LevelGraphicsProcessor;
-import com.mygdx.fuegopeligro.graphics.minigames.FourPicsOneWord;
-import com.mygdx.fuegopeligro.graphics.minigames.LetterPuzzle;
-import com.mygdx.fuegopeligro.graphics.minigames.MultipleChoice;
-import com.mygdx.fuegopeligro.graphics.minigames.Wordscapes;
 import com.mygdx.fuegopeligro.input.FiremanControllerProcessor;
 import com.mygdx.fuegopeligro.input.FiremanInputProcessor;
 import com.mygdx.fuegopeligro.map.LevelRenderer;
@@ -121,13 +116,7 @@ public final class EntityFactory {
             Controllers.clearListeners();
             Controllers.addListener(new FiremanControllerProcessor(fireman));
         } else {
-            InputMultiplexer inputMultiplexer = new InputMultiplexer();
-            inputMultiplexer.addProcessor(new FiremanInputProcessor(fireman));
-            inputMultiplexer.addProcessor(new FourPicsOneWord(assets, game, fireman).stage);
-            inputMultiplexer.addProcessor(new LetterPuzzle(assets, game, fireman).stage);
-            inputMultiplexer.addProcessor(new MultipleChoice(assets, game, fireman).stage);
-            inputMultiplexer.addProcessor(new Wordscapes(assets, game, fireman).stage);
-            Gdx.input.setInputProcessor(inputMultiplexer);
+            Gdx.input.setInputProcessor(new FiremanInputProcessor(fireman));
         }
         return fireman;
     }
