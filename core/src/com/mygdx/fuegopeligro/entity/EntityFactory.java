@@ -123,10 +123,10 @@ public final class EntityFactory {
         } else {
             InputMultiplexer inputMultiplexer = new InputMultiplexer();
             inputMultiplexer.addProcessor(new FiremanInputProcessor(fireman));
-            inputMultiplexer.addProcessor(new FourPicsOneWord(assets, game, fireman).getStage());
-            inputMultiplexer.addProcessor(new LetterPuzzle(assets, game, fireman).getStage());
-            inputMultiplexer.addProcessor(new MultipleChoice(assets, game, fireman).getStage());
-            inputMultiplexer.addProcessor(new Wordscapes(assets, game, fireman).getStage());
+            inputMultiplexer.addProcessor(new FourPicsOneWord(assets, game, fireman).stage);
+            inputMultiplexer.addProcessor(new LetterPuzzle(assets, game, fireman).stage);
+            inputMultiplexer.addProcessor(new MultipleChoice(assets, game, fireman).stage);
+            inputMultiplexer.addProcessor(new Wordscapes(assets, game, fireman).stage);
             Gdx.input.setInputProcessor(inputMultiplexer);
         }
         return fireman;

@@ -97,29 +97,29 @@ public class LevelGraphicsProcessor implements GraphicsProcessor, Telegraph {
                 //short easyValue = status.getEqaValue();
                 if (mgValue == 1) {
                     multipleChoice.setVisible(true);
-                    Gdx.input.setInputProcessor(multipleChoice.getStage());
-                    if (multipleChoice.getEnterButton().isPressed()) {
+                    Gdx.input.setInputProcessor(multipleChoice.stage);
+                    if (multipleChoice.enterAnswer.isPressed()) {
                         multipleChoice.setVisible(false);
                         Gdx.input.setInputProcessor(new FiremanInputProcessor(fireman));
                     }
                 } else if (mgValue == 2) {
                     wordscapes.setVisible(true);
-                    Gdx.input.setInputProcessor(wordscapes.getStage());
-                    if (wordscapes.getEnterButton().isPressed()) {
+                    Gdx.input.setInputProcessor(wordscapes.stage);
+                    if (wordscapes.enterAnswer.isPressed()) {
                         wordscapes.setVisible(false);
                         Gdx.input.setInputProcessor(new FiremanInputProcessor(fireman));
                     }
                 } else if (mgValue == 3) {
                     letterPuzzle.setVisible(true);
-                    Gdx.input.setInputProcessor(letterPuzzle.getStage());
-                    if (letterPuzzle.getEnterButton().isPressed()) {
+                    Gdx.input.setInputProcessor(letterPuzzle.stage);
+                    if (letterPuzzle.enterAnswer.isPressed()) {
                         letterPuzzle.setVisible(false);
                         Gdx.input.setInputProcessor(new FiremanInputProcessor(fireman));
                     }
                 } else if (mgValue == 4) {
                     fourPicsOneWord.setVisible(true);
-                    Gdx.input.setInputProcessor(fourPicsOneWord.getStage());
-                    if (fourPicsOneWord.getEnterButton().isPressed()) {
+                    Gdx.input.setInputProcessor(fourPicsOneWord.stage);
+                    if (fourPicsOneWord.enterAnswer.isPressed()) {
                         fourPicsOneWord.setVisible(false);
                         Gdx.input.setInputProcessor(new FiremanInputProcessor(fireman));
                     }
@@ -128,29 +128,29 @@ public class LevelGraphicsProcessor implements GraphicsProcessor, Telegraph {
                 //short hardValue = status.getHqaValue();
                 if (mgValue == 1) {
                     multipleChoice.setVisible(true);
-                    Gdx.input.setInputProcessor(multipleChoice.getStage());
-                    if (multipleChoice.getEnterButton().isPressed()) {
+                    Gdx.input.setInputProcessor(multipleChoice.stage);
+                    if (multipleChoice.enterAnswer.isPressed()) {
                         multipleChoice.setVisible(false);
                         Gdx.input.setInputProcessor(new FiremanInputProcessor(fireman));
                     }
                 } else if (mgValue == 2) {
                     wordscapes.setVisible(true);
-                    Gdx.input.setInputProcessor(wordscapes.getStage());
-                    if (wordscapes.getEnterButton().isPressed()) {
+                    Gdx.input.setInputProcessor(wordscapes.stage);
+                    if (wordscapes.enterAnswer.isPressed()) {
                         wordscapes.setVisible(false);
                         Gdx.input.setInputProcessor(new FiremanInputProcessor(fireman));
                     }
                 } else if (mgValue == 3) {
                     letterPuzzle.setVisible(true);
-                    Gdx.input.setInputProcessor(letterPuzzle.getStage());
-                    if (letterPuzzle.getEnterButton().isPressed()) {
+                    Gdx.input.setInputProcessor(letterPuzzle.stage);
+                    if (letterPuzzle.enterAnswer.isPressed()) {
                         letterPuzzle.setVisible(false);
                         Gdx.input.setInputProcessor(new FiremanInputProcessor(fireman));
                     }
                 } else if (mgValue == 4) {
                     fourPicsOneWord.setVisible(true);
-                    Gdx.input.setInputProcessor(fourPicsOneWord.getStage());
-                    if (fourPicsOneWord.getEnterButton().isPressed()) {
+                    Gdx.input.setInputProcessor(fourPicsOneWord.stage);
+                    if (fourPicsOneWord.enterAnswer.isPressed()) {
                         fourPicsOneWord.setVisible(false);
                         Gdx.input.setInputProcessor(new FiremanInputProcessor(fireman));
                     }

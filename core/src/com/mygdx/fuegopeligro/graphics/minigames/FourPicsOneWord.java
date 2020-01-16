@@ -22,7 +22,7 @@ public class FourPicsOneWord implements Disposable {
     private static final String ENTER_ANSWER = "ENTER";
     private static final String HINT_ANSWER = "HINT";
 
-    private final Stage stage;
+    public final Stage stage;
     private final Fireman ninja;
     private final Label QuestionLabel;
     private final Label QuestionText;
@@ -30,7 +30,7 @@ public class FourPicsOneWord implements Disposable {
     private final TextButton answer2;
     private final TextButton answer3;
     private final TextButton answer4;
-    private final TextButton enterAnswer;
+    public final TextButton enterAnswer;
     private final TextButton enterHints;
     private final Table table;
 
@@ -142,13 +142,5 @@ public class FourPicsOneWord implements Disposable {
 
     public void setVisible(boolean value) {
         table.setVisible(value);
-    }
-
-    public Stage getStage() {
-        return stage;
-    }
-
-    public TextButton getEnterButton() {
-        return enterAnswer;
     }
 }
