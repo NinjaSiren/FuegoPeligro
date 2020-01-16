@@ -8,17 +8,17 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.mygdx.fuegopeligro.AppPreferences;
 import com.mygdx.fuegopeligro.Assets;
-import com.mygdx.fuegopeligro.ai.fsm.NinjaRabbitState;
+import com.mygdx.fuegopeligro.ai.fsm.FiremanState;
 import com.mygdx.fuegopeligro.ai.msg.MessageType;
 import com.mygdx.fuegopeligro.entity.Entity;
-import com.mygdx.fuegopeligro.entity.NinjaRabbit;
+import com.mygdx.fuegopeligro.entity.Fireman;
 
 /**
- * Handles audios played by actions taken by a {@link NinjaRabbit} entity.
+ * Handles audios played by actions taken by a {@link Fireman} entity.
  *
  * @author JDEsguerra
  */
-public class NinjaRabbitAudioProcessor extends AppPreferences implements AudioProcessor, Telegraph {
+public class FiremanAudioProcessor extends AppPreferences implements AudioProcessor, Telegraph {
     private static final int MAX_JUMP_TIMEOUT = 30;
 
     private final AssetManager assets;
@@ -26,7 +26,7 @@ public class NinjaRabbitAudioProcessor extends AppPreferences implements AudioPr
     private long jumpFxId;
     private long lostLife;
 
-    public NinjaRabbitAudioProcessor(final AssetManager assets) {
+    public FiremanAudioProcessor(final AssetManager assets) {
         this.assets = assets;
         MessageManager.getInstance().addListener(this, MessageType.DEAD.code());
     }
@@ -38,7 +38,7 @@ public class NinjaRabbitAudioProcessor extends AppPreferences implements AudioPr
      */
     @Override
     public void update(final Entity character) {
-        if (character.isInState(NinjaRabbitState.JUMP) && character.getBody().getLinearVelocity().y > 0) {
+        if (character.isInState(FiremanState.JUMP) && character.getBody().getLinearVelocity().y > 0) {
             if (jumpTimeout <= 0) {
                 Sound jumpFx = assets.get(Assets.JUMP_FX);
                 jumpFx.stop(jumpFxId);

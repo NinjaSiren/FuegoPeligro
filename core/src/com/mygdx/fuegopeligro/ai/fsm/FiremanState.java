@@ -11,7 +11,7 @@ import com.mygdx.fuegopeligro.entity.Entity;
  * @author JDEsguerra
  *
  */
-public enum NinjaRabbitState implements State<Entity> {
+public enum FiremanState implements State<Entity> {
     /**
      * The state this {@link Entity} is in when not moving at all.
      */

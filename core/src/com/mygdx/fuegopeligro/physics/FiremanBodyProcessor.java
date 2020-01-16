@@ -5,21 +5,21 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.fuegopeligro.entity.Direction;
 import com.mygdx.fuegopeligro.entity.Entity;
-import com.mygdx.fuegopeligro.entity.NinjaRabbit;
+import com.mygdx.fuegopeligro.entity.Fireman;
 
 /**
  * @author JDEsguerra
  */
-public class NinjaRabbitBodyProcessor implements BodyProcessor {
+public class FiremanBodyProcessor implements BodyProcessor {
     private final BodyFactory bodyFactory;
     private final World world;
     private Direction lastKnownDirection;
 
-    public NinjaRabbitBodyProcessor(final World world, final BodyEditorLoader loader) {
+    public FiremanBodyProcessor(final World world, final BodyEditorLoader loader) {
         if (world == null) {
             throw new IllegalArgumentException("'world' cannot be null");
         }
-        this.bodyFactory = new NinjaRabbitBodyFactory(loader);
+        this.bodyFactory = new FiremanBodyFactory(loader);
         this.world = world;
     }
 
@@ -44,11 +44,11 @@ public class NinjaRabbitBodyProcessor implements BodyProcessor {
     }
 
     /**
-     * Sets a new body onto the {@link NinjaRabbit} instance, after destroying the current one. Sets
+     * Sets a new body onto the {@link Fireman} instance, after destroying the current one. Sets
      * the current direction to the given {@link Direction}.
      *
-     * @param character The {@link NinjaRabbit} being updated.
-     * @param direction The direction the {@link NinjaRabbit} is facing.
+     * @param character The {@link Fireman} being updated.
+     * @param direction The direction the {@link Fireman} is facing.
      */
     private void changeDirection(final Entity character) {
         Vector2 position = character.getBody().getPosition();

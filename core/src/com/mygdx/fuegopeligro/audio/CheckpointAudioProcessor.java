@@ -12,10 +12,10 @@ import com.mygdx.fuegopeligro.entity.Entity;
  *
  * @author JDEsguerra
  */
-public class CarrotAudioProcessor extends AppPreferences implements AudioProcessor {
+public class CheckpointAudioProcessor extends AppPreferences implements AudioProcessor {
     private final Sound collected;
 
-    public CarrotAudioProcessor(final AssetManager manager) {
+    public CheckpointAudioProcessor(final AssetManager manager) {
         collected = manager.get(Assets.CRUNCH_FX);
     }
 

@@ -11,14 +11,14 @@ import com.mygdx.fuegopeligro.entity.Direction;
 /**
  * @author JDEsguerra
  */
-public final class CarrotBodyFactory implements BodyFactory {
+public final class CheckpointBodyFactory implements BodyFactory {
     private static final float CARROT_SCALE = 61 / FuegoPeligro.PPM;
 
     private final BodyEditorLoader loader;
     private final BodyDef bdef;
     private final FixtureDef fdef;
 
-    public CarrotBodyFactory(final BodyEditorLoader loader) {
+    public CheckpointBodyFactory(final BodyEditorLoader loader) {
         if (loader == null) {
             throw new IllegalArgumentException("'loader' cannot be null");
         }
@@ -52,8 +52,8 @@ public final class CarrotBodyFactory implements BodyFactory {
     @Override
     public Body create(final World world, final BodyDef definition, final Direction direction) {
         Body rabbitBody = world.createBody(definition);
-        loader.attachFixture(rabbitBody, CarrotPhysicsProcessor.CARROT_IDENTIFIER, fdef, CARROT_SCALE);
-        rabbitBody.getFixtureList().first().setUserData(CarrotPhysicsProcessor.CARROT_IDENTIFIER);
+        loader.attachFixture(rabbitBody, CheckpointPhysicsProcessor.CARROT_IDENTIFIER, fdef, CARROT_SCALE);
+        rabbitBody.getFixtureList().first().setUserData(CheckpointPhysicsProcessor.CARROT_IDENTIFIER);
         return rabbitBody;
     }
 }

@@ -14,7 +14,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.fuegopeligro.Assets;
 import com.mygdx.fuegopeligro.FuegoPeligro;
-import com.mygdx.fuegopeligro.ai.fsm.NinjaRabbitState;
+import com.mygdx.fuegopeligro.ai.fsm.FiremanState;
 import com.mygdx.fuegopeligro.ai.msg.MessageType;
 import com.mygdx.fuegopeligro.entity.Direction;
 import com.mygdx.fuegopeligro.entity.Entity;
@@ -27,7 +27,7 @@ import net.dermetfan.gdx.physics.box2d.Box2DUtils;
 /**
  * @author JDEsguerra
  */
-public class NinjaRabbitGraphicsProcessor implements GraphicsProcessor, Telegraph {
+public class FiremanGraphicsProcessor implements GraphicsProcessor, Telegraph {
     private static final String WALK_REGION = "walk";
     private static final String JUMP_REGION = "jump";
     private static Vector2 RESPAWN_POSITION = new Vector2(0.6f, 3.2f);
@@ -38,7 +38,7 @@ public class NinjaRabbitGraphicsProcessor implements GraphicsProcessor, Telegrap
     private final AnimatedBox2DSprite walkLeftSprite;
     private final AnimatedBox2DSprite jumpSprite;
 
-    public NinjaRabbitGraphicsProcessor(final AssetManager assets) {
+    public FiremanGraphicsProcessor(final AssetManager assets) {
         textureAtlas = assets.get(Assets.NINJA_RABBIT_ATLAS);
 
         Array<Sprite> walkingSprites = textureAtlas.createSprites(WALK_REGION);
@@ -94,13 +94,13 @@ public class NinjaRabbitGraphicsProcessor implements GraphicsProcessor, Telegrap
     public void draw(final Entity character, final Batch batch) {
         Box2DSprite frame = null;
 
-        if (character.isInState(NinjaRabbitState.JUMP)) {
+        if (character.isInState(FiremanState.JUMP)) {
             jumpSprite.flipFrames(Direction.RIGHT.equals(character.getDirection()) == jumpSprite.isFlipX(), false, false);
             frame = jumpSprite;
-        } else if (character.isInState(NinjaRabbitState.RIGHT)) {
+        } else if (character.isInState(FiremanState.RIGHT)) {
             frame = walkRightSprite;
             character.setDirection(Direction.RIGHT);
-        } else if (character.isInState(NinjaRabbitState.LEFT)) {
+        } else if (character.isInState(FiremanState.LEFT)) {
             frame = walkLeftSprite;
             character.setDirection(Direction.LEFT);
         } else {
@@ -123,7 +123,7 @@ public class NinjaRabbitGraphicsProcessor implements GraphicsProcessor, Telegrap
     public boolean handleMessage(final Telegram msg) {
         Entity character = (Entity) msg.extraInfo;
         character.getBody().setTransform(RESPAWN_POSITION, character.getBody().getAngle());
-        character.changeState(NinjaRabbitState.IDLE);
+        character.changeState(FiremanState.IDLE);
         character.setDirection(Direction.RIGHT);
         return true;
     }

@@ -1,7 +1,7 @@
 package com.mygdx.fuegopeligro.entity;
 
 import com.badlogic.gdx.graphics.Camera;
-import com.mygdx.fuegopeligro.ai.fsm.NinjaRabbitState;
+import com.mygdx.fuegopeligro.ai.fsm.FiremanState;
 import com.mygdx.fuegopeligro.audio.AudioProcessor;
 import com.mygdx.fuegopeligro.graphics.GraphicsProcessor;
 import com.mygdx.fuegopeligro.physics.BodyProcessor;
@@ -15,7 +15,7 @@ import com.mygdx.fuegopeligro.player.PlayerStatusProcessor;
  *
  * @author JDEsguerra
  */
-public class NinjaRabbit extends Entity {
+public class Fireman extends Entity {
     /**
      * A component used to change the body of this {@link Entity} according the action being
      * executed or the {@link Direction} that is facing, if necessary.
@@ -27,10 +27,10 @@ public class NinjaRabbit extends Entity {
      */
     private final PlayerStatusProcessor player;
 
-    public NinjaRabbit(final PlayerStatusProcessor player, final BodyProcessor bodyProcessor, final GraphicsProcessor graphics,
-                       final PhysicsProcessor physics,
-                       final AudioProcessor audio) {
-        super(graphics, physics, audio, NinjaRabbitState.IDLE);
+    public Fireman(final PlayerStatusProcessor player, final BodyProcessor bodyProcessor, final GraphicsProcessor graphics,
+                   final PhysicsProcessor physics,
+                   final AudioProcessor audio) {
+        super(graphics, physics, audio, FiremanState.IDLE);
         this.bodyProcessor = bodyProcessor;
         this.player = player;
     }

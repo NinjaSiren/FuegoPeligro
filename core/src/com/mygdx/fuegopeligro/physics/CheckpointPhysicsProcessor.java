@@ -15,7 +15,7 @@ import com.mygdx.fuegopeligro.entity.Entity;
 /**
  * @author JDEsguerra
  */
-public class CarrotPhysicsProcessor implements PhysicsProcessor {
+public class CheckpointPhysicsProcessor implements PhysicsProcessor {
     public static final String CARROT_IDENTIFIER = "carrot";
     private static final float MAX_DISTANCE = 0.18f;
     private static final float VERTICAL_VELOCITY = 0.21f;

@@ -13,7 +13,7 @@ import com.mygdx.fuegopeligro.entity.Direction;
 /**
  * @author JDEsguerra
  */
-public final class NinjaRabbitBodyFactory implements BodyFactory {
+public final class FiremanBodyFactory implements BodyFactory {
     private static final float NINJA_RABBIT_SCALE = 101 / FuegoPeligro.PPM;
     private static final int FOOT_FIXTURE_INDEX = 9;
     private static final String RABBIT_IDENTIFIER = "rabbit";
@@ -23,7 +23,7 @@ public final class NinjaRabbitBodyFactory implements BodyFactory {
     private final BodyDef bdef;
     private final FixtureDef fdef;
 
-    public NinjaRabbitBodyFactory(final BodyEditorLoader loader) {
+    public FiremanBodyFactory(final BodyEditorLoader loader) {
         if (loader == null) {
             throw new IllegalArgumentException("'loader' cannot be null");
         }
@@ -76,7 +76,7 @@ public final class NinjaRabbitBodyFactory implements BodyFactory {
         loader.attachFixture(rabbitBody, RABBIT_IDENTIFIER + "-" + direction.direction(), fdef, NINJA_RABBIT_SCALE);
 
         Fixture footSensor = rabbitBody.getFixtureList().get(FOOT_FIXTURE_INDEX);
-        footSensor.setUserData(NinjaRabbitPhysicsProcessor.FOOT_IDENTIFIER);
+        footSensor.setUserData(FiremanPhysicsProcessor.FOOT_IDENTIFIER);
         footSensor.setDensity(0.0f);
         footSensor.setSensor(true);
 

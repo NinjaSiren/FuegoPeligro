@@ -15,7 +15,7 @@ import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.fuegopeligro.Assets;
 import com.mygdx.fuegopeligro.FuegoPeligro;
-import com.mygdx.fuegopeligro.entity.NinjaRabbit;
+import com.mygdx.fuegopeligro.entity.Fireman;
 
 /**
  * Shows a transparent overlay splash screen with a "Minigame" legend every time the player in in
@@ -28,22 +28,22 @@ public class MultipleChoice implements Disposable {
     private static final String ENTER_ANSWER = "ENTER";
     private static final String HINT_ANSWER = "HINT";
 
-    public final Stage stage;
-    private final NinjaRabbit ninja;
+    private final Stage stage;
+    private final Fireman ninja;
     private final Label QuestionLabel;
     private final Label QuestionText;
     private final TextButton answer1;
     private final TextButton answer2;
     private final TextButton answer3;
     private final TextButton answer4;
-    public final TextButton enterAnswer;
+    private final TextButton enterAnswer;
     private final TextButton enterHints;
     private final Table table;
 
     public MultipleChoice(final AssetManager assets, final FuegoPeligro game,
-                          final NinjaRabbit ninjaRabbit) {
+                          final Fireman fireman) {
         stage = new Stage(new ScreenViewport(), game.getBatch());
-        ninja = ninjaRabbit;
+        ninja = fireman;
 
         Label.LabelStyle style = new Label.LabelStyle();
         AssetManager assetManager = new AssetManager();
@@ -149,4 +149,12 @@ public class MultipleChoice implements Disposable {
     public void setVisible(boolean value) {
         table.setVisible(value);
     }
+
+    public Stage getStage() {
+        return stage;
+    }
+
+     public TextButton getEnterButton() {
+        return enterAnswer;
+     }
 }

@@ -13,7 +13,7 @@ import com.mygdx.fuegopeligro.entity.Entity;
  * @author JDEsguerra
  *
  */
-public class NinjaRabbitPlayerStatusProcessor extends PlayerStatusProcessor implements Telegraph {
+public class FiremanPlayerStatusProcessor extends PlayerStatusProcessor implements Telegraph {
     /**
      * Points earned by gathering a collectible.
      */
@@ -21,7 +21,7 @@ public class NinjaRabbitPlayerStatusProcessor extends PlayerStatusProcessor impl
     private static final int range = 4;
     private static final int min = 1;
 
-    public NinjaRabbitPlayerStatusProcessor(final CurrentPlayerStatus status) {
+    public FiremanPlayerStatusProcessor(final CurrentPlayerStatus status) {
         super(status);
         MessageManager.getInstance().addListeners(this,
                 MessageType.COLLECTED.code(), MessageType.DEAD.code(),

@@ -19,14 +19,14 @@ import net.dermetfan.gdx.graphics.g2d.Box2DSprite;
 /**
  * @author JDEsguerra
  */
-public class CarrotGraphicsProcessor implements GraphicsProcessor {
+public class CheckpointGraphicsProcessor implements GraphicsProcessor {
     private static final String CARROT_REGION = "carrot";
 
     private final TextureAtlas textureAtlas;
     private final Box2DSprite carrot;
     private final AnimatedBox2DSprite carrotMoving;
 
-    public CarrotGraphicsProcessor(final AssetManager manager) {
+    public CheckpointGraphicsProcessor(final AssetManager manager) {
         textureAtlas = manager.get(Assets.NINJA_RABBIT_ATLAS);
 
         Array<Sprite> carrots = textureAtlas.createSprites(CARROT_REGION);

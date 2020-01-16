@@ -10,7 +10,7 @@ import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
-import com.mygdx.fuegopeligro.ai.fsm.NinjaRabbitState;
+import com.mygdx.fuegopeligro.ai.fsm.FiremanState;
 import com.mygdx.fuegopeligro.ai.msg.MessageType;
 import com.mygdx.fuegopeligro.entity.Entity;
 
@@ -18,7 +18,7 @@ import com.mygdx.fuegopeligro.entity.Entity;
  * @author JDEsguerra
  *
  */
-public class NinjaRabbitPhysicsProcessor implements PhysicsProcessor {
+public class FiremanPhysicsProcessor implements PhysicsProcessor {
     public static final String FOOT_IDENTIFIER = "foot";
     private static final float DEATH_ALTITUDE = -5.0F;
     private static final String GROUND_IDENTIFIER = "ground";
@@ -51,7 +51,7 @@ public class NinjaRabbitPhysicsProcessor implements PhysicsProcessor {
             }
 
             // Linear velocity dampening
-            if (character.isInState(NinjaRabbitState.IDLE)) {
+            if (character.isInState(FiremanState.IDLE)) {
                 velocity = character.getBody().getLinearVelocity();
                 stillTime += Gdx.graphics.getDeltaTime();
                 character.getBody().setLinearVelocity(velocity.x * 0.9f, velocity.y);
@@ -62,7 +62,7 @@ public class NinjaRabbitPhysicsProcessor implements PhysicsProcessor {
             // Disable friction if character is not on ground
             float newFriction = 0.05f;
             if (groundContacts > 0) {
-                if (character.isInState(NinjaRabbitState.IDLE) && stillTime > 0.2f) {
+                if (character.isInState(FiremanState.IDLE) && stillTime > 0.2f) {
                     newFriction = 300.0f;
                 } else {
                     newFriction = 0.8f;
@@ -74,15 +74,15 @@ public class NinjaRabbitPhysicsProcessor implements PhysicsProcessor {
             }
 
             // Move character left or right
-            if (character.isInState(NinjaRabbitState.RIGHT) && velocity.x < MAX_VELOCITY.x) {
+            if (character.isInState(FiremanState.RIGHT) && velocity.x < MAX_VELOCITY.x) {
                 character.getBody().applyLinearImpulse(LINEAR_VELOCITY * character.getBody().getMass(), 0.0f, position.x, position.y, true);
-            } else if (character.isInState(NinjaRabbitState.LEFT) && velocity.x > -MAX_VELOCITY.x) {
+            } else if (character.isInState(FiremanState.LEFT) && velocity.x > -MAX_VELOCITY.x) {
                 character.getBody()
                         .applyLinearImpulse(-LINEAR_VELOCITY * character.getBody().getMass(), 0.0f, position.x, position.y, true);
             }
 
             // Jump
-            if (character.isInState(NinjaRabbitState.JUMP) && groundContacts > 0) {
+            if (character.isInState(FiremanState.JUMP) && groundContacts > 0) {
                 position = character.getBody().getPosition();
 
                 // Initial jumping impulse (on ground)
@@ -92,7 +92,7 @@ public class NinjaRabbitPhysicsProcessor implements PhysicsProcessor {
                         position.x,
                         position.y, true);
                 jumpTimeout = 0;
-            } else if (character.isInState(NinjaRabbitState.JUMP)
+            } else if (character.isInState(FiremanState.JUMP)
                     && velocity.y < MAX_VELOCITY.y && velocity.y > 0) {
                 // Incrementally decreased impulse added while mid-air the longer the jump button is
                 // held, the higher the character jumps)
