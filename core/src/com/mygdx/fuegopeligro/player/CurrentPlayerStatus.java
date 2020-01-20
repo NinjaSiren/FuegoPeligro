@@ -86,7 +86,7 @@ public final class CurrentPlayerStatus implements PlayerStatus, Poolable {
         return collectibles;
     }
 
-    protected void setCollectibles(short collectibles) {
+    public void setCollectibles(short collectibles) {
         this.collectibles = collectibles;
     }
 
@@ -100,9 +100,10 @@ public final class CurrentPlayerStatus implements PlayerStatus, Poolable {
         return lives;
     }
 
-    protected void setLives(byte lives) {
+    public void setLives(byte lives) {
         this.lives = lives;
     }
+
 
     /*
      * (non-Javadoc)
@@ -114,7 +115,7 @@ public final class CurrentPlayerStatus implements PlayerStatus, Poolable {
         return score;
     }
 
-    protected void setScore(int score) {
+    public void setScore(int score) {
         this.score = score;
     }
 
@@ -128,7 +129,7 @@ public final class CurrentPlayerStatus implements PlayerStatus, Poolable {
         return time;
     }
 
-    protected void setTime(short time) {
+    public void setTime(short time) {
         this.time = time;
     }
 
@@ -142,7 +143,7 @@ public final class CurrentPlayerStatus implements PlayerStatus, Poolable {
         return level;
     }
 
-    protected void setLevel(byte level) {
+    public void setLevel(byte level) {
         this.level = level;
     }
 
@@ -156,7 +157,7 @@ public final class CurrentPlayerStatus implements PlayerStatus, Poolable {
         return world;
     }
 
-    protected void setWorld(byte world) {
+    public void setWorld(byte world) {
         this.world = world;
     }
 
@@ -170,7 +171,7 @@ public final class CurrentPlayerStatus implements PlayerStatus, Poolable {
         return world;
     }
 
-    protected void setCurrentWorld(byte currentWorlds) {
+    public void setCurrentWorld(byte currentWorlds) {
         this.currentWorld = currentWorlds;
     }
 
@@ -184,29 +185,29 @@ public final class CurrentPlayerStatus implements PlayerStatus, Poolable {
         return level;
     }
 
-    protected void setCurrentLevel(byte currentLevels) {
+    public void setCurrentLevel(byte currentLevels) {
         this.currentLevel = currentLevels;
     }
 
     @Override
     public byte getMGValue() { return mgValue; }
 
-    protected void setMGValue(byte mgValue) { this.mgValue = mgValue; }
+    public void setMGValue(byte mgValue) { this.mgValue = mgValue; }
 
     @Override
     public byte getEqaValue() { return eqaValue; }
 
-    protected void setEqavalue(byte eqaValue) { this.eqaValue = eqaValue; }
+    public void setEqavalue(byte eqaValue) { this.eqaValue = eqaValue; }
 
     @Override
     public byte getHqaValue() { return hqaValue; }
 
-    protected void setHqaValue (byte hqaValue) { this.hqaValue = hqaValue; }
+    public void setHqaValue (byte hqaValue) { this.hqaValue = hqaValue; }
 
     @Override
     public byte getGoResetCounter() { return goResetCounter; }
 
-    protected void setGoResetCounter(byte goResetCounter) { this.goResetCounter = goResetCounter; }
+    public void setGoResetCounter(byte goResetCounter) { this.goResetCounter = goResetCounter; }
 
     /*
      * (non-Javadoc)

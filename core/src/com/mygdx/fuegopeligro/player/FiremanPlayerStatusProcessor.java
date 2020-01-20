@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.mygdx.fuegopeligro.player;
 
 import com.badlogic.gdx.ai.msg.MessageManager;
@@ -17,9 +14,7 @@ public class FiremanPlayerStatusProcessor extends PlayerStatusProcessor implemen
     /**
      * Points earned by gathering a collectible.
      */
-    private static final int COLLECTIBLE_POINTS = 200;
-    private static final int range = 4;
-    private static final int min = 1;
+    private static final int COLLECTIBLE_POINTS = 500;
 
     public FiremanPlayerStatusProcessor(final CurrentPlayerStatus status) {
         super(status);
@@ -57,7 +52,7 @@ public class FiremanPlayerStatusProcessor extends PlayerStatusProcessor implemen
     }
 
     private void Randomize() {
-        getStatus().setMGValue((byte)((Math.random() * range) + min));
+        getStatus().setMGValue((byte)((Math.random() * 4) + 1));
         getStatus().setCollectibles((short)(getStatus().getCollectibles() + 1));
         getStatus().setScore(getStatus().getScore() + COLLECTIBLE_POINTS);
 
@@ -97,5 +92,4 @@ public class FiremanPlayerStatusProcessor extends PlayerStatusProcessor implemen
         }
         return true;
     }
-
 }

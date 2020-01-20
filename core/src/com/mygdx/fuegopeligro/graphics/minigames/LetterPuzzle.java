@@ -15,40 +15,25 @@ import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.fuegopeligro.Assets;
 import com.mygdx.fuegopeligro.FuegoPeligro;
-import com.mygdx.fuegopeligro.QAReader;
 import com.mygdx.fuegopeligro.player.CurrentPlayerStatus;
 
 public class LetterPuzzle implements Disposable {
     private static final String QUESTION_LABEL = "CHECKPOINT: LETTER PUZZLE";
-    private static final String ENTER_ANSWER = "ENTER";
     private static final String HINT_ANSWER = "HINT";
-    private static byte value;
-    private static String fileName;
 
     public final Stage stage;
-    private QAReader qaReader;
-    private final Label QuestionLabel;
-    private final Label QuestionText;
-    private final TextButton answer1;
-    private final TextButton answer2;
-    private final TextButton answer3;
-    private final TextButton answer4;
-    public final TextButton enterAnswer;
     private final TextButton enterHints;
     private final Table table;
 
-    public LetterPuzzle(final AssetManager assets, final FuegoPeligro game,
-                        final CurrentPlayerStatus status) {
-        stage = new Stage(new ScreenViewport(), game.getBatch());
+    public Label questionText;
+    public TextButton answer1;
+    public TextButton answer2;
+    public TextButton answer3;
+    public TextButton answer4;
 
-        if (status.getCurrentWorld() == 1) {
-            value = status.getEqaValue();
-            fileName = "minigames/easyQA.csv";
-        } else if (status.getCurrentWorld() == 2) {
-            value = status.getHqaValue();
-            fileName = "minigames/hardQA.csv";
-        }
-        qaReader = new QAReader(fileName, (int)value);
+    public LetterPuzzle(final AssetManager assets, final FuegoPeligro game,
+                           CurrentPlayerStatus status) {
+        stage = new Stage(new ScreenViewport(), game.getBatch());
 
         Label.LabelStyle style = new Label.LabelStyle();
         AssetManager assetManager = new AssetManager();
@@ -58,13 +43,13 @@ public class LetterPuzzle implements Disposable {
 
         style.fontColor = Color.WHITE;
         style.font = assets.get(Assets.HUD_FONT);
-        QuestionLabel = new Label(QUESTION_LABEL, style);
+        Label questionLabel = new Label(QUESTION_LABEL, style);
 
         style.fontColor = Color.WHITE;
         style.font = assets.get(Assets.HUD_FONT);
-        QuestionText = new Label(qaReader.getQaQuestion(), style);
+        questionText = new Label(null, style);
 
-        answer1 = new TextButton(qaReader.getQaAnswer1(), skin);
+        answer1 = new TextButton(null, skin);
         answer1.addListener(new ClickListener() {
             @Override
             public void clicked(final InputEvent event, final float x, final float y) {
@@ -72,7 +57,7 @@ public class LetterPuzzle implements Disposable {
             }
         });
 
-        answer2 = new TextButton("", skin);
+        answer2 = new TextButton(null, skin);
         answer2.addListener(new ClickListener() {
             @Override
             public void clicked(final InputEvent event, final float x, final float y) {
@@ -80,7 +65,7 @@ public class LetterPuzzle implements Disposable {
             }
         });
 
-        answer3 = new TextButton("", skin);
+        answer3 = new TextButton(null, skin);
         answer3.addListener(new ClickListener() {
             @Override
             public void clicked(final InputEvent event, final float x, final float y) {
@@ -88,17 +73,8 @@ public class LetterPuzzle implements Disposable {
             }
         });
 
-        answer4 = new TextButton("", skin);
+        answer4 = new TextButton(null, skin);
         answer4.addListener(new ClickListener() {
-            @Override
-            public void clicked(final InputEvent event, final float x, final float y) {
-
-            }
-        });
-
-        // enter answer
-        enterAnswer = new TextButton(ENTER_ANSWER, skin);
-        enterAnswer.addListener(new ClickListener() {
             @Override
             public void clicked(final InputEvent event, final float x, final float y) {
 
@@ -119,9 +95,9 @@ public class LetterPuzzle implements Disposable {
         table.setFillParent(true);
         table.setDebug(true);
 
-        table.add(QuestionLabel).expand(true, false).center();
+        table.add(questionLabel).expand(true, false).center();
         table.row().pad(20, 0, 0, 10);
-        table.add(QuestionText).expand(true, false);
+        table.add(questionText).expand(true, false);
         table.row().pad(10, 0, 0, 20);
         table.add(answer1).expand(true, false);
         table.add(answer2).expand(true, false);
@@ -129,7 +105,6 @@ public class LetterPuzzle implements Disposable {
         table.add(answer3).expand(true, false);
         table.add(answer4).expand(true, false);
         table.row().pad(10, 0, 0, 20);
-        table.add(enterAnswer).expand(true, false);
         table.add(enterHints).expand(true, false);
 
         stage.addActor(table);
