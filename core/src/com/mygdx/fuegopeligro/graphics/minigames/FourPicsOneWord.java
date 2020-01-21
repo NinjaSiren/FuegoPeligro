@@ -30,7 +30,7 @@ public class FourPicsOneWord implements Disposable {
 
     public final Stage stage;
     public final TextButton enterHints;
-    private final Table table;
+    public Table table;
 
     public Label questionText;
     public Image answer1;

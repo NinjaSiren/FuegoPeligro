@@ -37,7 +37,6 @@ public class LevelSelectionScreen extends AbstractScreen {
     LevelSelectionScreen(final FuegoPeligro game) {
         super(game);
         msg = new Telegram();
-
         stage = new Stage(new ScreenViewport(), game.getBatch());
         stage.clear();
 

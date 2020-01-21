@@ -156,6 +156,9 @@ public class LevelGraphicsProcessor implements GraphicsProcessor, Telegraph {
                     break;
 
                 case 4:
+                    fileName = "minigame/easywords.csv";
+                    qaReader = new QAReader(fileName, (int)value);
+
                     if (qaReader.getQaNumber() < 1) {
                         qaReader.setQaNumber(1);
                         texture_1 = new Texture(Gdx.files.internal("minigames/easypics/" +
@@ -191,7 +194,7 @@ public class LevelGraphicsProcessor implements GraphicsProcessor, Telegraph {
                     fourPicsOneWord.answer2.setDrawable(myTexRegionDrawable_2);
                     fourPicsOneWord.answer3.setDrawable(myTexRegionDrawable_3);
                     fourPicsOneWord.answer4.setDrawable(myTexRegionDrawable_4);
-                    
+
                     fourPicsOneWord.render(Gdx.graphics.getDeltaTime());
                     fourPicsOneWord.setVisible(true);
                     Gdx.input.setInputProcessor(fourPicsOneWord.stage);
@@ -219,6 +222,21 @@ public class LevelGraphicsProcessor implements GraphicsProcessor, Telegraph {
                     if (multipleChoice.answer1.isPressed()) {
                         Gdx.input.setInputProcessor(new FiremanInputProcessor(fireman));
                         multipleChoice.setVisible(false);
+                    } else if (multipleChoice.answer2.isPressed()) {
+                        if (status.getLives() > 0) {
+                            status.setLives((byte)(status.getLives() - 1));
+                        } else {
+                            MessageManager.getInstance().dispatchMessage(null,
+                                    MessageType.DEAD.code(), entity);
+                        }
+                    } else if (multipleChoice.answer3.isPressed()) {
+                        MessageManager.getInstance().dispatchMessage(null,
+                                MessageType.DEAD.code(), entity);
+                    } else if (multipleChoice.answer4.isPressed()) {
+                        MessageManager.getInstance().dispatchMessage(null,
+                                MessageType.DEAD.code(), entity);
+                    } else if (multipleChoice.enterHints.isPressed()) {
+
                     }
                     break;
 
