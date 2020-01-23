@@ -1,46 +1,40 @@
 package com.mygdx.fuegopeligro.graphics.minigames;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.fuegopeligro.Assets;
-import com.mygdx.fuegopeligro.FuegoPeligro;
-import com.mygdx.fuegopeligro.player.CurrentPlayerStatus;
 
-public class FourPicsOneWord implements Disposable {
+public class FourPicsOneWord implements Disposable, Screen {
     private static final String QUESTION_LABEL = "CHECKPOINT: 4 PICS 1 WORD";
     private static final String HINT_ANSWER = "HINT";
-    private int size = 1024;
+    private static final String ENTER_ANSWER = "ENTER";
 
-    private String TEXTURE_VALUE_1 = "";
-    private String TEXTURE_VALUE_2 = "";
-    private String TEXTURE_VALUE_3 = "";
-    private String TEXTURE_VALUE_4 = "";
+    public Stage stage;
+    public TextButton enterHints;
+    public TextButton enterAnswer;
 
-    public final Stage stage;
-    public final TextButton enterHints;
-    public Table table;
-
-    public Label questionText;
     public Image answer1;
     public Image answer2;
     public Image answer3;
     public Image answer4;
+    public TextField input;
+    public Table table;
 
-    public FourPicsOneWord(final AssetManager assets, final FuegoPeligro game,
-                          CurrentPlayerStatus status) {
-        stage = new Stage(new ScreenViewport(), game.getBatch());
+    public FourPicsOneWord(final AssetManager assets, final Batch batch) {
+        stage = new Stage(new ScreenViewport(), batch);
 
         Label.LabelStyle style = new Label.LabelStyle();
         AssetManager assetManager = new AssetManager();
@@ -52,56 +46,26 @@ public class FourPicsOneWord implements Disposable {
         style.font = assets.get(Assets.HUD_FONT);
         Label questionLabel = new Label(QUESTION_LABEL, style);
 
-        style.fontColor = Color.WHITE;
-        style.font = assets.get(Assets.HUD_FONT);
-        
+        // Images
         answer1 = new Image();
-        answer1.addListener(new ClickListener() {
-            @Override
-            public void clicked(final InputEvent event, final float x, final float y) {
-
-            }
-        });
-
         answer2 = new Image();
-        answer2.addListener(new ClickListener() {
-            @Override
-            public void clicked(final InputEvent event, final float x, final float y) {
-
-            }
-        });
-
         answer3 = new Image();
-        answer3.addListener(new ClickListener() {
-            @Override
-            public void clicked(final InputEvent event, final float x, final float y) {
-
-            }
-        });
-
         answer4 = new Image();
-        answer4.addListener(new ClickListener() {
-            @Override
-            public void clicked(final InputEvent event, final float x, final float y) {
 
-            }
-        });
+        // Textfield
+        input = new TextField("", skin);
+
+        // enter answer
+        enterAnswer = new TextButton(ENTER_ANSWER, skin);
 
         // enter hints
         enterHints = new TextButton(HINT_ANSWER, skin);
-        enterHints.addListener(new ClickListener() {
-            @Override
-            public void clicked(final InputEvent event, final float x, final float y) {
-
-            }
-        });
 
         table = new Table();
-        table.setVisible(true);
         table.setFillParent(true);
-        table.setDebug(true);
+        table.setVisible(true);
 
-        table.add(questionLabel).expand(true, false).center();
+        table.add(questionLabel).expand(true, false);
         table.row().pad(20, 0, 0, 10);
         table.add(answer1).expand(true, false).size(stage.getWidth()/4, stage.getHeight()/4);
         table.add(answer2).expand(true, false).size(stage.getWidth()/4, stage.getHeight()/4);
@@ -109,12 +73,21 @@ public class FourPicsOneWord implements Disposable {
         table.add(answer3).expand(true, false).size(stage.getWidth()/4, stage.getHeight()/4);
         table.add(answer4).expand(true, false).size(stage.getWidth()/4, stage.getHeight()/4);
         table.row().pad(10, 0, 0, 20);
+        table.add(input).expand(true,false).size(stage.getWidth()/2, stage.getHeight()/14);
+        table.row().pad(10, 0, 0, 20);
+        table.add(enterAnswer).expand(true, false);
         table.add(enterHints).expand(true, false);
 
         stage.addActor(table);
         stage.setKeyboardFocus(table);
     }
 
+    @Override
+    public void show() {
+
+    }
+
+    @Override
     public void render(final float delta) {
         Gdx.gl20.glEnable(GL20.GL_BLEND);
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
@@ -126,14 +99,28 @@ public class FourPicsOneWord implements Disposable {
         stage.getBatch().begin();
     }
 
-    public void resize(final int width, final int height) { stage.getViewport().update(width, height); }
+    @Override
+    public void resize(final int width, final int height) {
+        stage.getViewport().update(width, height);
+    }
+
+    @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
+    public void hide() {
+
+    }
 
     @Override
     public void dispose() {
         stage.dispose();
-    }
-
-    public void setVisible(boolean value) {
-        table.setVisible(value);
     }
 }

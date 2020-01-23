@@ -25,47 +25,43 @@ public class FiremanPlayerStatusProcessor extends PlayerStatusProcessor implemen
 
     private void LoadEasy(byte levelValue) {
         if(levelValue == 1) {
-            getStatus().setEqavalue((byte)((Math.random() * 31) + 1));
+            getStatus().setEqavalue((byte)((Math.random() * 30) + 1));
         } else if(levelValue == 2) {
-            getStatus().setEqavalue((byte)((Math.random() * 31) + 7));
+            getStatus().setEqavalue((byte)((Math.random() * 30) + 7));
         } else if(levelValue == 3) {
-            getStatus().setEqavalue((byte)((Math.random() * 31) + 13));
+            getStatus().setEqavalue((byte)((Math.random() * 30) + 13));
         } else if(levelValue == 4) {
-            getStatus().setEqavalue((byte)((Math.random() * 31) + 19));
+            getStatus().setEqavalue((byte)((Math.random() * 30) + 19));
         } else if(levelValue == 5) {
-            getStatus().setEqavalue((byte)((Math.random() * 31) + 25));
+            getStatus().setEqavalue((byte)((Math.random() * 30) + 25));
         }
     }
 
     private void LoadHard(byte levelValue) {
         if(levelValue == 1) {
-            getStatus().setHqaValue((byte)((Math.random() * 41) + 1));
+            getStatus().setHqaValue((byte)((Math.random() * 40) + 1));
         } else if(levelValue == 2) {
-            getStatus().setHqaValue((byte)((Math.random() * 41) + 9));
+            getStatus().setHqaValue((byte)((Math.random() * 40) + 9));
         } else if(levelValue == 3) {
-            getStatus().setHqaValue((byte)((Math.random() * 41) + 17));
+            getStatus().setHqaValue((byte)((Math.random() * 40) + 17));
         } else if(levelValue == 4) {
-            getStatus().setHqaValue((byte)((Math.random() * 41) + 25));
+            getStatus().setHqaValue((byte)((Math.random() * 40) + 25));
         } else if(levelValue == 5) {
-            getStatus().setHqaValue((byte)((Math.random() * 41) + 33));
+            getStatus().setHqaValue((byte)((Math.random() * 40) + 33));
         }
     }
 
     private void Randomize() {
-        getStatus().setMGValue((byte)((Math.random() * 4) + 1));
+        getStatus().setMGValue((byte)((Math.random() * 8) + 1));
         getStatus().setCollectibles((short)(getStatus().getCollectibles() + 1));
         getStatus().setScore(getStatus().getScore() + COLLECTIBLE_POINTS);
-
-        if (getStatus().getCurrentWorld() == 1) {
-            LoadEasy(getStatus().getCurrentLevel());
-        } else if (getStatus().getCurrentWorld() == 2) {
-            LoadHard(getStatus().getCurrentLevel());
-        }
+        LoadEasy(getStatus().getCurrentLevel());
+        LoadHard(getStatus().getCurrentLevel());
     }
 
     private void doIfDead() {
         if (getStatus().getLives() > 0) {
-            getStatus().setLives((byte)(getStatus().getLives() - 1));
+            getStatus().setLives((byte) (getStatus().getLives() - 1));
         }
     }
 

@@ -10,6 +10,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Timer;
 import com.mygdx.fuegopeligro.ai.msg.MessageType;
 import com.mygdx.fuegopeligro.map.LevelFactory;
 import com.mygdx.fuegopeligro.player.CurrentPlayerStatus;
@@ -52,8 +53,41 @@ public class FuegoPeligro extends Game implements Telegraph {
         assetsManager.load(Assets.GAME_UI_SKIN);
         assetsManager.load(Assets.MENU_BG);
         assetsManager.load(Assets.DIRECTIONAL_PAD);
+        assetsManager.load(Assets.SPLASH_IMAGE);
+        assetsManager.load(Assets.SPLASH_IMAGE_2);
+        assetsManager.load(Assets.MENU_BACKGROUND);
         assetsManager.finishLoading();
-        setScreen(new TitleScreen(this));
+        setScreen(new SplashScreen_1(FuegoPeligro.this));
+        final long splash_start_time = System.currentTimeMillis();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Gdx.app.postRunnable(new Runnable() {
+                    @Override
+                    public void run() {
+                        long splash_elapsed_time = System.currentTimeMillis() - splash_start_time;
+                        if(splash_elapsed_time < 2000L) {
+                            Timer.schedule(new Timer.Task() {
+                                @Override
+                                public void run() {
+                                    setScreen(new SplashScreen_2(FuegoPeligro.this));
+                                    if(splash_elapsed_time < 1000L) {
+                                        Timer.schedule(new Timer.Task() {
+                                            @Override
+                                            public void run() {
+                                                setScreen(new TitleScreen(FuegoPeligro.this));
+                                            }
+                                        }, (float) (2000L - splash_elapsed_time) / 700f);
+                                    } else {
+                                        FuegoPeligro.this.setScreen(new TitleScreen(FuegoPeligro.this));
+                                    }
+                                }
+                            }, (float) (2000L - splash_elapsed_time) / 700f);
+                        }
+                    }
+                });
+            }
+        }).start();
     }
 
     AppPreferences getPreferences() {
@@ -73,6 +107,7 @@ public class FuegoPeligro extends Game implements Telegraph {
         super.dispose();
         assetsManager.dispose();
         batch.dispose();
+        getScreen().dispose();
     }
 
     /**

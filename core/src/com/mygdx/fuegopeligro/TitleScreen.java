@@ -158,7 +158,6 @@ public class TitleScreen extends AbstractScreen {
         table.add(exitIcon);
         table.add(exitButton).expand(true, true).center().row();
         table.setFillParent(true);
-        table.setDebug(true);
 
         table.addListener(new InputListener() {
             @Override

@@ -1,29 +1,27 @@
 package com.mygdx.fuegopeligro.graphics.minigames;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.fuegopeligro.Assets;
-import com.mygdx.fuegopeligro.FuegoPeligro;
-import com.mygdx.fuegopeligro.player.CurrentPlayerStatus;
 
-public class Wordscapes implements Disposable {
+public class Wordscapes implements Disposable, Screen {
     private static final String QUESTION_LABEL = "CHECKPOINT: WORDSCAPES";
     private static final String HINT_ANSWER = "HINT";
 
-    public final Stage stage;
-    private final TextButton enterHints;
-    private final Table table;
+    public Stage stage;
+    public TextButton enterHints;
+    public Table table;
 
     public Label questionText;
     public TextButton answer1;
@@ -31,9 +29,8 @@ public class Wordscapes implements Disposable {
     public TextButton answer3;
     public TextButton answer4;
 
-    public Wordscapes(final AssetManager assets, final FuegoPeligro game,
-                           CurrentPlayerStatus status) {
-        stage = new Stage(new ScreenViewport(), game.getBatch());
+    public Wordscapes(final AssetManager assets, final Batch batch) {
+        stage = new Stage(new ScreenViewport(), batch);
 
         Label.LabelStyle style = new Label.LabelStyle();
         AssetManager assetManager = new AssetManager();
@@ -49,55 +46,22 @@ public class Wordscapes implements Disposable {
         style.font = assets.get(Assets.HUD_FONT);
         questionText = new Label(null, style);
 
+        // Buttons
         answer1 = new TextButton(null, skin);
-        answer1.addListener(new ClickListener() {
-            @Override
-            public void clicked(final InputEvent event, final float x, final float y) {
-
-            }
-        });
-
         answer2 = new TextButton(null, skin);
-        answer2.addListener(new ClickListener() {
-            @Override
-            public void clicked(final InputEvent event, final float x, final float y) {
-
-            }
-        });
-
         answer3 = new TextButton(null, skin);
-        answer3.addListener(new ClickListener() {
-            @Override
-            public void clicked(final InputEvent event, final float x, final float y) {
-
-            }
-        });
-
         answer4 = new TextButton(null, skin);
-        answer4.addListener(new ClickListener() {
-            @Override
-            public void clicked(final InputEvent event, final float x, final float y) {
-
-            }
-        });
 
         // enter hints
         enterHints = new TextButton(HINT_ANSWER, skin);
-        enterHints.addListener(new ClickListener() {
-            @Override
-            public void clicked(final InputEvent event, final float x, final float y) {
-
-            }
-        });
 
         table = new Table();
-        table.setVisible(true);
         table.setFillParent(true);
-        table.setDebug(true);
+        table.setVisible(true);
 
         table.add(questionLabel).expand(true, false).center();
         table.row().pad(20, 0, 0, 10);
-        table.add(questionText).expand(true, false);
+        table.add(questionText).expand(true, false).center();
         table.row().pad(10, 0, 0, 20);
         table.add(answer1).expand(true, false);
         table.add(answer2).expand(true, false);
@@ -111,6 +75,12 @@ public class Wordscapes implements Disposable {
         stage.setKeyboardFocus(table);
     }
 
+    @Override
+    public void show() {
+        table.setVisible(true);
+    }
+
+    @Override
     public void render(final float delta) {
         Gdx.gl20.glEnable(GL20.GL_BLEND);
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
@@ -122,14 +92,28 @@ public class Wordscapes implements Disposable {
         stage.getBatch().begin();
     }
 
-    public void resize(final int width, final int height) { stage.getViewport().update(width, height); }
+    @Override
+    public void resize(final int width, final int height) {
+        stage.getViewport().update(width, height);
+    }
+
+    @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
+    public void hide() {
+        table.setVisible(false);
+    }
 
     @Override
     public void dispose() {
         stage.dispose();
-    }
-
-    public void setVisible(boolean value) {
-        table.setVisible(value);
     }
 }

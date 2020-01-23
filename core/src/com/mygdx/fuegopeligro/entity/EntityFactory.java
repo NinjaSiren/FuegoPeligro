@@ -116,7 +116,7 @@ public final class EntityFactory {
             Controllers.clearListeners();
             Controllers.addListener(new FiremanControllerProcessor(fireman));
         } else {
-            Gdx.input.setInputProcessor(new FiremanInputProcessor(fireman));
+            Gdx.input.setInputProcessor(new FiremanInputProcessor(fireman, game.getBatch(), assets).getIm());
         }
         return fireman;
     }
@@ -132,12 +132,13 @@ public final class EntityFactory {
      * @param observers
      * @return A newly created {@link Environment}.
      */
-    public static Entity createEnvironment(final FuegoPeligro game, final World world, final Batch batch, final LevelRenderer renderer, final AssetManager assets,
+    public static Entity createEnvironment(final FuegoPeligro game, final World world, final Batch batch,
+                                           final LevelRenderer renderer, final AssetManager assets,
                                            final CurrentPlayerStatus status, final PlayerStatusObserver... observers) {
         PhysicsProcessor physics = new LevelPhysicsProcessor(world, renderer.getTiledMap(), renderer.getUnitScale());
         CONTACT_LISTENER.add(physics);
         world.setContactListener(CONTACT_LISTENER);
-        GraphicsProcessor graphics = new LevelGraphicsProcessor(assets, renderer, game, fireman, status);
+        GraphicsProcessor graphics = new LevelGraphicsProcessor(assets, renderer, game, fireman, status, batch);
         AudioProcessor audio = new LevelAudioProcessor(assets, renderer.getTiledMap().getProperties());
         PlayerStatusProcessor player = new LevelPlayerStatusProcessor(status);
         if (observers != null) {

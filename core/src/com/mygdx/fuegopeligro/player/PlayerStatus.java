@@ -6,7 +6,7 @@ package com.mygdx.fuegopeligro.player;
  * @author JDEsguerra
  */
 public interface PlayerStatus {
-    short DEFAULT_TIME = 400;
+    short DEFAULT_TIME = 600;
     byte DEFAULT_LIVES = 3;
     byte DEFAULT_WORLD = 1;
     byte DEFAULT_LEVEL = 1;

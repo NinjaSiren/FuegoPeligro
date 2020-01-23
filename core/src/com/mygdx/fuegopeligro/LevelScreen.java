@@ -2,9 +2,13 @@ package com.mygdx.fuegopeligro;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ai.msg.MessageManager;
+import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.mygdx.fuegopeligro.ai.msg.MessageType;
 import com.mygdx.fuegopeligro.entity.Entity;
 import com.mygdx.fuegopeligro.entity.EntityFactory;
 import com.mygdx.fuegopeligro.graphics.BoundedCamera;
@@ -18,6 +22,7 @@ import com.mygdx.fuegopeligro.player.PlayerStatusObserver;
  * @author JDEsguerra
  */
 public class LevelScreen extends AbstractScreen {
+    private Telegram msg;
     private static final float GRAVITY = -9.8f;
     private static final String BODIES_DEFINITION_FILE = "bodies.json";
 
@@ -34,9 +39,17 @@ public class LevelScreen extends AbstractScreen {
 
     public LevelScreen(final FuegoPeligro game) {
         super(game);
+        msg = new Telegram();
         world = new World(new Vector2(0.0f, GRAVITY), true);
         BodyEditorLoader bodyLoader = new BodyEditorLoader(Gdx.files.internal(BODIES_DEFINITION_FILE));
         hud = new StatusBar(game.getBatch(), game.getAssetsManager());
+        hud.getPause().addListener(new ClickListener() {
+            @Override
+            public void clicked(final InputEvent event, final float x, final float y) {
+                msg.message = MessageType.BACK_TO_MENU.code();
+                game.handleMessage(msg);
+            }
+        });
         ninjaRabbit = EntityFactory.createNinjaRabbit(game, world, bodyLoader, game.getAssetsManager(), game.getPlayerStatus(), hud);
         LevelRenderer mapRenderer = LevelFactory.create(world, bodyLoader, game.getBatch(), game.getAssetsManager(), game.getPlayerStatus()
                         .getWorld(), game.getPlayerStatus().getLevel(),
