@@ -1,5 +1,6 @@
 package com.mygdx.fuegopeligro.graphics.hud;
 
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -9,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.fuegopeligro.Assets;
 import com.mygdx.fuegopeligro.player.PlayerStatus;
@@ -23,7 +25,7 @@ import com.mygdx.fuegopeligro.player.PlayerStatusObserver;
  *
  * @author JDEsguerra
  */
-public class StatusBar implements PlayerStatusObserver {
+public class StatusBar implements PlayerStatusObserver, InputProcessor {
     private static final String THREE_DIGITS = "%03d";
     private static final String EIGHT_DIGITS = "%08d";
     private static final String TWO_DIGITS = "%02d";
@@ -40,6 +42,7 @@ public class StatusBar implements PlayerStatusObserver {
     private final Label miniGame;
     private final Label easyQA;
     private final Label hardQA;
+    private final TextButton pause;
 
     public StatusBar(final Batch batch, final AssetManager assets) {
         overlay = new Stage(new ScreenViewport(), batch);
@@ -58,6 +61,8 @@ public class StatusBar implements PlayerStatusObserver {
         easyQA = new Label(String.format(TWO_DIGITS, 0), style);
         hardQA = new Label(String.format(TWO_DIGITS, 0), style);
 
+        pause = new TextButton("||", skin);
+
         TextureAtlas hudAtlas = assets.get(Assets.NINJA_RABBIT_ATLAS);
 
         Table table = new Table();
@@ -71,6 +76,7 @@ public class StatusBar implements PlayerStatusObserver {
         table.add(scoreLabel).expandX();
         table.add(new Image(hudAtlas.findRegion(TIME_REGION))).padRight(12.0f);
         table.add(timeLabel);
+        table.add(pause);
         table.setFillParent(true);
         table.top();
         table.pad(15.0f);
@@ -100,5 +106,49 @@ public class StatusBar implements PlayerStatusObserver {
 
     public void dispose() {
         overlay.dispose();
+    }
+
+    public TextButton getPause() { return pause; }
+
+    public Stage getOverlay() { return overlay; }
+
+    @Override
+    public boolean keyDown(int keycode) {
+        return false;
+    }
+
+    @Override
+    public boolean keyUp(int keycode) {
+        return false;
+    }
+
+    @Override
+    public boolean keyTyped(char character) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDragged(int screenX, int screenY, int pointer) {
+        return false;
+    }
+
+    @Override
+    public boolean mouseMoved(int screenX, int screenY) {
+        return false;
+    }
+
+    @Override
+    public boolean scrolled(int amount) {
+        return false;
     }
 }

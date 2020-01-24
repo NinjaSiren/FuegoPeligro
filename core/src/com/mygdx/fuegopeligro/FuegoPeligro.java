@@ -10,8 +10,8 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Timer;
 import com.mygdx.fuegopeligro.ai.msg.MessageType;
-import com.mygdx.fuegopeligro.map.LevelFactory;
 import com.mygdx.fuegopeligro.player.CurrentPlayerStatus;
 import com.mygdx.fuegopeligro.player.PlayerStatus;
 
@@ -20,7 +20,7 @@ import com.mygdx.fuegopeligro.player.PlayerStatus;
  */
 public class FuegoPeligro extends Game implements Telegraph {
     public static final float PPM = 92.0f;
-    private static final String GAME_TITLE = "Fuego Peligro Alpha v0.2 test [fps: %s]";
+    private static final String GAME_TITLE = "Fuego Peligro Beta v0.7 test [fps: %s]";
     /**
      * The state of the current player. Placed here for convenient use and access.
      */
@@ -52,8 +52,41 @@ public class FuegoPeligro extends Game implements Telegraph {
         assetsManager.load(Assets.GAME_UI_SKIN);
         assetsManager.load(Assets.MENU_BG);
         assetsManager.load(Assets.DIRECTIONAL_PAD);
+        assetsManager.load(Assets.SPLASH_IMAGE);
+        assetsManager.load(Assets.SPLASH_IMAGE_2);
+        assetsManager.load(Assets.MENU_BACKGROUND);
         assetsManager.finishLoading();
-        setScreen(new TitleScreen(this));
+        setScreen(new SplashScreen_1(FuegoPeligro.this));
+        final long splash_start_time = System.currentTimeMillis();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Gdx.app.postRunnable(new Runnable() {
+                    @Override
+                    public void run() {
+                        long splash_elapsed_time = System.currentTimeMillis() - splash_start_time;
+                        if(splash_elapsed_time < 3000L) {
+                            Timer.schedule(new Timer.Task() {
+                                @Override
+                                public void run() {
+                                    setScreen(new SplashScreen_2(FuegoPeligro.this));
+                                    if(splash_elapsed_time < 2000L) {
+                                        Timer.schedule(new Timer.Task() {
+                                            @Override
+                                            public void run() {
+                                                setScreen(new TitleScreen(FuegoPeligro.this));
+                                            }
+                                        }, (float) (3000L - splash_elapsed_time) / 2000f);
+                                    } else {
+                                        FuegoPeligro.this.setScreen(new TitleScreen(FuegoPeligro.this));
+                                    }
+                                }
+                            }, (float) (3000L - splash_elapsed_time) / 2000f);
+                        }
+                    }
+                });
+            }
+        }).start();
     }
 
     AppPreferences getPreferences() {
@@ -73,6 +106,7 @@ public class FuegoPeligro extends Game implements Telegraph {
         super.dispose();
         assetsManager.dispose();
         batch.dispose();
+        getScreen().dispose();
     }
 
     /**
@@ -90,7 +124,18 @@ public class FuegoPeligro extends Game implements Telegraph {
      */
     private void resetLevel() {
         addListeners();
-        setScreen(new LevelStartScreen(this));
+        status.setCurrentLevel(1);
+        status.setCurrentWorld(1);
+    }
+
+    /**
+     * Disposes of the current {@link Screen} and replaces it with a new {@link LevelStartScreen}.
+     */
+    public void setLevel(int worldNumber, int levelNumber) {
+        addListeners();
+        status.setCurrentWorld(worldNumber);
+        status.setCurrentLevel(levelNumber);
+        setScreen(new LevelStartScreen(this, worldNumber, levelNumber));
     }
 
     /**
@@ -101,8 +146,7 @@ public class FuegoPeligro extends Game implements Telegraph {
         status.levelEndOver();
         int levelNumber = getPlayerStatus().getLevel();
         int worldNumber = getPlayerStatus().getWorld();
-        LevelFactory.LEVEL_MAP_FILE = String.format("map/level.%s.%s.tmx", worldNumber, levelNumber);
-        setScreen(new LevelStartScreen(this));
+        setScreen(new LevelStartScreen(this, worldNumber, levelNumber));
     }
 
     /**
@@ -111,7 +155,7 @@ public class FuegoPeligro extends Game implements Telegraph {
     private void newGame() {
         addListeners();
         status.reset();
-        setScreen(new LevelStartScreen(this));
+        setScreen(new LevelStartScreen(this, 1, 1));
     }
 
     /**
@@ -128,8 +172,7 @@ public class FuegoPeligro extends Game implements Telegraph {
         status.resetGameOver();
         int levelNumber = getPlayerStatus().getCurrentLevel();
         int worldNumber = getPlayerStatus().getCurrentWorld();
-        LevelFactory.LEVEL_MAP_FILE = String.format("map/level.%s.%s.tmx", levelNumber, worldNumber);
-        setScreen(new LevelStartScreen(this));
+        setScreen(new LevelStartScreen(this, worldNumber, levelNumber));
     }
 
     private void preferenceS() {
@@ -155,7 +198,8 @@ public class FuegoPeligro extends Game implements Telegraph {
         manager.clear();
         manager.addListeners(this, MessageType.RESET_PLAYER_STATUS.code(),
                 MessageType.RESET_CURRENT_LEVEL.code(), MessageType.LOAD_NEXT_LEVEL.code(),
-                MessageType.LOAD_NEW_GAME.code(), MessageType.BACK_TO_MENU.code());
+                MessageType.LOAD_NEW_GAME.code(), MessageType.BACK_TO_MENU.code(),
+                MessageType.SET_LEVEL.code());
     }
 
     AssetManager getAssetsManager() {

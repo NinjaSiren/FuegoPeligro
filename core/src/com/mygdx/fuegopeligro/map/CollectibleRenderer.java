@@ -20,7 +20,7 @@ import com.mygdx.fuegopeligro.entity.Entity;
 import com.mygdx.fuegopeligro.entity.EntityFactory;
 import com.mygdx.fuegopeligro.physics.BodyEditorLoader;
 import com.mygdx.fuegopeligro.physics.BodyFactory;
-import com.mygdx.fuegopeligro.physics.CarrotBodyFactory;
+import com.mygdx.fuegopeligro.physics.CheckpointBodyFactory;
 
 /**
  * @author JDEsguerra
@@ -38,7 +38,7 @@ public class CollectibleRenderer implements Telegraph {
 
     public CollectibleRenderer(final float unitScale) {
         this.collectibles = new Array<Entity>();
-        this.removed = new ObjectSet<Entity>(16);
+        this.removed = new ObjectSet<Entity>(64);
         this.unitScale = unitScale;
         MessageManager.getInstance().addListener(this, MessageType.COLLECTED.code());
     }
@@ -65,7 +65,7 @@ public class CollectibleRenderer implements Telegraph {
             Entity entity = null;
 
             if (CARROT_TYPE.equals(mo.getProperties().get(TYPE_PROPERTY, CARROT_TYPE, String.class))) {
-                bodyFactory = new CarrotBodyFactory(loader);
+                bodyFactory = new CheckpointBodyFactory(loader);
                 entity = EntityFactory.createCollectible(world, assets);
             } else {
                 throw new IllegalArgumentException("Unknown collectible type {"

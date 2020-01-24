@@ -43,7 +43,8 @@ public class LevelRenderer {
     public void render(final OrthographicCamera camera) {
         float width = 1.12f * camera.viewportWidth * camera.zoom;
         float height = camera.viewportHeight * camera.zoom;
-        renderer.setView(camera.combined, camera.position.x - width / 2, camera.position.y - height / 2, width, height);
+        renderer.setView(camera.combined, camera.position.x - width / 2,
+                camera.position.y - height / 2, width, height);
         renderer.render();
     }
 

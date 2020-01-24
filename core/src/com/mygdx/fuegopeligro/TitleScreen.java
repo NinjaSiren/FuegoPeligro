@@ -35,6 +35,7 @@ public class TitleScreen extends AbstractScreen {
 
     private final Stage stage;
     private final Telegram msg;
+    private final float x1, y1;
 
     TitleScreen(final FuegoPeligro game) {
         super(game);
@@ -64,13 +65,18 @@ public class TitleScreen extends AbstractScreen {
 
         TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
         buttonStyle.font = game.getAssetsManager().get(Assets.HUD_FONT);
+        x1 = buttonStyle.font.getData().scaleX;
+        y1 = buttonStyle.font.getData().scaleY;
+        buttonStyle.font.getData().setScale(stage.getWidth() / 512);
 
         TextButton beginButton = new TextButton(BEGIN_OPTION, buttonStyle);
+        beginButton.setSize(stage.getWidth() / 4, stage.getHeight() / 4);
         beginButton.addListener(new ClickListener() {
             @Override
             public void clicked(final InputEvent event, final float x, final float y) {
                 msg.message = MessageType.LEVEL_SELECTION.code();
                 game.handleMessage(msg);
+                buttonStyle.font.getData().setScale(x1, y1);
             }
 
             @Override
@@ -84,11 +90,13 @@ public class TitleScreen extends AbstractScreen {
         });
 
         TextButton returnButton = new TextButton(RETURN_OPTION, buttonStyle);
+        returnButton.setSize(stage.getWidth() / 4, stage.getHeight() / 4);
         returnButton.addListener(new ClickListener() {
             @Override
             public void clicked(final InputEvent event, final float x, final float y) {
                 msg.message = MessageType.LOAD_CURRENT_GAME.code();
                 game.handleMessage(msg);
+                buttonStyle.font.getData().setScale(x1, y1);
             }
 
             @Override
@@ -102,11 +110,13 @@ public class TitleScreen extends AbstractScreen {
         });
 
         TextButton prefsButton = new TextButton(PREFS_OPTION, buttonStyle);
+        prefsButton.setSize(stage.getWidth() / 4, stage.getHeight() / 4);
         prefsButton.addListener(new ClickListener() {
             @Override
             public void clicked(final InputEvent event, final float x, final float y) {
                 msg.message = MessageType.PREFERENCES_SCREEN.code();
                 game.handleMessage(msg);
+                buttonStyle.font.getData().setScale(x1, y1);
             }
 
             @Override
@@ -120,10 +130,12 @@ public class TitleScreen extends AbstractScreen {
         });
 
         TextButton exitButton = new TextButton(EXIT_OPTION, buttonStyle);
+        exitButton.setSize(stage.getWidth() / 4, stage.getHeight() / 4);
         exitButton.addListener(new ClickListener() {
             @Override
             public void clicked(final InputEvent event, final float x, final float y) {
                 Gdx.app.exit();
+                buttonStyle.font.getData().setScale(x1, y1);
             }
 
             @Override
@@ -138,13 +150,13 @@ public class TitleScreen extends AbstractScreen {
 
         table.setBackground(new TextureRegionDrawable(new TextureRegion(new Texture("menubg.png"))));
         table.add(beginIcon);
-        table.add(beginButton).right().row();
+        table.add(beginButton).expand(true, true).center().row();
         table.add(returnIcon);
-        table.add(returnButton).right().row();
+        table.add(returnButton).expand(true, true).center().row();
         table.add(prefsIcon);
-        table.add(prefsButton).right().row();
+        table.add(prefsButton).expand(true, true).center().row();
         table.add(exitIcon);
-        table.add(exitButton).right().row();
+        table.add(exitButton).expand(true, true).center().row();
         table.setFillParent(true);
 
         table.addListener(new InputListener() {

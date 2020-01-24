@@ -9,7 +9,7 @@ import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
-import com.mygdx.fuegopeligro.ai.fsm.NinjaRabbitState;
+import com.mygdx.fuegopeligro.ai.fsm.FiremanState;
 import com.mygdx.fuegopeligro.ai.msg.MessageType;
 import com.mygdx.fuegopeligro.entity.Entity;
 
@@ -52,12 +52,12 @@ public class LevelPhysicsProcessor implements PhysicsProcessor {
             if (EXIT_IDENTIFIER.equals(contact.getFixtureA().getUserData())) {
                 Entity character = (Entity) contact.getFixtureB().getBody().getUserData();
                 MessageManager.getInstance().dispatchMessage(null, MessageType.EXIT.code(), character);
-                character.changeState(NinjaRabbitState.JUMP);
+                character.changeState(FiremanState.JUMP);
                 exitSignaled = true;
             } else if (EXIT_IDENTIFIER.equals(contact.getFixtureB().getUserData())) {
                 Entity character = (Entity) contact.getFixtureA().getBody().getUserData();
                 MessageManager.getInstance().dispatchMessage(null, MessageType.EXIT.code(), character);
-                character.changeState(NinjaRabbitState.JUMP);
+                character.changeState(FiremanState.JUMP);
                 exitSignaled = true;
             }
         }

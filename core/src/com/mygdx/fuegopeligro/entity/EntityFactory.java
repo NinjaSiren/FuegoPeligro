@@ -4,42 +4,36 @@
 package com.mygdx.fuegopeligro.entity;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.controllers.mappings.Ouya;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.fuegopeligro.FuegoPeligro;
 import com.mygdx.fuegopeligro.audio.AudioProcessor;
-import com.mygdx.fuegopeligro.audio.CarrotAudioProcessor;
+import com.mygdx.fuegopeligro.audio.CheckpointAudioProcessor;
+import com.mygdx.fuegopeligro.audio.FiremanAudioProcessor;
 import com.mygdx.fuegopeligro.audio.LevelAudioProcessor;
-import com.mygdx.fuegopeligro.audio.NinjaRabbitAudioProcessor;
-import com.mygdx.fuegopeligro.graphics.CarrotGraphicsProcessor;
+import com.mygdx.fuegopeligro.graphics.CheckpointGraphicsProcessor;
+import com.mygdx.fuegopeligro.graphics.FiremanGraphicsProcessor;
 import com.mygdx.fuegopeligro.graphics.GraphicsProcessor;
 import com.mygdx.fuegopeligro.graphics.LevelGraphicsProcessor;
-import com.mygdx.fuegopeligro.graphics.NinjaRabbitGraphicsProcessor;
-import com.mygdx.fuegopeligro.input.NinjaRabbitControllerProcessor;
-import com.mygdx.fuegopeligro.input.NinjaRabbitInputProcessor;
+import com.mygdx.fuegopeligro.input.FiremanControllerProcessor;
+import com.mygdx.fuegopeligro.input.FiremanInputProcessor;
 import com.mygdx.fuegopeligro.map.LevelRenderer;
-import com.mygdx.fuegopeligro.minigames.FourPicsOneWord;
-import com.mygdx.fuegopeligro.minigames.LetterPuzzle;
-import com.mygdx.fuegopeligro.minigames.MultipleChoice;
-import com.mygdx.fuegopeligro.minigames.Wordscapes;
 import com.mygdx.fuegopeligro.physics.BodyEditorLoader;
 import com.mygdx.fuegopeligro.physics.BodyProcessor;
-import com.mygdx.fuegopeligro.physics.CarrotPhysicsProcessor;
+import com.mygdx.fuegopeligro.physics.CheckpointPhysicsProcessor;
 import com.mygdx.fuegopeligro.physics.ContactListenerMultiplexer;
+import com.mygdx.fuegopeligro.physics.FiremanBodyProcessor;
+import com.mygdx.fuegopeligro.physics.FiremanPhysicsProcessor;
 import com.mygdx.fuegopeligro.physics.LevelPhysicsProcessor;
-import com.mygdx.fuegopeligro.physics.NinjaRabbitBodyProcessor;
-import com.mygdx.fuegopeligro.physics.NinjaRabbitPhysicsProcessor;
 import com.mygdx.fuegopeligro.physics.PhysicsProcessor;
 import com.mygdx.fuegopeligro.player.CurrentPlayerStatus;
+import com.mygdx.fuegopeligro.player.FiremanPlayerStatusProcessor;
 import com.mygdx.fuegopeligro.player.LevelPlayerStatusProcessor;
-import com.mygdx.fuegopeligro.player.NinjaRabbitPlayerStatusProcessor;
 import com.mygdx.fuegopeligro.player.PlayerStatusObserver;
 import com.mygdx.fuegopeligro.player.PlayerStatusProcessor;
 
@@ -71,31 +65,31 @@ public final class EntityFactory {
      * @return A ready to use instance of a new {@link Collectible}.
      */
     public static Entity createCollectible(final World world, final AssetManager assets) {
-        PhysicsProcessor physics = new CarrotPhysicsProcessor();
+        PhysicsProcessor physics = new CheckpointPhysicsProcessor();
         CONTACT_LISTENER.add(physics);
         world.setContactListener(CONTACT_LISTENER);
-        GraphicsProcessor graphics = new CarrotGraphicsProcessor(assets);
-        AudioProcessor audio = new CarrotAudioProcessor(assets);
+        GraphicsProcessor graphics = new CheckpointGraphicsProcessor(assets);
+        AudioProcessor audio = new CheckpointAudioProcessor(assets);
         return new Collectible(graphics, physics, audio);
     }
 
-    private static NinjaRabbit ninjaRabbit;
+    private static Fireman fireman;
     public static Entity createNinjaRabbit(final FuegoPeligro game, final World world, final BodyEditorLoader loader, final AssetManager assets,
                                            final CurrentPlayerStatus status, final PlayerStatusObserver... observers) {
-        PhysicsProcessor physics = new NinjaRabbitPhysicsProcessor();
+        PhysicsProcessor physics = new FiremanPhysicsProcessor();
         CONTACT_LISTENER.add(physics);
         world.setContactListener(CONTACT_LISTENER);
-        GraphicsProcessor graphics = new NinjaRabbitGraphicsProcessor(assets);
-        BodyProcessor bodyProcessor = new NinjaRabbitBodyProcessor(world, loader);
-        AudioProcessor audio = new NinjaRabbitAudioProcessor(assets);
-        PlayerStatusProcessor player = new NinjaRabbitPlayerStatusProcessor(status);
+        GraphicsProcessor graphics = new FiremanGraphicsProcessor(assets);
+        BodyProcessor bodyProcessor = new FiremanBodyProcessor(world, loader);
+        AudioProcessor audio = new FiremanAudioProcessor(assets);
+        PlayerStatusProcessor player = new FiremanPlayerStatusProcessor(status);
         if (observers != null) {
             for (PlayerStatusObserver o : observers) {
                 player.addObserver(o);
             }
         }
         /**
-         * Creates a new instance of {@link NinjaRabbit}, defining its graphical, audio and physical
+         * Creates a new instance of {@link Fireman}, defining its graphical, audio and physical
          * properties.
          *
          * @param world
@@ -113,23 +107,17 @@ public final class EntityFactory {
          * @param observers
          *            An array of event receivers. Events will fire when the active player status
          *            changes (such as losing lives, collecting items, etc.).
-         * @return A ready to use instance of a new {@link NinjaRabbit}.
+         * @return A ready to use instance of a new {@link Fireman}.
          */
-        ninjaRabbit = new NinjaRabbit(player, bodyProcessor, graphics, physics, audio);
+        fireman = new Fireman(player, bodyProcessor, graphics, physics, audio);
 
         if (Ouya.isRunningOnOuya()) {
             Controllers.clearListeners();
-            Controllers.addListener(new NinjaRabbitControllerProcessor(ninjaRabbit));
+            Controllers.addListener(new FiremanControllerProcessor(fireman));
         } else {
-            InputMultiplexer inputMultiplexer = new InputMultiplexer();
-            inputMultiplexer.addProcessor(new NinjaRabbitInputProcessor(ninjaRabbit));
-            inputMultiplexer.addProcessor(new FourPicsOneWord(assets, game, ninjaRabbit).stage);
-            inputMultiplexer.addProcessor(new LetterPuzzle(assets, game, ninjaRabbit).stage);
-            inputMultiplexer.addProcessor(new MultipleChoice(assets, game, ninjaRabbit).stage);
-            inputMultiplexer.addProcessor(new Wordscapes(assets, game, ninjaRabbit).stage);
-            Gdx.input.setInputProcessor(inputMultiplexer);
+            Gdx.input.setInputProcessor(new FiremanInputProcessor(fireman, game, assets));
         }
-        return ninjaRabbit;
+        return fireman;
     }
 
     /**
@@ -137,18 +125,18 @@ public final class EntityFactory {
      * and audio attributes.
      *
      * @param world
-     * @param batch
      * @param renderer
      * @param assets
      * @param observers
      * @return A newly created {@link Environment}.
      */
-    public static Entity createEnvironment(final FuegoPeligro game, final World world, final Batch batch, final LevelRenderer renderer, final AssetManager assets,
+    public static Entity createEnvironment(final FuegoPeligro game, final World world,
+                                           final LevelRenderer renderer, final AssetManager assets,
                                            final CurrentPlayerStatus status, final PlayerStatusObserver... observers) {
         PhysicsProcessor physics = new LevelPhysicsProcessor(world, renderer.getTiledMap(), renderer.getUnitScale());
         CONTACT_LISTENER.add(physics);
         world.setContactListener(CONTACT_LISTENER);
-        GraphicsProcessor graphics = new LevelGraphicsProcessor(assets, renderer, game, ninjaRabbit, status);
+        GraphicsProcessor graphics = new LevelGraphicsProcessor(assets, renderer, game, fireman, status);
         AudioProcessor audio = new LevelAudioProcessor(assets, renderer.getTiledMap().getProperties());
         PlayerStatusProcessor player = new LevelPlayerStatusProcessor(status);
         if (observers != null) {

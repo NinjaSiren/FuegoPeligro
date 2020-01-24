@@ -6,7 +6,6 @@ import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -36,8 +35,8 @@ public class GameOverOverlay implements Disposable {
     private final ShapeRenderer overlay;
     private final Telegram msg;
 
-    public GameOverOverlay(final Batch batch, final AssetManager assets, final FuegoPeligro game) {
-        stage = new Stage(new ScreenViewport(), batch);
+    public GameOverOverlay(final AssetManager assets, final FuegoPeligro game) {
+        stage = new Stage(new ScreenViewport(), game.getBatch());
         msg = new Telegram();
 
         Label.LabelStyle style = new Label.LabelStyle();

@@ -17,12 +17,12 @@ public final class CurrentPlayerStatus implements PlayerStatus, Poolable {
     /**
      * How many collectibles have the player gathered.
      */
-    private short collectibles;
+    private int collectibles;
 
     /**
      * How many lives are left for the left.
      */
-    private short lives;
+    private int lives;
 
     /**
      * The current score points.
@@ -32,38 +32,35 @@ public final class CurrentPlayerStatus implements PlayerStatus, Poolable {
     /**
      * Remaining time to complete the level (in seconds).
      */
-    private short time;
+    private int time;
 
     /**
      * Current level number relative to the world.
      */
-    private byte level;
+    private int level;
 
     /**
      * The current world number.
      */
-    private byte world;
+    private int world;
 
 
-    private byte currentWorld;
+    private int currentWorld;
 
 
-    private byte currentLevel;
+    private int currentLevel;
 
 
-    private short mgValue;
+    private int mgValue;
 
 
-    private short eqaValue;
+    private int eqaValue;
 
 
-    private short hqaValue;
+    private int hqaValue;
 
 
-    private long goResetCounter;
-
-
-    private int moveValue;
+    private int goResetCounter;
 
 
     public CurrentPlayerStatus() {
@@ -77,7 +74,6 @@ public final class CurrentPlayerStatus implements PlayerStatus, Poolable {
         eqaValue = CURRENT_EQA;
         hqaValue = CURRENT_HQA;
         goResetCounter = CURRENT_RECOUNT;
-        moveValue = CURRENT_MOVEVALUE;
     }
 
     /*
@@ -86,11 +82,11 @@ public final class CurrentPlayerStatus implements PlayerStatus, Poolable {
      * @see com.mygdx.fuegopeligro.player.PlayerStatus#getCollectibles()
      */
     @Override
-    public short getCollectibles() {
+    public int getCollectibles() {
         return collectibles;
     }
 
-    protected void setCollectibles(final short collectibles) {
+    public void setCollectibles(int collectibles) {
         this.collectibles = collectibles;
     }
 
@@ -100,13 +96,14 @@ public final class CurrentPlayerStatus implements PlayerStatus, Poolable {
      * @see com.mygdx.fuegopeligro.player.PlayerStatus#getLives()
      */
     @Override
-    public short getLives() {
+    public int getLives() {
         return lives;
     }
 
-    protected void setLives(final short lives) {
+    public void setLives(int lives) {
         this.lives = lives;
     }
+
 
     /*
      * (non-Javadoc)
@@ -118,7 +115,7 @@ public final class CurrentPlayerStatus implements PlayerStatus, Poolable {
         return score;
     }
 
-    protected void setScore(final int score) {
+    public void setScore(int score) {
         this.score = score;
     }
 
@@ -128,11 +125,11 @@ public final class CurrentPlayerStatus implements PlayerStatus, Poolable {
      * @see com.mygdx.fuegopeligro.player.PlayerStatus#getTime()
      */
     @Override
-    public short getTime() {
+    public int getTime() {
         return time;
     }
 
-    protected void setTime(final short time) {
+    public void setTime(int time) {
         this.time = time;
     }
 
@@ -142,11 +139,11 @@ public final class CurrentPlayerStatus implements PlayerStatus, Poolable {
      * @see com.mygdx.fuegopeligro.player.PlayerStatus#getLevel()
      */
     @Override
-    public byte getLevel() {
+    public int getLevel() {
         return level;
     }
 
-    protected void setLevel(final byte level) {
+    public void setLevel(int level) {
         this.level = level;
     }
 
@@ -156,11 +153,11 @@ public final class CurrentPlayerStatus implements PlayerStatus, Poolable {
      * @see com.mygdx.fuegopeligro.player.PlayerStatus#getWorld()
      */
     @Override
-    public byte getWorld() {
+    public int getWorld() {
         return world;
     }
 
-    protected void setWorld(final byte world) {
+    public void setWorld(int world) {
         this.world = world;
     }
 
@@ -170,11 +167,11 @@ public final class CurrentPlayerStatus implements PlayerStatus, Poolable {
      * @see com.mygdx.fuegopeligro.player.PlayerStatus#getWorld()
      */
     @Override
-    public byte getCurrentWorld() {
+    public int getCurrentWorld() {
         return world;
     }
 
-    protected void setCurrentWorld(final byte currentWorlds) {
+    public void setCurrentWorld(int currentWorlds) {
         this.currentWorld = currentWorlds;
     }
 
@@ -184,33 +181,33 @@ public final class CurrentPlayerStatus implements PlayerStatus, Poolable {
      * @see com.mygdx.fuegopeligro.player.PlayerStatus#getLevel()
      */
     @Override
-    public byte getCurrentLevel() {
+    public int getCurrentLevel() {
         return level;
     }
 
-    protected void setCurrentLevel(final byte currentLevels) {
+    public void setCurrentLevel(int currentLevels) {
         this.currentLevel = currentLevels;
     }
 
     @Override
-    public short getMGValue() { return mgValue; }
+    public int getMGValue() { return mgValue; }
 
-    protected void setMGValue(final short mgValue) { this.mgValue = mgValue; }
-
-    @Override
-    public short getEqaValue() { return eqaValue; }
-
-    protected void setEqavalue(final short eqaValue) { this.eqaValue = eqaValue; }
+    public void setMGValue(int mgValue) { this.mgValue = mgValue; }
 
     @Override
-    public short getHqaValue() { return hqaValue; }
+    public int getEqaValue() { return eqaValue; }
 
-    protected void setHqaValue (final short hqaValue) { this.hqaValue = hqaValue; }
+    public void setEqavalue(int eqaValue) { this.eqaValue = eqaValue; }
 
     @Override
-    public long getGoResetCounter() { return goResetCounter; }
+    public int getHqaValue() { return hqaValue; }
 
-    protected void setGoResetCounter(long goResetCounter) { this.goResetCounter = goResetCounter; }
+    public void setHqaValue (int hqaValue) { this.hqaValue = hqaValue; }
+
+    @Override
+    public int getGoResetCounter() { return goResetCounter; }
+
+    public void setGoResetCounter(int goResetCounter) { this.goResetCounter = goResetCounter; }
 
     /*
      * (non-Javadoc)
@@ -234,7 +231,7 @@ public final class CurrentPlayerStatus implements PlayerStatus, Poolable {
     }
 
     private int prevScore;
-    private short prevCollectibles;
+    private int prevCollectibles;
 
     public void resetGameOver() {
         lives = DEFAULT_LIVES;
@@ -266,13 +263,5 @@ public final class CurrentPlayerStatus implements PlayerStatus, Poolable {
         builder.append("[collectibles=").append(collectibles).append(", lives=").append(lives).append(", score=")
                 .append(score).append(", time=").append(time).append("]");
         return builder.toString();
-    }
-
-    public int getMoveValue() {
-        return moveValue;
-    }
-
-    public void setMoveValue(int moveValue) {
-        this.moveValue = moveValue;
     }
 }

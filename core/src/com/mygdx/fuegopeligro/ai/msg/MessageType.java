@@ -53,7 +53,10 @@ public enum MessageType {
     MOVE_LEFT(16),
     MOVE_RIGHT(17),
     MOVE_JUMP(18),
-    END_MINIGAME_OVERLAY(19);
+    CORRECT_ANSWER(19),
+    WRONG_ANSWER(20),
+    HINT_USED(21),
+    SET_LEVEL(22);
 
     /**
      * The inner code of the message.

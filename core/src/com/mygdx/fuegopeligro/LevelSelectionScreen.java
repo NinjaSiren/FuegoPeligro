@@ -9,26 +9,21 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
-import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.fuegopeligro.ai.msg.MessageType;
-import com.mygdx.fuegopeligro.map.LevelFactory;
 
 public class LevelSelectionScreen extends AbstractScreen {
     private static final String TITLE = "Stage and Level Select";
-    private static final String EASY = "Level 1";
-    private static final String HARD = "Level 2";
     private static final String STAGE_ONE = "Fire Station";
     private static final String STAGE_TWO = "Open Fields";
     private static final String STAGE_THREE = "Suburbs";
     private static final String STAGE_FOUR = "Downtown";
     private static final String STAGE_FIVE = "House";
-    private static final String SELECT_LEVEL = "Start Game";
     private static final String RETURN_TO_MENU = "Back";
 
     private final Stage stage;
@@ -37,7 +32,6 @@ public class LevelSelectionScreen extends AbstractScreen {
     LevelSelectionScreen(final FuegoPeligro game) {
         super(game);
         msg = new Telegram();
-
         stage = new Stage(new ScreenViewport(), game.getBatch());
         stage.clear();
 
@@ -52,53 +46,103 @@ public class LevelSelectionScreen extends AbstractScreen {
         Label stageThreeLabel = new Label(STAGE_THREE, style);
         Label stageFourLabel = new Label(STAGE_FOUR, style);
         Label stageFiveLabel = new Label(STAGE_FIVE, style);
+        stageOneLabel.setAlignment(Align.center);
+        stageTwoLabel.setAlignment(Align.center);
+        stageThreeLabel.setAlignment(Align.center);
+        stageFourLabel.setAlignment(Align.center);
+        stageFiveLabel.setAlignment(Align.center);
+        titleLabel.setAlignment(Align.center);
         titleLabel.setFontScale(1.2f);
 
         final Table table = new Table();
         final Table table2 = new Table();
 
-        final SelectBox<String> stageOne = new SelectBox<>(skin);
-        final SelectBox<String> stageTwo = new SelectBox<>(skin);
-        final SelectBox<String> stageThree = new SelectBox<>(skin);
-        final SelectBox<String> stageFour = new SelectBox<>(skin);
-        final SelectBox<String> stageFive = new SelectBox<>(skin);
+        final TextButton S1L1 = new TextButton("EASY", skin);
+        S1L1.addListener(new ClickListener() {
+            @Override
+            public void clicked(final InputEvent event, final float x, final float y) {
+                msg.message = MessageType.LOAD_NEW_GAME.code();
+                game.handleMessage(msg);
+            }
+        });
+        
+        final TextButton S1L2 = new TextButton("HARD", skin);
+        S1L2.addListener(new ClickListener() {
+            @Override
+            public void clicked(final InputEvent event, final float x, final float y) {
+                game.setLevel(1, 2);
+            }
+        });
+        
+        final TextButton S2L1 = new TextButton("EASY", skin);
+        S2L1.addListener(new ClickListener() {
+            @Override
+            public void clicked(final InputEvent event, final float x, final float y) {
+                game.setLevel(2, 1);
+            }
+        });
 
-        stageOne.setItems(EASY, HARD);
-        stageTwo.setItems(EASY, HARD);
-        stageThree.setItems(EASY, HARD);
-        stageFour.setItems(EASY, HARD);
-        stageFive.setItems(EASY, HARD);
+        final TextButton S2L2 = new TextButton("HARD", skin);
+        S2L2.addListener(new ClickListener() {
+            @Override
+            public void clicked(final InputEvent event, final float x, final float y) {
+                game.setLevel(2, 2);
+            }
+        });
+        
+        final TextButton S3L1 = new TextButton("EASY", skin);
+        S3L1.addListener(new ClickListener() {
+            @Override
+            public void clicked(final InputEvent event, final float x, final float y) {
+                game.setLevel(3, 1);
+            }
+        });
 
-        stageOne.pack();
-        stageTwo.pack();
-        stageThree.pack();
-        stageFour.pack();
-        stageFive.pack();
+        final TextButton S3L2 = new TextButton("HARD", skin);
+        S3L2.addListener(new ClickListener() {
+            @Override
+            public void clicked(final InputEvent event, final float x, final float y) {
+                game.setLevel(3, 2);
+            }
+        });
+        
+        final TextButton S4L1 = new TextButton("EASY", skin);
+        S4L1.addListener(new ClickListener() {
+            @Override
+            public void clicked(final InputEvent event, final float x, final float y) {
+                game.setLevel(4, 1);
+            }
+        });
+
+        final TextButton S4L2 = new TextButton("HARD", skin);
+        S4L2.addListener(new ClickListener() {
+            @Override
+            public void clicked(final InputEvent event, final float x, final float y) {
+                game.setLevel(4, 2);
+            }
+        });
+        
+        final TextButton S5L1 = new TextButton("EASY", skin);
+        S5L1.addListener(new ClickListener() {
+            @Override
+            public void clicked(final InputEvent event, final float x, final float y) {
+                game.setLevel(5, 1);
+            }
+        });
+
+        final TextButton S5L2 = new TextButton("HARD", skin);
+        S5L2.addListener(new ClickListener() {
+            @Override
+            public void clicked(final InputEvent event, final float x, final float y) {
+                game.setLevel(5, 2);
+            }
+        });
 
         TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
         buttonStyle.font = game.getAssetsManager().get(Assets.HUD_FONT);
 
-        TextButton selectLevel = new TextButton(SELECT_LEVEL, skin);
-        selectLevel.addListener(new ClickListener() {
-            @Override
-            public void clicked(final InputEvent event, final float x, final float y) {
-                switch (stageOne.getSelected()) {
-                    case EASY:
-                        LevelFactory.LEVEL_MAP_FILE = "map/stage.%s.1.tmx";
-                        msg.message = MessageType.LOAD_NEW_GAME.code();
-                        game.handleMessage(msg);
-                        break;
-                    case HARD:
-                        LevelFactory.LEVEL_MAP_FILE = "map/stage.%s.2.tmx";
-                        msg.message = MessageType.LOAD_NEW_GAME.code();
-                        game.handleMessage(msg);
-                        break;
-                }
-            }
-        });
-
         TextButton backMenu = new TextButton(RETURN_TO_MENU, skin);
-        selectLevel.addListener(new ClickListener() {
+        backMenu.addListener(new ClickListener() {
             @Override
             public void clicked(final InputEvent event, final float x, final float y) {
                 msg.message = MessageType.BACK_TO_MENU.code();
@@ -106,17 +150,42 @@ public class LevelSelectionScreen extends AbstractScreen {
             }
         });
 
-        table.add(stageOneLabel).pad(0, 0, 0, 20);
-        table.add(stageTwoLabel).pad(0, 20, 0, 20);
-        table.add(stageThreeLabel).pad(0, 20, 0, 20);
-        table.add(stageFourLabel).pad(0, 20, 0, 20);
-        table.add(stageFiveLabel).pad(0, 20, 0, 0);
-        table.row().pad(10, 0, 0, 0);
-        table.add(stageOne).center();
-        table.add(stageTwo).center();
-        table.add(stageThree).center();
-        table.add(stageFour).center();
-        table.add(stageFive).center();
+        Table S1 = new Table();
+        S1.add(S1L1);
+        S1.row().padTop(20);
+        S1.add(S1L2);
+        
+        Table S2 = new Table();
+        S2.add(S2L1);
+        S2.row().padTop(20);
+        S2.add(S2L2);
+        
+        Table S3 = new Table();
+        S3.add(S3L1);
+        S3.row().padTop(20);
+        S3.add(S3L2);
+        
+        Table S4 = new Table();
+        S4.add(S4L1);
+        S4.row().padTop(20);
+        S4.add(S4L2);
+        
+        Table S5 = new Table();
+        S5.add(S5L1);
+        S5.row().padTop(20);
+        S5.add(S5L2);
+        
+        table.add(stageOneLabel).expandX().colspan(1).fill();
+        table.add(stageTwoLabel).expandX().colspan(1).fill();
+        table.add(stageThreeLabel).expandX().colspan(1).fill();
+        table.add(stageFourLabel).expandX().colspan(1).fill();
+        table.add(stageFiveLabel).expandX().colspan(1).fill();
+        table.row().padTop(40);
+        table.add(S1).center().expandX().colspan(1).fill();
+        table.add(S2).center().expandX().colspan(1).fill();
+        table.add(S3).center().expandX().colspan(1).fill();
+        table.add(S4).center().expandX().colspan(1).fill();
+        table.add(S5).center().expandX().colspan(1).fill();
 
         table.addListener(new InputListener() {
             @Override
@@ -134,17 +203,12 @@ public class LevelSelectionScreen extends AbstractScreen {
             }
         });
 
-        ScrollPane scrollWindow = new ScrollPane(table, skin);
-        scrollWindow.layout();
-        scrollWindow.setScrollBarTouch(true);
-        scrollWindow.setSmoothScrolling(true);
-        scrollWindow.setFlingTime(0.1f);
-        table2.add(titleLabel).colspan(2);
-        table2.row().pad(stage.getHeight() / 16, 0, 0, 0);
-        table2.add(scrollWindow).colspan(2);
-        table2.row().pad(stage.getHeight() / 16, 0, 0, 0);
-        table2.add(selectLevel).colspan(1);
-        table2.add(backMenu).colspan(1);
+        table2.add(titleLabel).colspan(3).expandX().fill();
+        table2.row().padTop(stage.getHeight() / 16);
+        table2.add(table).colspan(3).expandX().fill();
+        table2.row().padTop(stage.getHeight() / 16);
+        table2.add(backMenu).colspan(1).expandX();
+        table2.center().pad(50);
 
         table2.setFillParent(true);
         table2.setDebug(true);
