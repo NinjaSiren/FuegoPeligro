@@ -15,7 +15,6 @@ public class SplashScreen_1 implements Screen {
         super();
         batch = new SpriteBatch();
         ttrSplash = new Texture(String.valueOf(game.getAssetsManager().get(Assets.SPLASH_IMAGE)));
-
     }
 
     @Override

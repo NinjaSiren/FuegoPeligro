@@ -80,7 +80,7 @@ public class FourPicsOneWord2 implements Disposable {
         table.add(enterHints).expand(true, false).colspan(1).center();
 
         TextField.TextFieldStyle textFieldStyle = skin.get(TextField.TextFieldStyle.class);
-        textFieldStyle.font.getData().setScale(1.8f);
+        textFieldStyle.font.getData().setScale(2.2f);
 
         stage.addActor(table);
         stage.setKeyboardFocus(table);

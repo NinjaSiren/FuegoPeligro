@@ -55,7 +55,8 @@ public enum MessageType {
     MOVE_JUMP(18),
     CORRECT_ANSWER(19),
     WRONG_ANSWER(20),
-    HINT_USED(21);
+    HINT_USED(21),
+    SET_LEVEL(22);
 
     /**
      * The inner code of the message.

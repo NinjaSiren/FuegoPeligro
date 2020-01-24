@@ -1,5 +1,6 @@
 package com.mygdx.fuegopeligro;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -8,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.fuegopeligro.player.PlayerStatus;
 
@@ -36,10 +38,15 @@ public class LevelStartScreen extends AbstractScreen {
 
     private Stage stage;
     private Screen levelScreen;
+    private int world;
+    private int level;
 
-    public LevelStartScreen(final FuegoPeligro game) {
+    public LevelStartScreen(final FuegoPeligro game, int worldNumber, int levelNumber) {
         super(game);
         PlayerStatus playerStatus = game.getPlayerStatus();
+
+        setLevel(levelNumber);
+        setWorld(worldNumber);
 
         stage = new Stage(new ScreenViewport(), game.getBatch());
         Label.LabelStyle style = new Label.LabelStyle();
@@ -53,6 +60,15 @@ public class LevelStartScreen extends AbstractScreen {
         Label scoreLabel = new Label(String.format(EIGHT_DIGITS, playerStatus.getScore()), style);
         Label timeLabel = new Label(String.format(THREE_DIGITS, playerStatus.getTime()), style);
 
+        Label controls = new Label("CONTROLS", style);
+        controls.setAlignment(Align.center);
+        Label left = new Label("TAP LEFT to go LEFT,", style);
+        left.setAlignment(Align.right);
+        Label right = new Label("TAP RIGHT to go RIGHT.", style);
+        right.setAlignment(Align.left);
+        Label jump = new Label("DOUBLE TAP to JUMP,", style);
+        jump.setAlignment(Align.center);
+
         Table status = new Table();
         status.add(new Image(hudAtlas.findRegion(SMALL_CARROT_REGION))).padRight(4.0f);
         status.add(collectiblesLabel).bottom();
@@ -65,19 +81,30 @@ public class LevelStartScreen extends AbstractScreen {
         stage.addActor(status);
 
         Table levelInfo = new Table();
-        levelInfo.add(new Label(LEVEL_LABEL, style)).expandX().right().padRight(18.0f);
-        levelInfo.add(new Label(String.format(LEVEL_FORMAT, playerStatus.getWorld(), playerStatus.getLevel()), style)).expandX()
-                .left().padTop(18.0f).row();
+        levelInfo.add(new Label(LEVEL_LABEL, style)).expandX().right().padRight(18.0f).colspan(1);
+        levelInfo.add(new Label(String.format(LEVEL_FORMAT, playerStatus.getWorld(),
+                playerStatus.getLevel()), style)).expandX().left().padTop(18.0f).colspan(1).row();
         Image livesIcon = new Image(hudAtlas.findRegion(LIVES_REGION));
-        levelInfo.add(livesIcon).expandX().right().spaceRight(25f);
-        levelInfo.add(livesLabel).expandX().left().bottom();
-        levelInfo.setFillParent(true);
-        stage.addActor(levelInfo);
+        levelInfo.add(livesIcon).expandX().right().spaceRight(25f).colspan(1);
+        levelInfo.add(livesLabel).expandX().left().bottom().colspan(1);
+
+        Table controlsInfo = new Table();
+        controlsInfo.add(levelInfo).colspan(3).expandX().padTop(50.0f);
+        controlsInfo.row().padTop(Gdx.graphics.getHeight() / 4);
+        controlsInfo.add(controls).expandX().center().colspan(3);
+        controlsInfo.row();
+        controlsInfo.add(left).expandX().fill().left().colspan(1);
+        controlsInfo.add(jump).expandX().fill().center().colspan(1);
+        controlsInfo.add(right).expandX().fill().right().colspan(1);
+        controlsInfo.center().pad(50);
+        controlsInfo.setFillParent(true);
+
+        stage.addActor(controlsInfo);
 
     }
 
     public LevelStartScreen(final FuegoPeligro game, final Screen levelScreen) {
-        this(game);
+        this(game, 1, 1);
         this.levelScreen = levelScreen;
     }
 
@@ -102,7 +129,7 @@ public class LevelStartScreen extends AbstractScreen {
             public boolean act(final float delta) {
                 // Last action will move to the next screen
                 if (levelScreen == null) {
-                    game.setScreen(new LevelScreen(game));
+                    game.setScreen(new LevelScreen(game, getWorld(), getLevel()));
                 } else {
                     game.setScreen(levelScreen);
                 }
@@ -130,5 +157,21 @@ public class LevelStartScreen extends AbstractScreen {
     @Override
     public void dispose() {
         stage.dispose();
+    }
+
+    public int getWorld() {
+        return world;
+    }
+
+    public void setWorld(int world) {
+        this.world = world;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 }

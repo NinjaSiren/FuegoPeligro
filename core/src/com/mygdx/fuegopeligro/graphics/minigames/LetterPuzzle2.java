@@ -47,6 +47,7 @@ public class LetterPuzzle2 implements Disposable {
         style.font = assets.get(Assets.HUD_FONT);
         questionText = new Label("", style);
         questionText.setAlignment(Align.center);
+        questionText.setFontScale(2.2f);
 
         // Buttons
         answer1 = new TextButton("", skin);

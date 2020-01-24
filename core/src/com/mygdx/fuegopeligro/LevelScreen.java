@@ -5,10 +5,7 @@ import com.badlogic.gdx.ai.msg.MessageManager;
 import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.mygdx.fuegopeligro.ai.msg.MessageType;
 import com.mygdx.fuegopeligro.entity.Entity;
 import com.mygdx.fuegopeligro.entity.EntityFactory;
 import com.mygdx.fuegopeligro.graphics.BoundedCamera;
@@ -37,31 +34,24 @@ public class LevelScreen extends AbstractScreen {
     private final StatusBar hud;
     private float accumulator;
 
-    public LevelScreen(final FuegoPeligro game) {
+    public LevelScreen(final FuegoPeligro game, int worldNumber, int levelNumber) {
         super(game);
         msg = new Telegram();
         world = new World(new Vector2(0.0f, GRAVITY), true);
         BodyEditorLoader bodyLoader = new BodyEditorLoader(Gdx.files.internal(BODIES_DEFINITION_FILE));
         hud = new StatusBar(game.getBatch(), game.getAssetsManager());
-        hud.getPause().addListener(new ClickListener() {
-            @Override
-            public void clicked(final InputEvent event, final float x, final float y) {
-                msg.message = MessageType.BACK_TO_MENU.code();
-                game.handleMessage(msg);
-            }
-        });
-        ninjaRabbit = EntityFactory.createNinjaRabbit(game, world, bodyLoader, game.getAssetsManager(), game.getPlayerStatus(), hud);
-        LevelRenderer mapRenderer = LevelFactory.create(world, bodyLoader, game.getBatch(), game.getAssetsManager(), game.getPlayerStatus()
-                        .getWorld(), game.getPlayerStatus().getLevel(),
-                1 / FuegoPeligro.PPM);
+        ninjaRabbit = EntityFactory.createNinjaRabbit(game, world, bodyLoader, game.getAssetsManager(),
+                game.getPlayerStatus(), hud);
+        LevelRenderer mapRenderer = LevelFactory.create(world, bodyLoader, game.getBatch(),
+                game.getAssetsManager(), worldNumber, levelNumber, 1 / FuegoPeligro.PPM);
         environment = EntityFactory.createEnvironment(game, world, mapRenderer, game.getAssetsManager(),
                 game.getPlayerStatus(), (PlayerStatusObserver[]) null);
         viewport = new ScreenViewport();
         viewport.setUnitsPerPixel(1 / FuegoPeligro.PPM);
         viewport.setCamera(new BoundedCamera(0.0f,
                 mapRenderer.getTiledMap().getProperties().get("width", Integer.class).floatValue()
-                        * mapRenderer.getTiledMap().getProperties().get("tilewidth", Integer.class).floatValue()
-                        / FuegoPeligro.PPM));
+                        * mapRenderer.getTiledMap().getProperties().get("tilewidth", Integer.class)
+                        .floatValue() / FuegoPeligro.PPM));
     }
 
     /*

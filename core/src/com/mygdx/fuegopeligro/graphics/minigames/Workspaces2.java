@@ -76,7 +76,7 @@ public class Workspaces2 implements Disposable {
         table.add(enterHints).expand(true, false).colspan(3).center();
 
         TextArea.TextFieldStyle textFieldStyle = skin.get(TextArea.TextFieldStyle.class);
-        textFieldStyle.font.getData().setScale(1.8f);
+        textFieldStyle.font.getData().setScale(2.2f);
 
         stage.addActor(table);
         stage.setKeyboardFocus(table);
