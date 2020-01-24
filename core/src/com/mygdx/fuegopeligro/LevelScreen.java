@@ -54,7 +54,7 @@ public class LevelScreen extends AbstractScreen {
         LevelRenderer mapRenderer = LevelFactory.create(world, bodyLoader, game.getBatch(), game.getAssetsManager(), game.getPlayerStatus()
                         .getWorld(), game.getPlayerStatus().getLevel(),
                 1 / FuegoPeligro.PPM);
-        environment = EntityFactory.createEnvironment(game, world, game.getBatch(), mapRenderer, game.getAssetsManager(),
+        environment = EntityFactory.createEnvironment(game, world, mapRenderer, game.getAssetsManager(),
                 game.getPlayerStatus(), (PlayerStatusObserver[]) null);
         viewport = new ScreenViewport();
         viewport.setUnitsPerPixel(1 / FuegoPeligro.PPM);

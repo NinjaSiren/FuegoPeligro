@@ -8,10 +8,10 @@ import com.badlogic.gdx.ai.msg.MessageManager;
 import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.input.GestureDetector.GestureListener;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.fuegopeligro.FuegoPeligro;
 import com.mygdx.fuegopeligro.ai.fsm.FiremanState;
 import com.mygdx.fuegopeligro.ai.msg.MessageType;
 import com.mygdx.fuegopeligro.entity.Entity;
@@ -30,9 +30,8 @@ public class FiremanInputProcessor implements Telegraph, GestureListener, InputP
     private final static int RESET_KEY = Keys.BACKSPACE;
 
     private final Entity character;
-    public final InputMultiplexer im;
 
-    public FiremanInputProcessor(final Fireman fireman, final Batch batch, final AssetManager assets) {
+    public FiremanInputProcessor(final Fireman fireman, final FuegoPeligro game, final AssetManager assets) {
         if (fireman == null) {
             throw new IllegalArgumentException("'character' cannot be null"); }
         character = fireman;
@@ -41,11 +40,11 @@ public class FiremanInputProcessor implements Telegraph, GestureListener, InputP
         MessageManager.getInstance().addListener(this, MessageType.MOVE_RIGHT.code());
         MessageManager.getInstance().addListener(this, MessageType.MOVE_JUMP.code());
 
-        im = new InputMultiplexer();
+        InputMultiplexer im = new InputMultiplexer();
         GestureDetector gd = new GestureDetector(this);
         im.addProcessor(gd);
         im.addProcessor(this);
-        im.addProcessor(new StatusBar(batch, assets));
+        im.addProcessor(new StatusBar(game.getBatch(), assets));
         Gdx.input.setInputProcessor(im);
     }
 
@@ -220,6 +219,4 @@ public class FiremanInputProcessor implements Telegraph, GestureListener, InputP
     public boolean scrolled(int amount) {
         return false;
     }
-
-    public InputMultiplexer getIm() { return im; }
 }

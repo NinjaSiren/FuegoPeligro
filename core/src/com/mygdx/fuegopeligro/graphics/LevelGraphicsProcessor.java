@@ -1,15 +1,19 @@
 package com.mygdx.fuegopeligro.graphics;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.ai.msg.MessageManager;
 import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.input.GestureDetector;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.fuegopeligro.FuegoPeligro;
 import com.mygdx.fuegopeligro.GameOverOverlay;
@@ -23,15 +27,13 @@ import com.mygdx.fuegopeligro.graphics.minigames.LetterPuzzle;
 import com.mygdx.fuegopeligro.graphics.minigames.LetterPuzzle2;
 import com.mygdx.fuegopeligro.graphics.minigames.MultipleChoice;
 import com.mygdx.fuegopeligro.graphics.minigames.MultipleChoice2;
-import com.mygdx.fuegopeligro.graphics.minigames.Wordscapes;
-import com.mygdx.fuegopeligro.graphics.minigames.Wordscapes2;
+import com.mygdx.fuegopeligro.graphics.minigames.Workspaces;
+import com.mygdx.fuegopeligro.graphics.minigames.Workspaces2;
 import com.mygdx.fuegopeligro.input.FiremanInputProcessor;
 import com.mygdx.fuegopeligro.map.LevelRenderer;
 import com.mygdx.fuegopeligro.player.CurrentPlayerStatus;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -40,7 +42,7 @@ import java.util.stream.Collectors;
 /**
  * @author JDEsguerra
  */
-public class LevelGraphicsProcessor implements GraphicsProcessor, Telegraph {
+public class LevelGraphicsProcessor extends Table implements GraphicsProcessor, Telegraph {
     private final LevelRenderer mapRenderer;
     private final GameOverOverlay gameOver;
     private final LevelEndOverlay levelEnd;
@@ -50,45 +52,46 @@ public class LevelGraphicsProcessor implements GraphicsProcessor, Telegraph {
     private FourPicsOneWord2 fourPicsOneWord2;
     private LetterPuzzle letterPuzzle;
     private LetterPuzzle2 letterPuzzle2;
-    private Wordscapes wordscapes;
-    private Wordscapes2 wordscapes2;
+    private Workspaces workspaces;
+    private Workspaces2 workspaces2;
 
     private boolean renderGameOver;
     private boolean renderLevelEnd;
     private boolean minicamSelection;
     private final CurrentPlayerStatus status;
-    private final Fireman fireman2;
-    private final FuegoPeligro fargo;
-    private final AssetManager assetManager;
     private List<String> line;
+    private final InputMultiplexer im;
 
     public LevelGraphicsProcessor(final AssetManager assets, final LevelRenderer mapRenderer,
                                   final FuegoPeligro game, final Fireman fireman,
-                                  final CurrentPlayerStatus player, final Batch batch) {
+                                  final CurrentPlayerStatus player) {
         if (fireman == null) {
             throw new IllegalArgumentException("'character' cannot be null");
         }
-
-        assetManager = assets;
         status = player;
-        fireman2 = fireman;
-        fargo = game;
 
-        gameOver = new GameOverOverlay(batch, assets, game);
-        levelEnd = new LevelEndOverlay(batch, assets, game);
-        multipleChoice = new MultipleChoice(assets, batch);
-        letterPuzzle = new LetterPuzzle(assets, batch);
-        wordscapes = new Wordscapes(assets, batch);
-        fourPicsOneWord = new FourPicsOneWord(assets, batch);
-        multipleChoice2 = new MultipleChoice2(assets, batch);
-        letterPuzzle2 = new LetterPuzzle2(assets, batch);
-        wordscapes2 = new Wordscapes2(assets, batch);
-        fourPicsOneWord2 = new FourPicsOneWord2(assets, batch);
+        gameOver = new GameOverOverlay(assets, game);
+        levelEnd = new LevelEndOverlay(assets, game);
+
+        multipleChoice = new MultipleChoice(assets, game);
+        letterPuzzle = new LetterPuzzle(assets, game);
+        workspaces = new Workspaces(assets, game);
+        fourPicsOneWord = new FourPicsOneWord(assets, game);
+
+        multipleChoice2 = new MultipleChoice2(assets, game);
+        letterPuzzle2 = new LetterPuzzle2(assets, game);
+        workspaces2 = new Workspaces2(assets, game);
+        fourPicsOneWord2 = new FourPicsOneWord2(assets, game);
 
         this.mapRenderer = mapRenderer;
         MessageManager.getInstance().addListeners(this, MessageType.GAME_OVER.code());
         MessageManager.getInstance().addListeners(this, MessageType.FINISH_LEVEL.code());
         MessageManager.getInstance().addListeners(this, MessageType.COLLECTED.code());
+        
+        im = new InputMultiplexer();
+        GestureDetector gd = new GestureDetector(new FiremanInputProcessor(fireman, game, assets));
+        im.addProcessor(new FiremanInputProcessor(fireman, game, assets));
+        im.addProcessor(gd);
     }
 
     @Override
@@ -104,10 +107,7 @@ public class LevelGraphicsProcessor implements GraphicsProcessor, Telegraph {
         levelEnd.render(Gdx.graphics.getDeltaTime());
     }
 
-    private void minicamSelection(final Fireman fireman, final FuegoPeligro game, final AssetManager assets,
-                                  final CurrentPlayerStatus status) {
-        final byte lives = status.getLives();
-
+    private void minicamSelection(final CurrentPlayerStatus status) {
         if (status.getCurrentWorld() == 1) {
             final String easyQA = "minigames/easyQA.csv";
             final String easyWords = "minigames/easywords.csv";
@@ -116,33 +116,35 @@ public class LevelGraphicsProcessor implements GraphicsProcessor, Telegraph {
             switch (status.getMGValue()) {
                 case 1:
                     QAReader(easyQA, status.getEqaValue());
-                    multiChoice2(fireman, game, assets, lives, status);
+                    multiChoice2(status);
                     break;
                 case 2:
                     QAReader(easyQA, status.getEqaValue());
-                    multiChoice(fireman, game, assets, lives, status);
+                    multiChoice(status);
                     break;
                 case 3:
                     QAReader(easyQA, status.getEqaValue());
-                    wordScales2(fireman, game, assets, lives, status);
+                    wordScales2(status);
                     break;
                 case 4:
                     QAReader(easyQA, status.getEqaValue());
-                    wordScales(fireman, game, assets, lives, status);
+                    wordScales(status);
                     break;
                 case 5:
                     QAReader(easyWords, status.getEqaValue());
-                    letterPutz2(fireman, game, assets, lives, status);
+                    letterPutz2(status);
+                    break;
                 case 6:
                     QAReader(easyWords, status.getEqaValue());
-                    letterPutz(fireman, game, assets, lives, status);
+                    letterPutz(status);
                     break;
                 case 7:
                     QAReader(easyWords, status.getEqaValue());
-                    fPicsOWord2(fireman, game, assets, lives, easyDir, status);
+                    fPicsOWord2(easyDir, status);
+                    break;
                 case 8:
                     QAReader(easyWords, status.getEqaValue());
-                    fPicsOWord(fireman, game, assets, lives, easyDir, status);
+                    fPicsOWord(easyDir, status);
                     break;
             }
         } else if (status.getCurrentWorld() == 2) {
@@ -153,211 +155,261 @@ public class LevelGraphicsProcessor implements GraphicsProcessor, Telegraph {
             switch (status.getMGValue()) {
                 case 1:
                     QAReader(hardQA, status.getEqaValue());
-                    multiChoice2(fireman, game, assets, lives, status);
+                    multiChoice2(status);
                     break;
                 case 2:
                     QAReader(hardQA, status.getEqaValue());
-                    multiChoice(fireman, game, assets, lives, status);
+                    multiChoice(status);
                     break;
                 case 3:
                     QAReader(hardQA, status.getEqaValue());
-                    wordScales2(fireman, game, assets, lives, status);
+                    wordScales2(status);
                     break;
                 case 4:
                     QAReader(hardQA, status.getEqaValue());
-                    wordScales(fireman, game, assets, lives, status);
+                    wordScales(status);
                     break;
                 case 5:
                     QAReader(hardWords, status.getEqaValue());
-                    letterPutz2(fireman, game, assets, lives, status);
+                    letterPutz2(status);
+                    break;
                 case 6:
                     QAReader(hardWords, status.getEqaValue());
-                    letterPutz(fireman, game, assets, lives, status);
+                    letterPutz(status);
                     break;
                 case 7:
                     QAReader(hardWords, status.getEqaValue());
-                    fPicsOWord2(fireman, game, assets, lives, hardDir, status);
+                    fPicsOWord2(hardDir, status);
+                    break;
                 case 8:
                     QAReader(hardWords, status.getEqaValue());
-                    fPicsOWord(fireman, game, assets, lives, hardDir, status);
+                    fPicsOWord(hardDir, status);
                     break;
             }
         }
     }
 
-    private void multiChoice2(final Fireman fireman, final FuegoPeligro game, final AssetManager asset,
-                             final byte lives, final CurrentPlayerStatus status) {
-        multipleChoice2.questionText.setText(line.get(6));
-        multipleChoice2.answer1.setText(line.get(1));
-        multipleChoice2.answer2.setText(line.get(2));
-        multipleChoice2.answer3.setText(line.get(3));
-        multipleChoice2.answer4.setText(line.get(4));
+    private void multiChoice2(final CurrentPlayerStatus status) {
+        multipleChoice2.getQuestionText().setText(getLine().get(6));
+        multipleChoice2.getAnswer1().setText(getLine().get(1));
+        multipleChoice2.getAnswer2().setText(getLine().get(2));
+        multipleChoice2.getAnswer3().setText(getLine().get(3));
+        multipleChoice2.getAnswer4().setText(getLine().get(4));
 
         multipleChoice2.render(Gdx.graphics.getDeltaTime());
-        multipleChoice2.table.setVisible(true);
-        Gdx.input.setInputProcessor(multipleChoice2.stage);
+        multipleChoice2.getTable().setVisible(true);
+        Gdx.input.setInputProcessor(multipleChoice2.getStage());
 
-        if (multipleChoice2.answer1.isPressed()) {
-            Gdx.input.setInputProcessor(new FiremanInputProcessor(fireman, game.batch, asset).im);
-            multipleChoice2.table.setVisible(false);
-        }
-
-        if (multipleChoice2.answer2.isPressed()) { status.setLives((byte)(lives - 1)); }
-
-        if (multipleChoice2.answer3.isPressed()) { status.setLives((byte)(lives - 1)); }
-
-        if (multipleChoice2.answer4.isPressed()) { status.setLives((byte)(lives - 1)); }
-
-        if (multipleChoice2.enterHints.isPressed()) {
+        if (multipleChoice2.getAnswer1().isPressed()) {
+            MessageManager.getInstance().dispatchMessage(MessageType.CORRECT_ANSWER.code());
+            Gdx.input.setInputProcessor(getIm());
+            multipleChoice2.getTable().setVisible(false);
+        } else if (multipleChoice2.getAnswer2().isPressed()) {
+            MessageManager.getInstance().dispatchMessage(MessageType.WRONG_ANSWER.code());
+        } else if (multipleChoice2.getAnswer3().isPressed()) {
+            MessageManager.getInstance().dispatchMessage(MessageType.WRONG_ANSWER.code());
+        } else if (multipleChoice2.getAnswer4().isPressed()) {
+            MessageManager.getInstance().dispatchMessage(MessageType.WRONG_ANSWER.code());
+        } else if (multipleChoice2.getEnterHints().isPressed()) {
+            if (status.getCollectibles() > 0) {
+                MessageManager.getInstance().dispatchMessage(MessageType.HINT_USED.code());
+                multipleChoice2.getAnswer2().setVisible(false);
+                multipleChoice2.getAnswer3().setVisible(false);
+            }
         }
     }
     
-    private void multiChoice(final Fireman fireman, final FuegoPeligro game, final AssetManager asset,
-                             final byte lives, final CurrentPlayerStatus status) {
-        multipleChoice.questionText.setText(line.get(6));
-        multipleChoice.answer1.setText(line.get(1));
-        multipleChoice.answer2.setText(line.get(2));
-        multipleChoice.answer3.setText(line.get(3));
-        multipleChoice.answer4.setText(line.get(4));
+    private void multiChoice(final CurrentPlayerStatus status) {
+        multipleChoice.getQuestionText().setText(getLine().get(6));
+        multipleChoice.getAnswer1().setText(getLine().get(1));
+        multipleChoice.getAnswer2().setText(getLine().get(2));
+        multipleChoice.getAnswer3().setText(getLine().get(3));
+        multipleChoice.getAnswer4().setText(getLine().get(4));
 
         multipleChoice.render(Gdx.graphics.getDeltaTime());
-        multipleChoice.table.setVisible(true);
-        Gdx.input.setInputProcessor(multipleChoice.stage);
+        multipleChoice.getTable().setVisible(true);
+        Gdx.input.setInputProcessor(multipleChoice.getStage());
 
-        if (multipleChoice.answer1.isPressed()) {
-            Gdx.input.setInputProcessor(new FiremanInputProcessor(fireman, game.batch, asset).im);
-            multipleChoice.table.setVisible(false);
-        }
-
-        if (multipleChoice.answer2.isPressed()) { status.setLives((byte)(lives - 1)); }
-
-        if (multipleChoice.answer3.isPressed()) { status.setLives((byte)(lives - 1)); }
-
-        if (multipleChoice.answer4.isPressed()) { status.setLives((byte)(lives - 1)); }
-
-        if (multipleChoice.enterHints.isPressed()) {
+        if (multipleChoice.getAnswer1().isPressed()) {
+            MessageManager.getInstance().dispatchMessage(MessageType.CORRECT_ANSWER.code());
+            Gdx.input.setInputProcessor(getIm());
+            multipleChoice.getTable().setVisible(false);
+        } else if (multipleChoice.getAnswer2().isPressed()) {
+            MessageManager.getInstance().dispatchMessage(MessageType.WRONG_ANSWER.code());
+        } else if (multipleChoice.getAnswer3().isPressed()) {
+            MessageManager.getInstance().dispatchMessage(MessageType.WRONG_ANSWER.code());
+        } else if (multipleChoice.getAnswer4().isPressed()) {
+            MessageManager.getInstance().dispatchMessage(MessageType.WRONG_ANSWER.code());
+        } else if (multipleChoice.getEnterHints().isPressed()) {
+            if (status.getCollectibles() > 0) {
+                MessageManager.getInstance().dispatchMessage(MessageType.HINT_USED.code());
+                multipleChoice.getAnswer2().setVisible(false);
+                multipleChoice.getAnswer4().setVisible(false);
+            }
         }
     }
 
-    private void wordScales2(final Fireman fireman, final FuegoPeligro game, final AssetManager asset,
-                            final byte lives, final CurrentPlayerStatus status) {
-        wordscapes2.questionText.setText(line.get(6));
-        wordscapes2.answer1.setText(line.get(1));
-        wordscapes2.answer2.setText(line.get(2));
-        wordscapes2.answer3.setText(line.get(3));
-        wordscapes2.answer4.setText(line.get(4));
+    private void wordScales2(final CurrentPlayerStatus status) {
+        workspaces2.getQuestionText().setText(getLine().get(6));
+        workspaces2.getAnswer1().setText(getLine().get(1));
+        workspaces2.getAnswer2().setText(getLine().get(2));
+        workspaces2.getAnswer3().setText(getLine().get(3));
+        workspaces2.getAnswer4().setText(getLine().get(4));
 
-        wordscapes2.render(Gdx.graphics.getDeltaTime());
-        wordscapes2.table.setVisible(true);
-        Gdx.input.setInputProcessor(wordscapes2.stage);
+        workspaces2.render(Gdx.graphics.getDeltaTime());
+        workspaces2.getTable().setVisible(true);
+        Gdx.input.setInputProcessor(workspaces2.getStage());
 
-        if (wordscapes2.answer1.isPressed()) {
-            Gdx.input.setInputProcessor(new FiremanInputProcessor(fireman, game.batch, asset).im);
-            wordscapes2.table.setVisible(false);
-        }
-
-        if (wordscapes2.answer2.isPressed()) { status.setLives((byte)(lives - 1)); }
-
-        if (wordscapes2.answer3.isPressed()) { status.setLives((byte)(lives - 1)); }
-
-        if (wordscapes2.answer4.isPressed()) { status.setLives((byte)(lives - 1)); }
-
-        if (wordscapes2.enterHints.isPressed()) {
+        if (workspaces2.getAnswer1().isPressed()) {
+            MessageManager.getInstance().dispatchMessage(MessageType.CORRECT_ANSWER.code());
+            Gdx.input.setInputProcessor(getIm());
+            workspaces2.getTable().setVisible(false);
+        } else if (workspaces2.getAnswer2().isPressed()) {
+            MessageManager.getInstance().dispatchMessage(MessageType.WRONG_ANSWER.code());
+        } else if (workspaces2.getAnswer3().isPressed()) {
+            MessageManager.getInstance().dispatchMessage(MessageType.WRONG_ANSWER.code());
+        } else if (workspaces2.getAnswer4().isPressed()) {
+            MessageManager.getInstance().dispatchMessage(MessageType.WRONG_ANSWER.code());
+        } else if (workspaces2.getEnterHints().isPressed()) {
+            if (status.getCollectibles() > 0) {
+                MessageManager.getInstance().dispatchMessage(MessageType.HINT_USED.code());
+                workspaces2.getAnswer2().setVisible(false);
+                workspaces2.getAnswer4().setVisible(false);
+            }
         }
     }
     
-    private void wordScales(final Fireman fireman, final FuegoPeligro game, final AssetManager asset,
-                            final byte lives, final CurrentPlayerStatus status) {
-        wordscapes.questionText.setText(line.get(6));
-        wordscapes.answer1.setText(line.get(1));
-        wordscapes.answer2.setText(line.get(2));
-        wordscapes.answer3.setText(line.get(3));
-        wordscapes.answer4.setText(line.get(4));
+    private void wordScales(final CurrentPlayerStatus status) {
+        workspaces.getQuestionText().setText(getLine().get(6));
+        workspaces.getAnswer1().setText(getLine().get(1));
+        workspaces.getAnswer2().setText(getLine().get(2));
+        workspaces.getAnswer3().setText(getLine().get(3));
+        workspaces.getAnswer4().setText(getLine().get(4));
 
-        wordscapes.render(Gdx.graphics.getDeltaTime());
-        wordscapes.table.setVisible(true);
-        Gdx.input.setInputProcessor(wordscapes.stage);
+        workspaces.render(Gdx.graphics.getDeltaTime());
+        workspaces.getTable().setVisible(true);
+        Gdx.input.setInputProcessor(workspaces.getStage());
 
-        if (wordscapes.answer1.isPressed()) {
-            Gdx.input.setInputProcessor(new FiremanInputProcessor(fireman, game.batch, asset).im);
-            wordscapes.table.setVisible(false);
-        }
-
-        if (wordscapes.answer2.isPressed()) { status.setLives((byte)(lives - 1)); }
-
-        if (wordscapes.answer3.isPressed()) { status.setLives((byte)(lives - 1)); }
-
-        if (wordscapes.answer4.isPressed()) { status.setLives((byte)(lives - 1)); }
-
-        if (wordscapes.enterHints.isPressed()) {
+        if (workspaces.getAnswer1().isPressed()) {
+            MessageManager.getInstance().dispatchMessage(MessageType.CORRECT_ANSWER.code());
+            Gdx.input.setInputProcessor(getIm());
+            workspaces.getTable().setVisible(false);
+        } else if (workspaces.getAnswer2().isPressed()) {
+            MessageManager.getInstance().dispatchMessage(MessageType.WRONG_ANSWER.code());
+        } else if (workspaces.getAnswer3().isPressed()) {
+            MessageManager.getInstance().dispatchMessage(MessageType.WRONG_ANSWER.code());
+        } else if (workspaces.getAnswer4().isPressed()) {
+            MessageManager.getInstance().dispatchMessage(MessageType.WRONG_ANSWER.code());
+        } else if (workspaces.getEnterHints().isPressed()) {
+            if (status.getCollectibles() > 0) {
+                MessageManager.getInstance().dispatchMessage(MessageType.HINT_USED.code());
+                workspaces.getAnswer2().setVisible(false);
+                workspaces.getAnswer3().setVisible(false);
+            }
         }
     }
 
-    private void letterPutz2(final Fireman fireman, final FuegoPeligro game, final AssetManager asset,
-                            final byte lives, final CurrentPlayerStatus status) {
-        letterPuzzle2.questionText.setText(line.get(1).substring(1));
-        letterPuzzle2.answer1.setText(line.get(4));
-        letterPuzzle2.answer2.setText(line.get(3));
-        letterPuzzle2.answer3.setText(line.get(2));
-        letterPuzzle2.answer4.setText(line.get(1));
+    private void letterPutz2(final CurrentPlayerStatus status) {
+        if (status.getCurrentWorld() == 1) {
+            letterPuzzle2.getQuestionText().setText(getLine()
+                    .get(1)
+                    .replace('i',' ')
+                    .replace('o', ' ')
+                    .replace('u', ' ')
+                    .substring(1));
+        } else if (status.getCurrentWorld() == 2) {
+            letterPuzzle2.getQuestionText().setText(getLine()
+                    .get(1)
+                    .replace('e',' ')
+                    .replace('i', ' ')
+                    .replace('o', ' ')
+                    .replace('u', ' ')
+                    .substring(1));
+        }
+
+        letterPuzzle2.getAnswer1().setText(getLine().get(4));
+        letterPuzzle2.getAnswer2().setText(getLine().get(3));
+        letterPuzzle2.getAnswer3().setText(getLine().get(2));
+        letterPuzzle2.getAnswer4().setText(getLine().get(1));
 
         letterPuzzle2.render(Gdx.graphics.getDeltaTime());
-        letterPuzzle2.table.setVisible(true);
-        Gdx.input.setInputProcessor(letterPuzzle2.stage);
+        letterPuzzle2.getTable().setVisible(true);
+        Gdx.input.setInputProcessor(letterPuzzle2.getStage());
 
-        if (letterPuzzle2.answer1.isPressed()) { status.setLives((byte)(lives - 1)); }
-
-        if (letterPuzzle2.answer2.isPressed()) { status.setLives((byte)(lives - 1)); }
-
-        if (letterPuzzle2.answer3.isPressed()) { status.setLives((byte)(lives - 1)); }
-
-        if (letterPuzzle2.answer4.isPressed()) {
-            Gdx.input.setInputProcessor(new FiremanInputProcessor(fireman, game.batch, asset).im);
-            letterPuzzle2.table.setVisible(false);
-        }
-
-        if (letterPuzzle2.enterHints.isPressed()) {
+        if (letterPuzzle2.getAnswer1().isPressed()) {
+            MessageManager.getInstance().dispatchMessage(MessageType.WRONG_ANSWER.code());
+        } else if (letterPuzzle2.getAnswer2().isPressed()) {
+            MessageManager.getInstance().dispatchMessage(MessageType.WRONG_ANSWER.code());
+        } else if (letterPuzzle2.getAnswer3().isPressed()) {
+            MessageManager.getInstance().dispatchMessage(MessageType.WRONG_ANSWER.code());
+        } else if (letterPuzzle2.getAnswer4().isPressed()) {
+            MessageManager.getInstance().dispatchMessage(MessageType.CORRECT_ANSWER.code());
+            Gdx.input.setInputProcessor(getIm());
+            letterPuzzle2.getTable().setVisible(false);
+        } else if (letterPuzzle2.getEnterHints().isPressed()) {
+            if (status.getCollectibles() > 0) {
+                MessageManager.getInstance().dispatchMessage(MessageType.HINT_USED.code());
+                letterPuzzle2.getAnswer2().setVisible(false);
+                letterPuzzle2.getAnswer1().setVisible(false);
+            }
         }
     }
     
-    private void letterPutz(final Fireman fireman, final FuegoPeligro game, final AssetManager asset,
-                            final byte lives, final CurrentPlayerStatus status) {
-        letterPuzzle.questionText.setText(line.get(1).substring(2));
-        letterPuzzle.answer1.setText(line.get(4));
-        letterPuzzle.answer2.setText(line.get(3));
-        letterPuzzle.answer3.setText(line.get(2));
-        letterPuzzle.answer4.setText(line.get(1));
+    private void letterPutz(final CurrentPlayerStatus status) {
+        if (status.getCurrentWorld() == 1) {
+            letterPuzzle.getQuestionText().setText(getLine()
+                    .get(1)
+                    .replace('i',' ')
+                    .replace('o', ' ')
+                    .replace('u', ' ')
+                    .substring(1));
+        } else if (status.getCurrentWorld() == 2) {
+            letterPuzzle.getQuestionText().setText(getLine()
+                    .get(1)
+                    .replace('a',' ')
+                    .replace('i', ' ')
+                    .replace('o', ' ')
+                    .replace('u', ' ')
+                    .substring(1));
+        }
+
+        letterPuzzle.getAnswer1().setText(getLine().get(4));
+        letterPuzzle.getAnswer2().setText(getLine().get(3));
+        letterPuzzle.getAnswer3().setText(getLine().get(2));
+        letterPuzzle.getAnswer4().setText(getLine().get(1));
 
         letterPuzzle.render(Gdx.graphics.getDeltaTime());
-        letterPuzzle.table.setVisible(true);
-        Gdx.input.setInputProcessor(letterPuzzle.stage);
-
-        if (letterPuzzle.answer1.isPressed()) { status.setLives((byte)(lives - 1)); }
-
-        if (letterPuzzle.answer2.isPressed()) { status.setLives((byte)(lives - 1)); }
-
-        if (letterPuzzle.answer3.isPressed()) { status.setLives((byte)(lives - 1)); }
-
-        if (letterPuzzle.answer4.isPressed()) {
-            Gdx.input.setInputProcessor(new FiremanInputProcessor(fireman, game.batch, asset).im);
-            letterPuzzle.table.setVisible(false);
-        }
-
-        if (letterPuzzle.enterHints.isPressed()) {
-
+        letterPuzzle.getTable().setVisible(true);
+        Gdx.input.setInputProcessor(letterPuzzle.getStage());
+        
+        if (letterPuzzle.getAnswer1().isPressed()) {
+            MessageManager.getInstance().dispatchMessage(MessageType.WRONG_ANSWER.code());
+        } else if (letterPuzzle.getAnswer2().isPressed()) {
+            MessageManager.getInstance().dispatchMessage(MessageType.WRONG_ANSWER.code());
+        } else if (letterPuzzle.getAnswer3().isPressed()) {
+            MessageManager.getInstance().dispatchMessage(MessageType.WRONG_ANSWER.code());
+        } else if (letterPuzzle.getAnswer4().isPressed()) {
+            MessageManager.getInstance().dispatchMessage(MessageType.CORRECT_ANSWER.code());
+            Gdx.input.setInputProcessor(getIm());
+            letterPuzzle.getTable().setVisible(false);
+        } else if (letterPuzzle.getEnterHints().isPressed()) {
+            if (status.getCollectibles() > 0) {
+                MessageManager.getInstance().dispatchMessage(MessageType.HINT_USED.code());
+                letterPuzzle.getAnswer3().setVisible(false);
+                letterPuzzle.getAnswer1().setVisible(false);
+            }
         }
     }
 
-    private void fPicsOWord2(final Fireman fireman, final FuegoPeligro game, final AssetManager asset,
-                            final byte lives, final String fileName, final CurrentPlayerStatus status) {
+    private void fPicsOWord2(final String fileName, final CurrentPlayerStatus status) {
         Texture texture_1 = new Texture(Gdx.files.internal(fileName +
-                line.get(0).substring(1) + "." + 1 + ".jpg"));
+                getLine().get(0).substring(1) + "." + 1 + ".jpg"));
         Texture texture_2 = new Texture(Gdx.files.internal(fileName +
-                line.get(0).substring(1) + "." + 2 + ".jpg"));
+                getLine().get(0).substring(1) + "." + 2 + ".jpg"));
         Texture texture_3 = new Texture(Gdx.files.internal(fileName +
-                line.get(0).substring(1) + "." + 3 + ".jpg"));
+                getLine().get(0).substring(1) + "." + 3 + ".jpg"));
         Texture texture_4 = new Texture(Gdx.files.internal(fileName +
-                line.get(0).substring(1) + "." + 4 + ".jpg"));
+                getLine().get(0).substring(1) + "." + 4 + ".jpg"));
 
         TextureRegion myTextureRegion_1 = new TextureRegion(texture_1);
         TextureRegion myTextureRegion_2 = new TextureRegion(texture_2);
@@ -369,47 +421,43 @@ public class LevelGraphicsProcessor implements GraphicsProcessor, Telegraph {
         TextureRegionDrawable myTexRegionDrawable_3 = new TextureRegionDrawable(myTextureRegion_3);
         TextureRegionDrawable myTexRegionDrawable_4 = new TextureRegionDrawable(myTextureRegion_4);
 
-        fourPicsOneWord2.answer1.setDrawable(myTexRegionDrawable_1);
-        fourPicsOneWord2.answer2.setDrawable(myTexRegionDrawable_2);
-        fourPicsOneWord2.answer3.setDrawable(myTexRegionDrawable_3);
-        fourPicsOneWord2.answer4.setDrawable(myTexRegionDrawable_4);
+        fourPicsOneWord2.getAnswer1().setDrawable(myTexRegionDrawable_1);
+        fourPicsOneWord2.getAnswer2().setDrawable(myTexRegionDrawable_2);
+        fourPicsOneWord2.getAnswer3().setDrawable(myTexRegionDrawable_3);
+        fourPicsOneWord2.getAnswer4().setDrawable(myTexRegionDrawable_4);
 
         fourPicsOneWord2.render(Gdx.graphics.getDeltaTime());
-        fourPicsOneWord2.table.setVisible(true);
-        Gdx.input.setInputProcessor(fourPicsOneWord2.stage);
+        fourPicsOneWord2.getTable().setVisible(true);
+        Gdx.input.setInputProcessor(fourPicsOneWord2.getStage());
 
-        if (fourPicsOneWord2.enterAnswer.isPressed()) {
-            if (fourPicsOneWord2.input.getText().equalsIgnoreCase(line.get(1))) {
-                Gdx.input.setInputProcessor(new FiremanInputProcessor(fireman, game.batch, asset).im);
-                fourPicsOneWord2.table.setVisible(false);
-            } else if (!fourPicsOneWord2.input.getText().equalsIgnoreCase(line.get(1))) {
-                status.setLives((byte)(lives - 1)); }
+        if (fourPicsOneWord2.getEnterAnswer().isPressed()) {
+            if (fourPicsOneWord2.getInput().getText().equalsIgnoreCase(getLine().get(1))) {
+                MessageManager.getInstance().dispatchMessage(MessageType.CORRECT_ANSWER.code());
+                Gdx.input.setInputProcessor(getIm());
+                fourPicsOneWord2.getTable().setVisible(false);
+            } else if (!fourPicsOneWord2.getInput().getText().equalsIgnoreCase(getLine().get(1))) {
+                MessageManager.getInstance().dispatchMessage(MessageType.WRONG_ANSWER.code()); }
             texture_1.dispose();
             texture_2.dispose();
             texture_3.dispose();
             texture_4.dispose();
-        }
-
-        if (fourPicsOneWord2.enterHints.isPressed()) {
-            Gdx.input.setInputProcessor(new FiremanInputProcessor(fireman, game.batch, asset).im);
-            fourPicsOneWord2.table.setVisible(false);
-            texture_1.dispose();
-            texture_2.dispose();
-            texture_3.dispose();
-            texture_4.dispose();
+        } else if (fourPicsOneWord2.getEnterHints().isPressed()) {
+            if (status.getCollectibles() > 0) {
+                MessageManager.getInstance().dispatchMessage(MessageType.HINT_USED.code());
+                fourPicsOneWord2.getInput().setText(getLine().get(1).substring(0, getLine().get(1).length() / 2));
+            }
         }
     }
     
-    private void fPicsOWord(final Fireman fireman, final FuegoPeligro game, final AssetManager asset,
-                            final byte lives, final String fileName, final CurrentPlayerStatus status) {
+    private void fPicsOWord(final String fileName, final CurrentPlayerStatus status) {
         Texture texture_1 = new Texture(Gdx.files.internal(fileName +
-                line.get(0).substring(1) + "." + 1 + ".jpg"));
+                getLine().get(0).substring(1) + "." + 1 + ".jpg"));
         Texture texture_2 = new Texture(Gdx.files.internal(fileName +
-                line.get(0).substring(1) + "." + 2 + ".jpg"));
+                getLine().get(0).substring(1) + "." + 2 + ".jpg"));
         Texture texture_3 = new Texture(Gdx.files.internal(fileName +
-                line.get(0).substring(1) + "." + 3 + ".jpg"));
+                getLine().get(0).substring(1) + "." + 3 + ".jpg"));
         Texture texture_4 = new Texture(Gdx.files.internal(fileName +
-                line.get(0).substring(1) + "." + 4 + ".jpg"));
+                getLine().get(0).substring(1) + "." + 4 + ".jpg"));
 
         TextureRegion myTextureRegion_1 = new TextureRegion(texture_1);
         TextureRegion myTextureRegion_2 = new TextureRegion(texture_2);
@@ -421,34 +469,31 @@ public class LevelGraphicsProcessor implements GraphicsProcessor, Telegraph {
         TextureRegionDrawable myTexRegionDrawable_3 = new TextureRegionDrawable(myTextureRegion_3);
         TextureRegionDrawable myTexRegionDrawable_4 = new TextureRegionDrawable(myTextureRegion_4);
 
-        fourPicsOneWord.answer1.setDrawable(myTexRegionDrawable_1);
-        fourPicsOneWord.answer2.setDrawable(myTexRegionDrawable_2);
-        fourPicsOneWord.answer3.setDrawable(myTexRegionDrawable_3);
-        fourPicsOneWord.answer4.setDrawable(myTexRegionDrawable_4);
+        fourPicsOneWord.getAnswer1().setDrawable(myTexRegionDrawable_1);
+        fourPicsOneWord.getAnswer2().setDrawable(myTexRegionDrawable_2);
+        fourPicsOneWord.getAnswer3().setDrawable(myTexRegionDrawable_3);
+        fourPicsOneWord.getAnswer4().setDrawable(myTexRegionDrawable_4);
 
         fourPicsOneWord.render(Gdx.graphics.getDeltaTime());
-        fourPicsOneWord.table.setVisible(true);
-        Gdx.input.setInputProcessor(fourPicsOneWord.stage);
+        fourPicsOneWord.getTable().setVisible(true);
+        Gdx.input.setInputProcessor(fourPicsOneWord.getStage());
 
-        if (fourPicsOneWord.enterAnswer.isPressed()) {
-            if (fourPicsOneWord.input.getText().equalsIgnoreCase(line.get(1))) {
-                Gdx.input.setInputProcessor(new FiremanInputProcessor(fireman, game.batch, asset).im);
-                fourPicsOneWord.table.setVisible(false);
-            } else if (!fourPicsOneWord.input.getText().equalsIgnoreCase(line.get(1))) {
-                status.setLives((byte)(lives - 1)); }
+        if (fourPicsOneWord.getEnterAnswer().isPressed()) {
+            if (fourPicsOneWord.getInput().getText().equalsIgnoreCase(getLine().get(1))) {
+                MessageManager.getInstance().dispatchMessage(MessageType.CORRECT_ANSWER.code());
+                Gdx.input.setInputProcessor(getIm());
+                fourPicsOneWord.getTable().setVisible(false);
+            } else if (!fourPicsOneWord.getInput().getText().equalsIgnoreCase(getLine().get(1))) {
+                MessageManager.getInstance().dispatchMessage(MessageType.WRONG_ANSWER.code()); }
             texture_1.dispose();
             texture_2.dispose();
             texture_3.dispose();
             texture_4.dispose();
-        }
-
-        if (fourPicsOneWord.enterHints.isPressed()) {
-            Gdx.input.setInputProcessor(new FiremanInputProcessor(fireman, game.batch, asset).im);
-            fourPicsOneWord.table.setVisible(false);
-            texture_1.dispose();
-            texture_2.dispose();
-            texture_3.dispose();
-            texture_4.dispose();
+        } else if (fourPicsOneWord.getEnterHints().isPressed()) {
+            if (status.getCollectibles() > 0) {
+                MessageManager.getInstance().dispatchMessage(MessageType.HINT_USED.code());
+                fourPicsOneWord.getInput().setText(getLine().get(1).substring(0, getLine().get(1).length() / 2));
+            }
         }
     }
     
@@ -467,7 +512,7 @@ public class LevelGraphicsProcessor implements GraphicsProcessor, Telegraph {
         } else if (renderLevelEnd) {
             levelEnd();
         } else if (minicamSelection) {
-            minicamSelection(fireman2, fargo, assetManager, status);
+            minicamSelection(status);
         }
     }
 
@@ -484,7 +529,7 @@ public class LevelGraphicsProcessor implements GraphicsProcessor, Telegraph {
         gameOver.resize(width, height);
         levelEnd.resize(width, height);
         multipleChoice.resize(width, height);
-        wordscapes.resize(width, height);
+        workspaces.resize(width, height);
         letterPuzzle.resize(width, height);
         fourPicsOneWord.resize(width, height);
     }
@@ -494,16 +539,27 @@ public class LevelGraphicsProcessor implements GraphicsProcessor, Telegraph {
         gameOver.dispose();
         levelEnd.dispose();
         multipleChoice.dispose();
-        wordscapes.dispose();
+        workspaces.dispose();
         letterPuzzle.dispose();
         fourPicsOneWord.dispose();
     }
 
-    private void QAReader(String fileName, byte qaNumber1) {
-        try (BufferedReader br = new BufferedReader(new FileReader(new File(fileName)))) {
-            List<String> lines = br.lines().skip(qaNumber1).limit(1).collect(Collectors.toList());
-            String lines2 = String.valueOf(lines);
-            line = Arrays.asList(lines2.split(","));
-        } catch (IOException e) { e.printStackTrace(); }
+    private void QAReader(String fileName, int qaNumber1) {
+        FileHandle handle = Gdx.files.internal(fileName);
+        if(handle.exists()) {
+            try (BufferedReader br = new BufferedReader(handle.reader())) {
+                List<String> lines = br.lines().skip(qaNumber1).limit(1).collect(Collectors.toList());
+                String lines2 = String.valueOf(lines);
+                setLine(Arrays.asList(lines2.split(",")));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
+    
+    private List<String> getLine() { return line; }
+    
+    private void setLine(List<String> value) { line = value; }
+    
+    private InputMultiplexer getIm() { return im; }
 }

@@ -6,30 +6,30 @@ package com.mygdx.fuegopeligro.player;
  * @author JDEsguerra
  */
 public interface PlayerStatus {
-    short DEFAULT_TIME = 600;
-    byte DEFAULT_LIVES = 3;
-    byte DEFAULT_WORLD = 1;
-    byte DEFAULT_LEVEL = 1;
-    byte CURRENT_WORLD = 1;
-    byte CURRENT_LEVEL = 1;
-    byte CURRENT_MG = 1;
-    byte CURRENT_EQA = 1;
-    byte CURRENT_HQA = 1;
-    byte CURRENT_RECOUNT = 0;
+    int DEFAULT_TIME = 600;
+    int DEFAULT_LIVES = 3;
+    int DEFAULT_WORLD = 1;
+    int DEFAULT_LEVEL = 1;
+    int CURRENT_WORLD = 1;
+    int CURRENT_LEVEL = 1;
+    int CURRENT_MG = 1;
+    int CURRENT_EQA = 1;
+    int CURRENT_HQA = 1;
+    int CURRENT_RECOUNT = 0;
 
     /**
      * Returns the count of gathered collectibles so far.
      *
      * @return The number of collectibles owned by the player.
      */
-    short getCollectibles();
+    int getCollectibles();
 
     /**
      * Returns the number of remaining lives. When lives reaches zero, it's game over.
      *
      * @return The number of lives left for the player.
      */
-    byte getLives();
+    int getLives();
 
     /**
      * Returns the current score of the player.
@@ -44,7 +44,7 @@ public interface PlayerStatus {
      *
      * @return The time that remains to finish the current level.
      */
-    short getTime();
+    int getTime();
 
     /**
      * Returns the number of the level relative to the current world. Each world may contain
@@ -52,7 +52,7 @@ public interface PlayerStatus {
      *
      * @return The number of the level the player is currently in.
      */
-    byte getLevel();
+    int getLevel();
 
     /**
      * Returns the number of the world currently being played. A world represents a collection of
@@ -60,7 +60,7 @@ public interface PlayerStatus {
      *
      * @return The number of the world the player is currently in.
      */
-    byte getWorld();
+    int getWorld();
 
     /**
      * Returns the last number of the world that has been played. A world represents a collection of
@@ -68,7 +68,7 @@ public interface PlayerStatus {
      *
      * @return The number of the world the player was lastly in.
      */
-    byte getCurrentWorld();
+    int getCurrentWorld();
 
     /**
      * Returns the last number of the level currently that has been played. A world represents a collection of
@@ -76,13 +76,13 @@ public interface PlayerStatus {
      *
      * @return The number of the level the player was lastly in.
      */
-    byte getCurrentLevel();
+    int getCurrentLevel();
 
-    byte getMGValue();
+    int getMGValue();
 
-    byte getEqaValue();
+    int getEqaValue();
 
-    byte getHqaValue();
+    int getHqaValue();
 
-    byte getGoResetCounter();
+    int getGoResetCounter();
 }

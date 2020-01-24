@@ -7,7 +7,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.controllers.mappings.Ouya;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
@@ -116,7 +115,7 @@ public final class EntityFactory {
             Controllers.clearListeners();
             Controllers.addListener(new FiremanControllerProcessor(fireman));
         } else {
-            Gdx.input.setInputProcessor(new FiremanInputProcessor(fireman, game.getBatch(), assets).getIm());
+            Gdx.input.setInputProcessor(new FiremanInputProcessor(fireman, game, assets));
         }
         return fireman;
     }
@@ -126,19 +125,18 @@ public final class EntityFactory {
      * and audio attributes.
      *
      * @param world
-     * @param batch
      * @param renderer
      * @param assets
      * @param observers
      * @return A newly created {@link Environment}.
      */
-    public static Entity createEnvironment(final FuegoPeligro game, final World world, final Batch batch,
+    public static Entity createEnvironment(final FuegoPeligro game, final World world,
                                            final LevelRenderer renderer, final AssetManager assets,
                                            final CurrentPlayerStatus status, final PlayerStatusObserver... observers) {
         PhysicsProcessor physics = new LevelPhysicsProcessor(world, renderer.getTiledMap(), renderer.getUnitScale());
         CONTACT_LISTENER.add(physics);
         world.setContactListener(CONTACT_LISTENER);
-        GraphicsProcessor graphics = new LevelGraphicsProcessor(assets, renderer, game, fireman, status, batch);
+        GraphicsProcessor graphics = new LevelGraphicsProcessor(assets, renderer, game, fireman, status);
         AudioProcessor audio = new LevelAudioProcessor(assets, renderer.getTiledMap().getProperties());
         PlayerStatusProcessor player = new LevelPlayerStatusProcessor(status);
         if (observers != null) {

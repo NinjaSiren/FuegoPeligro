@@ -36,7 +36,7 @@ public final class LevelFactory {
      * @return A new {@link LevelRenderer}, ready to render the map, its bodies and collectibles.
      */
     public static LevelRenderer create(final World world, final BodyEditorLoader loader, final Batch batch,
-                                       final AssetManager assets, final byte stage, final byte level, final float unitScale) {
+                                       final AssetManager assets, final int stage, final int level, final float unitScale) {
         LEVEL_MAP_FILE = String.format("map/stage.%s.%s.tmx", stage, level);
         TiledMap tiledMap = new TmxMapLoader().load(LEVEL_MAP_FILE);
         LevelRenderer renderer = new LevelRenderer(tiledMap, assets, batch, unitScale);
