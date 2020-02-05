@@ -1,0 +1,176 @@
+/* Minimalist Design Stylesheet
+ * Created by John Daniel Esguerra
+ * For Nicole Andrea Solis portfolio website 
+ */
+
+ /* Start of stylesheet */
+
+ /* FONT FACES */
+ @font-face {
+	font-family: MenuFont;
+    src: url(skyeden.ttf);}
+ @font-face {
+	font-family: LogoFont;
+    src: url(ohnow.ttf);}
+ @font-face {
+	font-family: ParagraphFont;
+    src: url(skyeden.ttf);}
+ 
+ /* FOR BODY AND BACKGROUND */
+ *{ 
+    box-sizing: border-box;}
+ html {
+    margin: 0;}
+ body {
+    margin: 0;
+	background-color: rgba(0,0,0,0);}
+ body.index {
+    background: url("sunset.jpg");
+	background-position: center;
+	background-repeat: no-repeat;
+    background-size: 1% -1%;}
+ html.about {
+    background: url("sunset.jpg");
+	background-position: center;
+	background-repeat: no-repeat;
+    background-size: 1% -1%;}
+ html.images, html.contacts {
+    background: url("sunset.jpg");
+	background-position: top;
+	background-repeat: no-repeat;
+    background-size: 1% -1%;}
+ 
+ /* FOR NAVIGATION MENU */
+ nav.navbar, ul.dropdown-menu {
+	background-color: rgba(244,244,244,1);
+    border-style: solid; border-width: 5px; border-color: rgba(0,0,0,1);
+    -webkit-box-shadow: 2px 2px 9px rgba(0,0,0,0.25);
+    -moz-box-shadow: 2px 2px 9px rgba(0,0,0,0.25);
+    box-shadow: 2px 2px 9px rgba(0,0,0,0.25);}
+ ul.dropdown-menu li.dropdown-item a {
+	color: rgba(156,156,156,1);}
+ ul.dropdown-menu li.active a, ul.dropdown-menu li a:hover {
+	background-color: rgba(244,244,244,1);
+	color: #000000;}
+ ul.dropdown-menu li.active a:hover {
+	background-color: rgba(128,128,244,1);
+	color: #000000;}
+ a.navbar-brand img {
+	margin: 0; padding: 0; display: relative;
+	height: 250%; max-width: 100%;
+	transform: translate(0%, -31%);}
+ li.menuitem a {
+	color: rgba(0,0,0,1);
+	font-family: MenuFont; font-size: 16px;}
+ 
+ /* FOR JUMBOTRON */
+ /* INDEX.HTML */
+ div.jumbotron {
+	background-color: rgba(0,0,0,0);
+	padding: 0; margin: 0;}
+ div.jumbotron img {
+    position: relative; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+	margin-top: 40%; margin-left: 1vw;
+	max-height: 100%; width: 25%;
+    border-radius: 150px;
+    -webkit-box-shadow: 2px 2px 9px rgba(0,0,0,0.25);
+    -moz-box-shadow: 2px 2px 9px rgba(0,0,0,0.25);
+    box-shadow: 2px 2px 9px rgba(0,0,0,0.25);}
+	
+ /* IMAGES.HTML */
+ div.jumbotron3 {
+    background-color: rgba(0,0,0,0);
+	margin: auto; padding: auto;
+	margin-top: 15vw;}
+ div.jumbotron3 h1 {
+	margin-top: 3vw; margin-bottom: 10vw;
+	position: relative; top: 5vw;
+	font-family: LogoFont; font-size: 10vw;
+	text-align: center; vertical-align: middle;
+	color: rgba(244,244,244,1);
+    text-shadow: 2px 2px 9px rgba(0,0,0,0.25);}
+	
+ /* CONTACTS.HTML */	
+ div.jumbotron4 {
+    background-color: rgba(0,0,0,0);
+	margin: auto; padding: auto;
+	margin-top: 15vw;}
+ div.jumbotron4 h1 {
+	margin-top: 3vw; margin-bottom: 10vw;
+	position: relative; top: 5vw;
+	font-family: LogoFont; font-size: 10vw;
+	text-align: center; vertical-align: middle;
+	color: rgba(244,244,244,1);
+    text-shadow: 2px 2px 9px rgba(0,0,0,0.25);}
+ div.jumbotron4 p {
+	margin: auto;
+	position: absolute; bottom: auto; left: 38vw; right: 5vw; top: 32vw;
+	font-family: ParagraphFont; font-size: 2vw;
+	text-align: justify; vertical-align: middle;
+	color: rgba(244,244,244,1);}
+	
+ /* ABOUT IMAGE */
+ div.profile {
+	display: absolute;}
+ img.profileimage {
+	display: block; height: auto; width: 25%; max-width: 100%;
+	margin: auto; position: relative; left: -32vw; top: -5.25vw;
+	border-radius: 10%; border-style: solid; border-width: 5px; border-color: rgba(0,0,0,1);
+    -webkit-box-shadow: 2px 2px 9px rgba(0,0,0,0.25);
+    -moz-box-shadow: 2px 2px 9px rgba(0,0,0,0.25);
+    box-shadow: 2px 2px 9px rgba(0,0,0,0.25);}
+	
+ /* ABOUT.HTML */
+ div.jumbotron2 {
+    background-color: rgba(0,0,0,0);}
+ div.jumbotron2 h1 {
+	margin: auto;
+	position: relative; top: 7vw; left: -3vw;
+	font-family: LogoFont; font-size: 10vw;
+	text-align: center; vertical-align: middle;
+	color: rgba(244,244,244,1);
+    text-shadow: 2px 2px 9px rgba(0,0,0,0.25);}
+ div.jumbotron2 p {
+	margin: auto;
+	position: absolute; bottom: auto; left: 32vw; right: 5vw; top: 33vw;
+	font-family: ParagraphFont; font-size: 2vw;
+	text-align: justify; vertical-align: middle;
+	color: rgba(244,244,244,1);}	
+  div.profile {
+	margin: auto;
+    display: block;
+	margin-top: 14vw;}	
+	
+ /* FOR IMAGE GALLERY */
+ div.gallery {
+	display: inline;}
+ img.img-responsive {
+	display: block; height: 87.5%; width: 87.5%;
+	margin-bottom: 4.5vw; margin-top: auto; margin-left: auto; margin-right: auto;}
+ .hovereffect {
+    width: 100%; height: 100%;
+    float: left; overflow: hidden; position: relative;
+    text-align: center; cursor: default;}
+ .hovereffect .overlay {
+    width: 100%; height: 100%;
+    position: absolute; overflow: hidden;
+    top: 0; left: 0;}
+ .hovereffect img {
+    display: block; position: relative;
+    -webkit-transform: scale(1.1); -ms-transform: scale(1.1);
+    transform: scale(1.1); -webkit-transition: all 0.35s; transition: all 0.35s;}
+ .hovereffect:hover img {
+    -webkit-transform: scale(1); -ms-transform: scale(1);
+    transform: scale(1);
+    filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feComponentTransfer color-interpolation-filters="sRGB"><feFuncR type="linear" slope="0.7" /><feFuncG type="linear" slope="0.7" /><feFuncB type="linear" slope="0.7" /></feComponentTransfer></filter></svg>#filter');
+    filter: brightness(0.7); -webkit-filter: brightness(0.7);}
+	
+ /* FOR SOCIAL MEDIA ICONS */
+ table.socialgrid {
+    position: relative; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+	margin-top: 20%; margin-left: 1vw;}
+ table.socialgrid img {
+    display: block; max-width: 100%; height: 75%;
+	margin: auto; padding: auto;}

@@ -20,6 +20,7 @@ import com.mygdx.fuegopeligro.graphics.CheckpointGraphicsProcessor;
 import com.mygdx.fuegopeligro.graphics.FiremanGraphicsProcessor;
 import com.mygdx.fuegopeligro.graphics.GraphicsProcessor;
 import com.mygdx.fuegopeligro.graphics.LevelGraphicsProcessor;
+import com.mygdx.fuegopeligro.graphics.hud.StatusBar;
 import com.mygdx.fuegopeligro.input.FiremanControllerProcessor;
 import com.mygdx.fuegopeligro.input.FiremanInputProcessor;
 import com.mygdx.fuegopeligro.map.LevelRenderer;
@@ -75,7 +76,8 @@ public final class EntityFactory {
 
     private static Fireman fireman;
     public static Entity createNinjaRabbit(final FuegoPeligro game, final World world, final BodyEditorLoader loader, final AssetManager assets,
-                                           final CurrentPlayerStatus status, final PlayerStatusObserver... observers) {
+                                           final CurrentPlayerStatus status, final StatusBar lilScan,
+                                           final PlayerStatusObserver... observers) {
         PhysicsProcessor physics = new FiremanPhysicsProcessor();
         CONTACT_LISTENER.add(physics);
         world.setContactListener(CONTACT_LISTENER);
@@ -115,7 +117,7 @@ public final class EntityFactory {
             Controllers.clearListeners();
             Controllers.addListener(new FiremanControllerProcessor(fireman));
         } else {
-            Gdx.input.setInputProcessor(new FiremanInputProcessor(fireman, game, assets));
+            Gdx.input.setInputProcessor(new FiremanInputProcessor(fireman, lilScan));
         }
         return fireman;
     }
@@ -132,11 +134,12 @@ public final class EntityFactory {
      */
     public static Entity createEnvironment(final FuegoPeligro game, final World world,
                                            final LevelRenderer renderer, final AssetManager assets,
-                                           final CurrentPlayerStatus status, final PlayerStatusObserver... observers) {
+                                           final CurrentPlayerStatus status, final StatusBar lviScorn,
+                                           final PlayerStatusObserver... observers) {
         PhysicsProcessor physics = new LevelPhysicsProcessor(world, renderer.getTiledMap(), renderer.getUnitScale());
         CONTACT_LISTENER.add(physics);
         world.setContactListener(CONTACT_LISTENER);
-        GraphicsProcessor graphics = new LevelGraphicsProcessor(assets, renderer, game, fireman, status);
+        GraphicsProcessor graphics = new LevelGraphicsProcessor(assets, renderer, game, fireman, status, lviScorn);
         AudioProcessor audio = new LevelAudioProcessor(assets, renderer.getTiledMap().getProperties());
         PlayerStatusProcessor player = new LevelPlayerStatusProcessor(status);
         if (observers != null) {

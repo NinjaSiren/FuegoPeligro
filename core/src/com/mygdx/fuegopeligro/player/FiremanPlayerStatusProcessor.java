@@ -28,30 +28,42 @@ public class FiremanPlayerStatusProcessor extends PlayerStatusProcessor implemen
     }
 
     private void LoadEasy(int levelValue) {
-        if(levelValue == 1) {
-            getStatus().setEqavalue(new RandomNumberGenerator(1, 30).getGeneratedNumber());
-        } else if(levelValue == 2) {
-            getStatus().setEqavalue(new RandomNumberGenerator(7, 30).getGeneratedNumber());
-        } else if(levelValue == 3) {
-            getStatus().setEqavalue(new RandomNumberGenerator(13, 30).getGeneratedNumber());
-        } else if(levelValue == 4) {
-            getStatus().setEqavalue(new RandomNumberGenerator(19, 30).getGeneratedNumber());
-        } else if(levelValue == 5) {
-            getStatus().setEqavalue(new RandomNumberGenerator(25, 30).getGeneratedNumber());
+        switch (levelValue) {
+            case 1:
+                getStatus().setEqavalue(new RandomNumberGenerator(1, 30).getGeneratedNumber());
+                break;
+            case 2:
+                getStatus().setEqavalue(new RandomNumberGenerator(7, 30).getGeneratedNumber());
+                break;
+            case 3:
+                getStatus().setEqavalue(new RandomNumberGenerator(13, 30).getGeneratedNumber());
+                break;
+            case 4:
+                getStatus().setEqavalue(new RandomNumberGenerator(19, 30).getGeneratedNumber());
+                break;
+            case 5:
+                getStatus().setEqavalue(new RandomNumberGenerator(25, 30).getGeneratedNumber());
+                break;
         }
     }
 
     private void LoadHard(int levelValue) {
-        if(levelValue == 1) {
-            getStatus().setHqaValue(new RandomNumberGenerator(1, 40).getGeneratedNumber());
-        } else if(levelValue == 2) {
-            getStatus().setHqaValue(new RandomNumberGenerator(9, 40).getGeneratedNumber());
-        } else if(levelValue == 3) {
-            getStatus().setHqaValue(new RandomNumberGenerator(17, 40).getGeneratedNumber());
-        } else if(levelValue == 4) {
-            getStatus().setHqaValue(new RandomNumberGenerator(25, 40).getGeneratedNumber());
-        } else if(levelValue == 5) {
-            getStatus().setHqaValue(new RandomNumberGenerator(33, 40).getGeneratedNumber());
+        switch (levelValue) {
+            case 1:
+                getStatus().setHqaValue(new RandomNumberGenerator(1, 40).getGeneratedNumber());
+                break;
+            case 2:
+                getStatus().setHqaValue(new RandomNumberGenerator(9, 40).getGeneratedNumber());
+                break;
+            case 3:
+                getStatus().setHqaValue(new RandomNumberGenerator(17, 40).getGeneratedNumber());
+                break;
+            case 4:
+                getStatus().setHqaValue(new RandomNumberGenerator(25, 40).getGeneratedNumber());
+                break;
+            case 5:
+                getStatus().setHqaValue(new RandomNumberGenerator(33, 40).getGeneratedNumber());
+                break;
         }
     }
 
@@ -70,11 +82,19 @@ public class FiremanPlayerStatusProcessor extends PlayerStatusProcessor implemen
     }
 
     private void doIfHintUsed() {
-        getStatus().setCollectibles(getStatus().getCollectibles() - 1);
+        int value = 1;
+        while (value == 1) {
+            getStatus().setCollectibles(getStatus().getCollectibles() - value);
+            value--;
+        }
     }
 
     private void doIfCorrect() {
-        getStatus().setScore(getStatus().getScore() - ADDITIONAL_SCORE);
+        int value = 250;
+        while (value < 1) {
+            getStatus().setScore(getStatus().getScore() + value);
+            value = 0;
+        }
     }
 
     private void doIfWrong() {

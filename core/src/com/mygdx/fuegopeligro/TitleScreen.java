@@ -32,10 +32,12 @@ public class TitleScreen extends AbstractScreen {
     private static final String RETURN_OPTION = "Continue Game";
     private static final String PREFS_OPTION = "Settings";
     private static final String EXIT_OPTION = "Exit game";
+    private static final String APP_OPTION = "Open Fire Safety App";
 
     private final Stage stage;
     private final Telegram msg;
     private final float x1, y1;
+    private final TextButton appButton;
 
     TitleScreen(final FuegoPeligro game) {
         super(game);
@@ -148,6 +150,9 @@ public class TitleScreen extends AbstractScreen {
             }
         });
 
+        appButton = new TextButton(APP_OPTION, buttonStyle);
+        appButton.setSize(stage.getWidth() / 4, stage.getHeight() / 4);
+
         table.setBackground(new TextureRegionDrawable(new TextureRegion(new Texture("menubg.png"))));
         table.add(beginIcon);
         table.add(beginButton).expand(true, true).center().row();
@@ -178,6 +183,10 @@ public class TitleScreen extends AbstractScreen {
         stage.addActor(table);
         stage.setKeyboardFocus(table);
         Gdx.input.setInputProcessor(stage);
+    }
+
+    public TextButton getAppButton() {
+        return appButton;
     }
 
     @Override

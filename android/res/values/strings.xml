@@ -3,4 +3,13 @@
 
     <string name="app_name">Fuego Peligro</string>
 
+    <string name="title_activity_information">InformationActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="return_to_game">RETURN TO MENU</string>
+    <string name="fuego_peligro">Fuego Peligro</string>
+    <string name="todo">TODO</string>
+    <string name="fuego_peligro_game">FUEGO PELIGRO GAME</string>
+    <string name="fire_safety_and_hazards_app">FIRE SAFETY AND HAZARDS APP</string>
+
 </resources>
