@@ -14,6 +14,7 @@ public class MenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menu);
         Button buttonGame = findViewById(R.id.button3);
         Button buttonApp = findViewById(R.id.button4);
+        Button buttonExit = findViewById(R.id.buttonExit);
 
         buttonGame.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -26,6 +27,16 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MenuActivity.this, MainActivity.class));
+            }
+        });
+
+        buttonExit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finishAndRemoveTask();
+                finishAffinity();
+                finish();
+                System.exit(0);
             }
         });
     }
