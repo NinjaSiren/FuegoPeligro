@@ -15,8 +15,8 @@ import com.mygdx.fuegopeligro.entity.Entity;
 /**
  * @author JDEsguerra
  */
-public class CheckpointPhysicsProcessor implements PhysicsProcessor {
-    public static final String CARROT_IDENTIFIER = "carrot";
+public class CoinsPhysicsProcessor implements PhysicsProcessor {
+    public static final String COINS_IDENTIFIER = "carrot";
 
     private static final float MAX_DISTANCE = 0.18f;
     private static final float VERTICAL_VELOCITY = 0.21f;
@@ -24,18 +24,18 @@ public class CheckpointPhysicsProcessor implements PhysicsProcessor {
 
     @Override
     public void beginContact(final Contact contact) {
-        if (CARROT_IDENTIFIER.equals(contact.getFixtureA().getUserData())) {
-            collectCarrot(contact.getFixtureA());
-        } else if (CARROT_IDENTIFIER.equals(contact.getFixtureB().getUserData())) {
-            collectCarrot(contact.getFixtureB());
+        if (COINS_IDENTIFIER.equals(contact.getFixtureA().getUserData())) {
+            collectCoins(contact.getFixtureA());
+        } else if (COINS_IDENTIFIER.equals(contact.getFixtureB().getUserData())) {
+            collectCoins(contact.getFixtureB());
         }
     }
 
-    private void collectCarrot(final Fixture fixture) {
-        Collectible carrot = (Collectible) fixture.getBody().getUserData();
-        if (!carrot.isCollected()) {
-            carrot.setCollected(true);
-            MessageManager.getInstance().dispatchMessage(null, MessageType.COLLECTED.code(), carrot);
+    private void collectCoins(final Fixture fixture) {
+        Collectible coins = (Collectible) fixture.getBody().getUserData();
+        if (!coins.isCollected()) {
+            coins.setCollected(true);
+            MessageManager.getInstance().dispatchMessage(null, MessageType.COINS_COLLECTED.code(), coins);
         }
     }
 

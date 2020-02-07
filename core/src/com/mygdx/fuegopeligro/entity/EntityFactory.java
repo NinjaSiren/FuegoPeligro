@@ -14,9 +14,11 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.fuegopeligro.FuegoPeligro;
 import com.mygdx.fuegopeligro.audio.AudioProcessor;
 import com.mygdx.fuegopeligro.audio.CheckpointAudioProcessor;
+import com.mygdx.fuegopeligro.audio.CoinsAudioProcessor;
 import com.mygdx.fuegopeligro.audio.FiremanAudioProcessor;
 import com.mygdx.fuegopeligro.audio.LevelAudioProcessor;
 import com.mygdx.fuegopeligro.graphics.CheckpointGraphicsProcessor;
+import com.mygdx.fuegopeligro.graphics.CoinsGraphicsProcessor;
 import com.mygdx.fuegopeligro.graphics.FiremanGraphicsProcessor;
 import com.mygdx.fuegopeligro.graphics.GraphicsProcessor;
 import com.mygdx.fuegopeligro.graphics.LevelGraphicsProcessor;
@@ -27,6 +29,7 @@ import com.mygdx.fuegopeligro.map.LevelRenderer;
 import com.mygdx.fuegopeligro.physics.BodyEditorLoader;
 import com.mygdx.fuegopeligro.physics.BodyProcessor;
 import com.mygdx.fuegopeligro.physics.CheckpointPhysicsProcessor;
+import com.mygdx.fuegopeligro.physics.CoinsPhysicsProcessor;
 import com.mygdx.fuegopeligro.physics.ContactListenerMultiplexer;
 import com.mygdx.fuegopeligro.physics.FiremanBodyProcessor;
 import com.mygdx.fuegopeligro.physics.FiremanPhysicsProcessor;
@@ -53,6 +56,29 @@ public final class EntityFactory {
     EntityFactory() {
 
     }
+
+
+    /**
+     * Creates a new instance of {@link Collectible}, defining its graphical, audio and physical
+     * properties.
+     *
+     * @param world
+     *            The Box2D {@link World} onto which to create the {@link Body} and {@link Fixture}
+     *            of the {@link Entity}.
+     * @param assets
+     *            The {@link AssetManager} from where to extract the graphical and audio resources.
+     *            Those resources should be loaded in the manager before calling this method.
+     * @return A ready to use instance of a new {@link Collectible}.
+     */
+    public static Entity createCoins(final World world, final AssetManager assets) {
+        PhysicsProcessor physics = new CoinsPhysicsProcessor();
+        CONTACT_LISTENER.add(physics);
+        world.setContactListener(CONTACT_LISTENER);
+        GraphicsProcessor graphics = new CoinsGraphicsProcessor(assets);
+        AudioProcessor audio = new CoinsAudioProcessor(assets);
+        return new Collectible(graphics, physics, audio);
+    }
+
     /**
      * Creates a new instance of {@link Collectible}, defining its graphical, audio and physical
      * properties.

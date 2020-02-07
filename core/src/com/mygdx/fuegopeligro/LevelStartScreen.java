@@ -11,7 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.mygdx.fuegopeligro.player.PlayerStatus;
+import com.mygdx.fuegopeligro.player.CurrentPlayerStatus;
 
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.delay;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.fadeIn;
@@ -43,10 +43,12 @@ public class LevelStartScreen extends AbstractScreen {
 
     public LevelStartScreen(final FuegoPeligro game, int worldNumber, int levelNumber) {
         super(game);
-        PlayerStatus playerStatus = game.getPlayerStatus();
+        CurrentPlayerStatus playerStatus = game.getPlayerStatus();
 
         setLevel(levelNumber);
         setWorld(worldNumber);
+        playerStatus.setLevel(levelNumber);
+        playerStatus.setWorld(worldNumber);
 
         stage = new Stage(new ScreenViewport(), game.getBatch());
         Label.LabelStyle style = new Label.LabelStyle();
@@ -100,12 +102,6 @@ public class LevelStartScreen extends AbstractScreen {
         controlsInfo.setFillParent(true);
 
         stage.addActor(controlsInfo);
-
-    }
-
-    public LevelStartScreen(final FuegoPeligro game, final Screen levelScreen) {
-        this(game, 1, 1);
-        this.levelScreen = levelScreen;
     }
 
     @Override

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="480" height="20" tilewidth="35" tileheight="35" nextobjectid="112">
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="480" height="20" tilewidth="35" tileheight="35" nextobjectid="151">
  <properties>
   <property name="background" value="bg_grasslands.png"/>
  </properties>
@@ -1019,22 +1019,22 @@
   </data>
  </layer>
  <objectgroup name="checkpoints">
-  <object id="101" x="2835" y="455">
+  <object id="101" x="2835" y="490">
    <ellipse/>
   </object>
-  <object id="102" x="5530" y="455">
+  <object id="102" x="5460" y="490">
    <ellipse/>
   </object>
-  <object id="103" x="8435" y="560">
+  <object id="103" x="8435" y="595">
    <ellipse/>
   </object>
-  <object id="104" x="11200" y="525">
+  <object id="104" x="11130" y="595">
    <ellipse/>
   </object>
-  <object id="105" x="14035" y="490">
+  <object id="105" x="13965" y="525">
    <ellipse/>
   </object>
-  <object id="106" x="16520" y="490">
+  <object id="106" x="16310" y="525">
    <ellipse/>
   </object>
  </objectgroup>
@@ -1057,7 +1057,7 @@
  </objectgroup>
  <layer name="foreground" width="480" height="20">
   <data encoding="base64" compression="zlib">
-   eJzt2WFuwiAUAODur55Dr7C/bNdYdo3dYzdemrTJRoQWgdXa70tenjGATyqttMMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQK3zy9YVAOzTKcpfWxUCAMAqJ/tfgCa+p2wfDPtwXsg1azl0HHv0msh7ab8kTDm+z+h+43MKU46PM/Rg/1tuvnZdMzFyboZjsg+G53DPWg6Fn+E88VcobG/+9i1M+WPLIiKXRM61u6xsVztemPJbRZT2H+7s17qOVuMO0Wv6ML9wTPN/56VzwKdYFT3nasvjMPr9bPDI8ahya3m+511b/zXKRxE/F+89zq3n8Y/2Wy+tref3yNXYYuz/2vfOazdeZ++iadya0yGRc31TfVJjLL2fa/MDG+x3DA==
+   eJzt2UtuwyAQAFC6jc+RXKHL0h6jVa/Re+TGlSW8KDL+xB9q5z1pNFECZEQEMXYIAAAAAAAAAAAAAAAAAAAAAAAAAAAAACzVvNSuAOCYLln+qVUIAACTXJx/AVZxT9k5GI6hGclL1nJM+VbIS/eJ10I+SvsxMeX8PqP7jecUU85/Z9iC8+983f/ibSBa9mZ4Ts7BcA6PrOU48zvsE3/Fme3N37HFlL9qFpG5FvJQu+vEdkvHiym/L4i5/cOD/dauY61xQ/aabXTz+1a1CmBv3bXz2B77LSbFlnNV83doDd1PfaZofYb/Z2gtd3U3PZ/NUXpOfPZrh/yZ+9bj9D3rrxFTa5w61t51rjX2Xufebu3m6+tDrBp9cxoKeahvqU9pjLH3h9r8AiN4f1w=
   </data>
  </layer>
  <objectgroup name="bodies">
@@ -1072,315 +1072,63 @@
     <property name="body" value="environment"/>
     <property name="userData" value="ground"/>
    </properties>
-   <polyline points="0,0 1600,2 2340,-4 2340,58"/>
+   <polyline points="-6,0 1600,2 2409,0 2409,70"/>
   </object>
   <object id="35" name="ground" type="fixture" x="2586" y="680">
    <properties>
     <property name="body" value="environment"/>
     <property name="userData" value="ground"/>
    </properties>
-   <polyline points="0,0 2,-160 354,-158 420,-90 492,-90 494,10"/>
+   <polyline points="4,20 4,-155 354,-155 424,-85 564,-85 564,20"/>
   </object>
   <object id="36" name="ground" type="fixture" x="3286" y="688">
    <properties>
     <property name="body" value="environment"/>
     <property name="userData" value="ground"/>
    </properties>
-   <polyline points="0,0 0,-204 284,-204 424,-62 490,-62 496,10"/>
+   <polyline points="4,12 4,-198 284,-198 424,-58 494,-58 494,12"/>
   </object>
   <object id="37" name="ground" type="fixture" x="3882" y="686">
    <properties>
     <property name="body" value="environment"/>
     <property name="userData" value="ground"/>
    </properties>
-   <polyline points="0,0 8,-64 138,-62 282,-204 486,-202 632,-56 768,-56 770,-6"/>
-  </object>
-  <object id="39" name="bridge" type="fixture" x="4946.13" y="547.813">
-   <properties>
-    <property name="body" value="environment"/>
-    <property name="userData" value="ground"/>
-   </properties>
-   <ellipse/>
-  </object>
-  <object id="40" name="bridge" type="fixture" x="4968.67" y="546.667">
-   <properties>
-    <property name="body" value="environment"/>
-    <property name="userData" value="ground"/>
-   </properties>
-   <ellipse/>
-  </object>
-  <object id="41" name="bridge" type="fixture" x="4993" y="546">
-   <properties>
-    <property name="body" value="environment"/>
-    <property name="userData" value="ground"/>
-   </properties>
-   <ellipse/>
-  </object>
-  <object id="42" name="bridge" type="fixture" x="5016" y="545.333">
-   <properties>
-    <property name="body" value="environment"/>
-    <property name="userData" value="ground"/>
-   </properties>
-   <ellipse/>
-  </object>
-  <object id="43" name="bridge" type="fixture" x="5039.67" y="547">
-   <properties>
-    <property name="body" value="environment"/>
-    <property name="userData" value="ground"/>
-   </properties>
-   <ellipse/>
-  </object>
-  <object id="44" name="bridge" type="fixture" x="5063.33" y="546.333">
-   <properties>
-    <property name="body" value="environment"/>
-    <property name="userData" value="ground"/>
-   </properties>
-   <ellipse/>
-  </object>
-  <object id="45" name="bridge" type="fixture" x="5086.67" y="546.667">
-   <properties>
-    <property name="body" value="environment"/>
-    <property name="userData" value="ground"/>
-   </properties>
-   <ellipse/>
-  </object>
-  <object id="46" name="bridge" type="fixture" x="5110" y="545.667">
-   <properties>
-    <property name="body" value="environment"/>
-    <property name="userData" value="ground"/>
-   </properties>
-   <ellipse/>
-  </object>
-  <object id="47" name="bridge" type="fixture" x="5133" y="545.667">
-   <properties>
-    <property name="body" value="environment"/>
-    <property name="userData" value="ground"/>
-   </properties>
-   <ellipse/>
-  </object>
-  <object id="48" name="bridge" type="fixture" x="5785.67" y="547.667">
-   <properties>
-    <property name="body" value="environment"/>
-    <property name="userData" value="ground"/>
-   </properties>
-   <ellipse/>
-  </object>
-  <object id="49" name="bridge" type="fixture" x="5810.67" y="547">
-   <properties>
-    <property name="body" value="environment"/>
-    <property name="userData" value="ground"/>
-   </properties>
-   <ellipse/>
-  </object>
-  <object id="50" name="bridge" type="fixture" x="5833.67" y="547.333">
-   <properties>
-    <property name="body" value="environment"/>
-    <property name="userData" value="ground"/>
-   </properties>
-   <ellipse/>
-  </object>
-  <object id="51" name="bridge" type="fixture" x="5855.67" y="547">
-   <properties>
-    <property name="body" value="environment"/>
-    <property name="userData" value="ground"/>
-   </properties>
-   <ellipse/>
-  </object>
-  <object id="52" name="bridge" type="fixture" x="5878" y="547.667">
-   <properties>
-    <property name="body" value="environment"/>
-    <property name="userData" value="ground"/>
-   </properties>
-   <ellipse/>
-  </object>
-  <object id="53" name="bridge" type="fixture" x="5903.33" y="547.333">
-   <properties>
-    <property name="body" value="environment"/>
-    <property name="userData" value="ground"/>
-   </properties>
-   <ellipse/>
-  </object>
-  <object id="54" name="bridge" type="fixture" x="5926.33" y="549">
-   <properties>
-    <property name="body" value="environment"/>
-    <property name="userData" value="ground"/>
-   </properties>
-   <ellipse/>
-  </object>
-  <object id="55" name="bridge" type="fixture" x="5950" y="547.667">
-   <properties>
-    <property name="body" value="environment"/>
-    <property name="userData" value="ground"/>
-   </properties>
-   <ellipse/>
-  </object>
-  <object id="56" name="bridge" type="fixture" x="5971.33" y="549">
-   <properties>
-    <property name="body" value="environment"/>
-    <property name="userData" value="ground"/>
-   </properties>
-   <ellipse/>
-  </object>
-  <object id="57" name="bridge" type="fixture" x="6207" y="546.333">
-   <properties>
-    <property name="body" value="environment"/>
-    <property name="userData" value="ground"/>
-   </properties>
-   <ellipse/>
-  </object>
-  <object id="58" name="bridge" type="fixture" x="6230" y="547.667">
-   <properties>
-    <property name="body" value="environment"/>
-    <property name="userData" value="ground"/>
-   </properties>
-   <ellipse/>
-  </object>
-  <object id="59" name="bridge" type="fixture" x="6252.33" y="548">
-   <properties>
-    <property name="body" value="environment"/>
-    <property name="userData" value="ground"/>
-   </properties>
-   <ellipse/>
-  </object>
-  <object id="60" name="bridge" type="fixture" x="6275" y="547.667">
-   <properties>
-    <property name="body" value="environment"/>
-    <property name="userData" value="ground"/>
-   </properties>
-   <ellipse/>
-  </object>
-  <object id="61" name="bridge" type="fixture" x="6298" y="548">
-   <properties>
-    <property name="body" value="environment"/>
-    <property name="userData" value="ground"/>
-   </properties>
-   <ellipse/>
-  </object>
-  <object id="62" name="bridge" type="fixture" x="6323.33" y="547.333">
-   <properties>
-    <property name="body" value="environment"/>
-    <property name="userData" value="ground"/>
-   </properties>
-   <ellipse/>
-  </object>
-  <object id="63" name="bridge" type="fixture" x="6344.33" y="548.333">
-   <properties>
-    <property name="body" value="environment"/>
-    <property name="userData" value="ground"/>
-   </properties>
-   <ellipse/>
-  </object>
-  <object id="64" name="bridge" type="fixture" x="6368" y="547.667">
-   <properties>
-    <property name="body" value="environment"/>
-    <property name="userData" value="ground"/>
-   </properties>
-   <ellipse/>
-  </object>
-  <object id="65" name="bridge" type="fixture" x="6391.33" y="547">
-   <properties>
-    <property name="body" value="environment"/>
-    <property name="userData" value="ground"/>
-   </properties>
-   <ellipse/>
-  </object>
-  <object id="66" name="bridge" type="fixture" x="5368.45" y="547.818">
-   <properties>
-    <property name="body" value="environment"/>
-    <property name="userData" value="ground"/>
-   </properties>
-   <ellipse/>
-  </object>
-  <object id="67" name="bridge" type="fixture" x="5390" y="547.273">
-   <properties>
-    <property name="body" value="environment"/>
-    <property name="userData" value="ground"/>
-   </properties>
-   <ellipse/>
-  </object>
-  <object id="68" name="bridge" type="fixture" x="5413.45" y="547.636">
-   <properties>
-    <property name="body" value="environment"/>
-    <property name="userData" value="ground"/>
-   </properties>
-   <ellipse/>
-  </object>
-  <object id="69" name="bridge" type="fixture" x="5436.36" y="547.273">
-   <properties>
-    <property name="body" value="environment"/>
-    <property name="userData" value="ground"/>
-   </properties>
-   <ellipse/>
-  </object>
-  <object id="70" name="bridge" type="fixture" x="5459.45" y="546.727">
-   <properties>
-    <property name="body" value="environment"/>
-    <property name="userData" value="ground"/>
-   </properties>
-   <ellipse/>
-  </object>
-  <object id="71" name="bridge" type="fixture" x="5485.27" y="546.545">
-   <properties>
-    <property name="body" value="environment"/>
-    <property name="userData" value="ground"/>
-   </properties>
-   <ellipse/>
-  </object>
-  <object id="72" name="bridge" type="fixture" x="5507.64" y="546.909">
-   <properties>
-    <property name="body" value="environment"/>
-    <property name="userData" value="ground"/>
-   </properties>
-   <ellipse/>
-  </object>
-  <object id="73" name="bridge" type="fixture" x="5529.82" y="546.909">
-   <properties>
-    <property name="body" value="environment"/>
-    <property name="userData" value="ground"/>
-   </properties>
-   <ellipse/>
-  </object>
-  <object id="74" name="bridge" type="fixture" x="5552.36" y="547.273">
-   <properties>
-    <property name="body" value="environment"/>
-    <property name="userData" value="ground"/>
-   </properties>
-   <ellipse/>
+   <polyline points="3,14 3,-56 143,-56 283,-196 493,-196 633,-56 913,-56 913,14"/>
   </object>
   <object id="75" name="ground" type="fixture" x="6684" y="692">
    <properties>
     <property name="body" value="environment"/>
     <property name="userData" value="ground"/>
    </properties>
-   <polyline points="0,0 0,-64 130,-62 278,-212 496,-210 642,-66 772,-64 770,-4"/>
+   <polyline points="1,8 1,-62 141,-62 281,-202 491,-202 631,-62 771,-62 771,8"/>
   </object>
   <object id="76" name="ground" type="fixture" x="7660.61" y="666.667">
    <properties>
     <property name="body" value="environment"/>
     <property name="userData" value="ground"/>
    </properties>
-   <polyline points="0,0 6.39394,-37.6667 265.394,-37.6667 1232.39,-38.6667 1231.39,12.3333"/>
+   <polyline points="4.39,33.333 4.39,-36.667 599.39,-36.667 1229.39,-36.667 1229.39,33.333"/>
   </object>
   <object id="77" name="ground" type="fixture" x="9095" y="674">
    <properties>
     <property name="body" value="environment"/>
     <property name="userData" value="ground"/>
    </properties>
-   <polyline points="0,0 6,-45 734,-45 1268,-47 1267,13"/>
+   <polyline points="5,26 5,-44 740,-44 1265,-44 1265,26"/>
   </object>
   <object id="78" name="ground" type="fixture" x="10533" y="684">
    <properties>
     <property name="body" value="environment"/>
     <property name="userData" value="ground"/>
    </properties>
-   <polyline points="0,0 3,-59 632,-57 771,-195 910,-197 912,-5"/>
+   <polyline points="2,16 2,-54 632,-54 772,-194 912,-194 912,16"/>
   </object>
   <object id="79" name="ground" type="fixture" x="11652" y="686">
    <properties>
     <property name="body" value="environment"/>
     <property name="userData" value="ground"/>
    </properties>
-   <polyline points="0,0 3,-305 143,-303 351,-96 423,-92 424,-58 635,-61 633,7"/>
+   <polyline points="3,14 3,-301 143,-301 353,-91 423,-91 423,-56 633,-56 633,14"/>
   </object>
   <object id="81" name="platform" type="fixture" x="12461" y="558" width="212" height="45">
    <properties>
@@ -1411,7 +1159,7 @@
     <property name="body" value="environment"/>
     <property name="userData" value="ground"/>
    </properties>
-   <polyline points="0,0 54,-50 646,-58 2946,-58"/>
+   <polyline points="-15,18 55,-52 720,-52 2960,-52"/>
   </object>
   <object id="90" name="exit" type="fixture" x="16694" y="370" width="78" height="190">
    <properties>
@@ -1420,6 +1168,258 @@
     <property name="isSensor" value="true"/>
     <property name="userData" value="exit"/>
    </properties>
+  </object>
+  <object id="112" name="bridge" type="fixture" x="5051.65" y="534.681" width="23" height="23">
+   <properties>
+    <property name="body" value="environment"/>
+    <property name="userData" value="ground"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="113" name="bridge" type="fixture" x="5028.15" y="534.619" width="23" height="23">
+   <properties>
+    <property name="body" value="environment"/>
+    <property name="userData" value="ground"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="114" name="bridge" type="fixture" x="4981.34" y="534.869" width="23" height="23">
+   <properties>
+    <property name="body" value="environment"/>
+    <property name="userData" value="ground"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="115" name="bridge" type="fixture" x="4933.96" y="534.494" width="23" height="23">
+   <properties>
+    <property name="body" value="environment"/>
+    <property name="userData" value="ground"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="116" name="bridge" type="fixture" x="4957.77" y="534.556" width="23" height="23">
+   <properties>
+    <property name="body" value="environment"/>
+    <property name="userData" value="ground"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="117" name="bridge" type="fixture" x="5004.65" y="534.556" width="23" height="23">
+   <properties>
+    <property name="body" value="environment"/>
+    <property name="userData" value="ground"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="120" name="bridge" type="fixture" x="5122.34" y="535.687" width="23" height="23">
+   <properties>
+    <property name="body" value="environment"/>
+    <property name="userData" value="ground"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="121" name="bridge" type="fixture" x="5074.96" y="535.312" width="23" height="23">
+   <properties>
+    <property name="body" value="environment"/>
+    <property name="userData" value="ground"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="122" name="bridge" type="fixture" x="5098.77" y="535.374" width="23" height="23">
+   <properties>
+    <property name="body" value="environment"/>
+    <property name="userData" value="ground"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="124" name="bridge" type="fixture" x="5472.84" y="536.134" width="23" height="23">
+   <properties>
+    <property name="body" value="environment"/>
+    <property name="userData" value="ground"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="125" name="bridge" type="fixture" x="5402.53" y="536.322" width="23" height="23">
+   <properties>
+    <property name="body" value="environment"/>
+    <property name="userData" value="ground"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="126" name="bridge" type="fixture" x="5355.15" y="535.947" width="23" height="23">
+   <properties>
+    <property name="body" value="environment"/>
+    <property name="userData" value="ground"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="127" name="bridge" type="fixture" x="5378.96" y="536.009" width="23" height="23">
+   <properties>
+    <property name="body" value="environment"/>
+    <property name="userData" value="ground"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="128" name="bridge" type="fixture" x="5449.34" y="536.072" width="23" height="23">
+   <properties>
+    <property name="body" value="environment"/>
+    <property name="userData" value="ground"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="129" name="bridge" type="fixture" x="5425.84" y="536.009" width="23" height="23">
+   <properties>
+    <property name="body" value="environment"/>
+    <property name="userData" value="ground"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="130" name="bridge" type="fixture" x="5496.15" y="536.765" width="23" height="23">
+   <properties>
+    <property name="body" value="environment"/>
+    <property name="userData" value="ground"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="131" name="bridge" type="fixture" x="5543.53" y="537.14" width="23" height="23">
+   <properties>
+    <property name="body" value="environment"/>
+    <property name="userData" value="ground"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="132" name="bridge" type="fixture" x="5519.96" y="536.827" width="23" height="23">
+   <properties>
+    <property name="body" value="environment"/>
+    <property name="userData" value="ground"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="133" name="bridge" type="fixture" x="5892.19" y="536.091" width="23" height="23">
+   <properties>
+    <property name="body" value="environment"/>
+    <property name="userData" value="ground"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="134" name="bridge" type="fixture" x="5821.88" y="536.279" width="23" height="23">
+   <properties>
+    <property name="body" value="environment"/>
+    <property name="userData" value="ground"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="135" name="bridge" type="fixture" x="5774.5" y="535.904" width="23" height="23">
+   <properties>
+    <property name="body" value="environment"/>
+    <property name="userData" value="ground"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="136" name="bridge" type="fixture" x="5798.31" y="535.966" width="23" height="23">
+   <properties>
+    <property name="body" value="environment"/>
+    <property name="userData" value="ground"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="137" name="bridge" type="fixture" x="5868.69" y="536.029" width="23" height="23">
+   <properties>
+    <property name="body" value="environment"/>
+    <property name="userData" value="ground"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="138" name="bridge" type="fixture" x="5845.19" y="535.966" width="23" height="23">
+   <properties>
+    <property name="body" value="environment"/>
+    <property name="userData" value="ground"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="139" name="bridge" type="fixture" x="5915.5" y="536.721" width="23" height="23">
+   <properties>
+    <property name="body" value="environment"/>
+    <property name="userData" value="ground"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="140" name="bridge" type="fixture" x="5962.88" y="537.096" width="23" height="23">
+   <properties>
+    <property name="body" value="environment"/>
+    <property name="userData" value="ground"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="141" name="bridge" type="fixture" x="5939.31" y="536.784" width="23" height="23">
+   <properties>
+    <property name="body" value="environment"/>
+    <property name="userData" value="ground"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="142" name="bridge" type="fixture" x="6312.3" y="536.605" width="23" height="23">
+   <properties>
+    <property name="body" value="environment"/>
+    <property name="userData" value="ground"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="143" name="bridge" type="fixture" x="6241.99" y="536.793" width="23" height="23">
+   <properties>
+    <property name="body" value="environment"/>
+    <property name="userData" value="ground"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="144" name="bridge" type="fixture" x="6194.61" y="536.418" width="23" height="23">
+   <properties>
+    <property name="body" value="environment"/>
+    <property name="userData" value="ground"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="145" name="bridge" type="fixture" x="6218.42" y="536.48" width="23" height="23">
+   <properties>
+    <property name="body" value="environment"/>
+    <property name="userData" value="ground"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="146" name="bridge" type="fixture" x="6288.8" y="536.543" width="23" height="23">
+   <properties>
+    <property name="body" value="environment"/>
+    <property name="userData" value="ground"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="147" name="bridge" type="fixture" x="6265.3" y="536.48" width="23" height="23">
+   <properties>
+    <property name="body" value="environment"/>
+    <property name="userData" value="ground"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="148" name="bridge" type="fixture" x="6335.61" y="537.236" width="23" height="23">
+   <properties>
+    <property name="body" value="environment"/>
+    <property name="userData" value="ground"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="149" name="bridge" type="fixture" x="6382.99" y="537.611" width="23" height="23">
+   <properties>
+    <property name="body" value="environment"/>
+    <property name="userData" value="ground"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="150" name="bridge" type="fixture" x="6359.42" y="537.298" width="23" height="23">
+   <properties>
+    <property name="body" value="environment"/>
+    <property name="userData" value="ground"/>
+   </properties>
+   <ellipse/>
   </object>
  </objectgroup>
 </map>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="480" height="20" tilewidth="35" tileheight="35" nextobjectid="67">
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="480" height="20" tilewidth="35" tileheight="35" nextobjectid="102">
  <properties>
   <property name="background" value="bg_grasslands.png"/>
  </properties>
@@ -785,31 +785,28 @@
    eJzt3bFOwlAUxvHeG5o4GzTRGGPExUUSn8i4GVcfQhfZnH0UFqOPoIOJCyuLKDEuUntuwBOu5UJpof3/kuZQaOFGG06/Qi5RBAAA1tWnSeuXKXccWC8NG70ldbDgcdMz0UFSrU3XfXXZx+dQnv9DamzTcaEYo/9vN6nv8vfXdfT4WfGjAgAAQNXEtuwRYB3llX8djsN664+vO/y6s2kedut9rs9hhQy4bgwAAFArscq/o7xyX95oAKA4eV33AwAAwHrhczkAWRq8TwAAAKACyL8AtJa8L+xn1CKdjF7zWF53sur7AACoq03phc0p1S2JXal79E6gdG4epRfD/FVAWXT+PZJ6OGf+bXq2bwb0X51/p2VhAOHuLPMTAlXh8u+W6ok6D+eJ/otFbJqw9TK8yhiepfZyHpObLzqmHwOlySv/bql+66uh+fdEVXovAKAOsvpvGVkhpAe3VHXO8xqMuFIVq+Mi43HfMZy13zL5ft8mL3bBeaQbMu9w3Q3NfPOZuXmB+iadHy3g9boB296HPDeK5/Jv1vegffT15x1P3Vb599ZOXxKT+bdtxtm3XfMMfOpZAADAclWp917PkMH0Njey7jt/mzyPc/nVVXeuqOuG5369/+WMmfHbhC3Ok9x+yKiPc5x/6vw8S/6dlrlfJFO538Meruj3pzuyLNu889t+Bu4Xy7zhg/ExcODb9tH83ZbfaAbyU4XeuyhfzwUSnai4Hgzgf1X6XLbuvRfI0vEsAIrzA7b0bf8=
   </data>
  </layer>
- <layer name="background" width="480" height="20">
+ <layer name="background1" width="480" height="20">
   <data encoding="base64" compression="zlib">
    eJzt27tOwzAUgOGkpQJKkQAxdGAAsfIOvAECVsTSrQNbxTPQpcCCeDmYYGVBsLBQS45wD3bi3Jv0/yTrOKmTWEnkS5IGAQAAAAAAAAAAAAAAAAAAAAAAqMJNx54HAADl6IV11wBAW/i0J2u0OShJNH9kHgkAAFw+GYsC7RV6RodO+D/6rIutUvgXzbxcBxShy/0EAJibdRZTZGTk73h+2jqH+pr2dAxFjNYfce2B1jhzjP9d612uRfnLMP73JHJ7IA/bs5S4WKZn0YfupexT05YHgDyGJe9fzjunDWzjZg2sc1WGul+NxpX7op9Vy2nHnFm9JByn27FHANnI9t18viifNdZlkNAujMXytqV81E9ehIvLaZ076pJURwCLnjK0LVm2AZaR7X0eqsW5X21DMe+N4kAsH1QwvvuoeAz5nuF4WbZBs3238Jo3qe9dd5z/sSO6yiuu+auyM/9tVyfFzCfZaOE90naTuiuApbep45ZOgSWeeu6rr+NtAfXKi+cI9ZF978SSgoD2CavhUSy73snI8eqDeE+jxm9THRUzmsn2m1znG33Hhz7k/3p/wmqSeaw0x22ae8f6YyM/duTNMmnY5liv+ty9Oc5h3m9M1PFGQTFzOzX3Vfv50nXNWreyv5tJajNsbciV3tbV7xbd/54UvD8gD9/7O64PBnxF/W803luGeTCKY/t2yqfNMPveIGD+i9Ug73M5DwbK1k8ugpYx252khOL9AlUMeVs=
   </data>
  </layer>
  <objectgroup name="checkpoints">
-  <object id="7" x="1960" y="350">
+  <object id="7" x="2135" y="455">
    <ellipse/>
   </object>
-  <object id="8" x="2415" y="420">
+  <object id="55" x="3535" y="455">
    <ellipse/>
   </object>
-  <object id="55" x="2940" y="420">
+  <object id="56" x="5635" y="595">
    <ellipse/>
   </object>
-  <object id="56" x="5635" y="560">
+  <object id="57" x="8435" y="490">
    <ellipse/>
   </object>
-  <object id="57" x="8400" y="455">
+  <object id="58" x="11200" y="595">
    <ellipse/>
   </object>
-  <object id="58" x="11200" y="560">
-   <ellipse/>
-  </object>
-  <object id="59" x="14000" y="455">
+  <object id="59" x="13720" y="455">
    <ellipse/>
   </object>
  </objectgroup>
@@ -836,101 +833,11 @@
   </data>
  </layer>
  <objectgroup name="bodies">
-  <object id="10" name="ground" type="fixture" x="0" y="560">
-   <properties>
-    <property name="body" value="environment"/>
-    <property name="userData" value="ground"/>
-   </properties>
-   <polyline points="0,0 280,0"/>
-  </object>
-  <object id="16" name="ground" type="fixture" x="420" y="525">
-   <properties>
-    <property name="body" value="environment"/>
-    <property name="userData" value="ground"/>
-   </properties>
-   <polyline points="0,0 0,-29 3,-33 6,-36 280,-35 350,-105 770,-105"/>
-  </object>
   <object id="17" name="environment" type="object" x="9.09091" y="3.0303">
    <properties>
     <property name="userData" value="environment"/>
    </properties>
    <polyline points="0,700 0,0 16788,0 16788,700"/>
-  </object>
-  <object id="18" name="bridge" type="fixture" x="1273" y="442">
-   <properties>
-    <property name="body" value="environment"/>
-    <property name="userData" value="ground"/>
-   </properties>
-   <ellipse/>
-  </object>
-  <object id="19" name="bridge" type="fixture" x="1295" y="443">
-   <properties>
-    <property name="body" value="environment"/>
-    <property name="userData" value="ground"/>
-   </properties>
-   <ellipse/>
-  </object>
-  <object id="20" name="bridge" type="fixture" x="1316" y="443">
-   <properties>
-    <property name="body" value="environment"/>
-    <property name="userData" value="ground"/>
-   </properties>
-   <ellipse/>
-  </object>
-  <object id="21" name="bridge" type="fixture" x="1449" y="443">
-   <properties>
-    <property name="body" value="environment"/>
-    <property name="userData" value="ground"/>
-   </properties>
-   <ellipse/>
-  </object>
-  <object id="22" name="bridge" type="fixture" x="1472" y="443">
-   <properties>
-    <property name="body" value="environment"/>
-    <property name="userData" value="ground"/>
-   </properties>
-   <ellipse/>
-  </object>
-  <object id="23" name="bridge" type="fixture" x="1494" y="443">
-   <properties>
-    <property name="body" value="environment"/>
-    <property name="userData" value="ground"/>
-   </properties>
-   <ellipse/>
-  </object>
-  <object id="24" name="bridge" type="fixture" x="1514" y="443">
-   <properties>
-    <property name="body" value="environment"/>
-    <property name="userData" value="ground"/>
-   </properties>
-   <ellipse/>
-  </object>
-  <object id="25" name="bridge" type="fixture" x="1536" y="443">
-   <properties>
-    <property name="body" value="environment"/>
-    <property name="userData" value="ground"/>
-   </properties>
-   <ellipse/>
-  </object>
-  <object id="26" name="ground" type="fixture" x="1610" y="420">
-   <properties>
-    <property name="body" value="environment"/>
-    <property name="userData" value="ground"/>
-   </properties>
-   <polyline points="0,0 350,0 419,70 630,70"/>
-  </object>
-  <object id="27" name="platform" type="fixture" x="2310" y="490" width="140" height="35">
-   <properties>
-    <property name="body" value="environment"/>
-    <property name="userData" value="ground"/>
-   </properties>
-  </object>
-  <object id="29" name="bridge" type="fixture" x="1559" y="443">
-   <properties>
-    <property name="body" value="environment"/>
-    <property name="userData" value="ground"/>
-   </properties>
-   <ellipse/>
   </object>
   <object id="32" name="exit" type="fixture" x="16695.8" y="393" width="69" height="171">
    <properties>
@@ -940,118 +847,215 @@
     <property name="userData" value="exit"/>
    </properties>
   </object>
-  <object id="33" name="ground" type="fixture" x="839" y="418">
+  <object id="68" name="ground" type="fixture" x="2" y="560">
    <properties>
     <property name="body" value="environment"/>
     <property name="userData" value="ground"/>
    </properties>
-   <polyline points="0,0 140,-138 347,-138"/>
+   <polyline points="0,0 279,-2 278,138"/>
   </object>
-  <object id="34" name="platform" type="fixture" x="2592" y="489.333" width="140" height="40">
+  <object id="70" name="ground" type="fixture" x="490" y="699">
    <properties>
     <property name="body" value="environment"/>
     <property name="userData" value="ground"/>
    </properties>
+   <polyline points="0,0 -1.5,-139.5 -20,-141.5 -40.5,-147.5 -54.5,-153.5 -68.5,-175 -70.5,-202.5 -65.5,-209 209,-211 279,-280 349,-282 699,-278 699,-255 680,-242 652,-210 630,-209 632,0"/>
   </object>
-  <object id="36" name="platform" type="fixture" x="2869.33" y="489.333" width="144" height="44">
+  <object id="71" name="ground" type="fixture" x="840" y="418">
    <properties>
     <property name="body" value="environment"/>
     <property name="userData" value="ground"/>
    </properties>
+   <polyline points="0,0 139.333,-139.333 344,-139.333 350.667,-132.667 349.333,-101.333 318.667,-74 310,-67.3333 314.667,-64 316,-8 310,2"/>
   </object>
-  <object id="37" name="platform" type="fixture" x="3152" y="489.333" width="140" height="40">
+  <object id="72" name="ground" type="fixture" x="1678.67" y="698">
    <properties>
     <property name="body" value="environment"/>
     <property name="userData" value="ground"/>
    </properties>
+   <polyline points="0,0 0.666667,-207.333 -24,-208 -26.6667,-215.333 -33.3333,-223.333 -40.6667,-233.333 -68,-253.333 -68,-274.667 -62.6667,-278.667 281.333,-279.333 350.667,-208.667 556,-208 560,-204 561.333,-181.333 555.333,-164.667 538,-148 492,-136 490.667,0.666667"/>
   </object>
-  <object id="38" name="ground" type="fixture" x="3430.67" y="697.333">
+  <object id="73" name="platform" type="fixture" x="2309.33" y="496">
    <properties>
     <property name="body" value="environment"/>
     <property name="userData" value="ground"/>
    </properties>
-   <polyline points="0,0 1.33333,-212 74.6667,-212 214.667,-68 1441.33,-69.3333 1781.33,-69.3333 1784,-4"/>
+   <polyline points="0,0 4.66667,-6.66667 134.667,-5.33333 139.333,-3.33333 140.667,24.6667 137.333,32.6667 6,34.6667 0.666667,26.6667 1.33333,0"/>
   </object>
-  <object id="39" name="ground" type="fixture" x="5386.67" y="690.667">
+  <object id="74" name="platform" type="fixture" x="2589.33" y="496.667">
    <properties>
     <property name="body" value="environment"/>
     <property name="userData" value="ground"/>
    </properties>
-   <polyline points="0,0 4,-66.6667 2630.67,-62.6667 2632,4"/>
+   <polyline points="0,0 1.33333,-6.66667 140,-6 141.333,34 1.33333,33.3333 0,-0.666667"/>
   </object>
-  <object id="43" name="platform" type="fixture" x="8226.67" y="524" width="381.333" height="72">
+  <object id="75" name="platform" type="fixture" x="2869.75" y="524.75">
    <properties>
     <property name="body" value="environment"/>
     <property name="userData" value="ground"/>
    </properties>
+   <polyline points="0,0 0.25,-35.25 140.25,-35 140.5,5.25 -0.5,5.25 -0.25,0"/>
   </object>
-  <object id="44" name="ground" type="fixture" x="8888" y="688">
+  <object id="76" name="platform" type="fixture" x="3149.64" y="529.273">
    <properties>
     <property name="body" value="environment"/>
     <property name="userData" value="ground"/>
    </properties>
-   <polyline points="0,0 0,-164 72,-165.333 181.333,-60 665.333,-62.6667 669.333,8"/>
+   <polyline points="0,0 0.181818,-39.8182 140.545,-39.6364 140.364,0.545455 0.181818,0.909091 0.363636,0.181818"/>
   </object>
-  <object id="45" name="ground" type="fixture" x="9729.33" y="685.333">
+  <object id="77" name="ground" type="fixture" x="3430.67" y="700">
    <properties>
     <property name="body" value="environment"/>
     <property name="userData" value="ground"/>
    </properties>
-   <polyline points="0,0 1.33333,-57.3333 738.667,-56 734.667,9.33333"/>
+   <polyline points="0,0 -1.33333,-204 3.33333,-210.333 69.3333,-210 210,-70.6667 1776,-71.3333 1782,-66 1784.67,-62 1783.88,-5.09091 1779.52,-0.363636"/>
   </object>
-  <object id="46" name="ground" type="fixture" x="10638.7" y="682.667">
+  <object id="78" name="ground" type="fixture" x="5394.67" y="699.333">
    <properties>
     <property name="body" value="environment"/>
     <property name="userData" value="ground"/>
    </properties>
-   <polyline points="0,0 1.33333,-57.3333 510.667,-56 737.333,-56 737.333,0"/>
+   <polyline points="0,0 -5.66667,-5.33333 -5.04167,-63.8333 0.458333,-69.9583 2614.58,-69.3333 2615.83,-68.8333 2617.83,-67.2083 2619.71,-64.9583 2620.46,-63.9583 2620.58,-5.45833 2619.46,-3.33333 2615.58,0.166667 2615.08,0.666667"/>
   </object>
-  <object id="47" name="ground" type="fixture" x="11506.7" y="682.667">
+  <object id="79" name="platform" type="fixture" x="8226" y="556.909">
    <properties>
     <property name="body" value="environment"/>
     <property name="userData" value="ground"/>
    </properties>
-   <polyline points="0,0 9.33333,-60 397.333,-57.3333 397.333,5.33333"/>
+   <polyline points="0,0 -0.909091,-4.18182 -0.909091,-27.2727 3.63636,-32.1818 378.727,-32.1818 383.455,-28.1818 384,-9.45455 381.818,4 373.818,17.0909 355.273,29.6364 325,38.0909 62,37.5909 37,33.5909 24,28.0909 11,18.5909 6,13.5909 3.27273,8.63636 1.72727,5.45455 0,0.181818"/>
   </object>
-  <object id="48" name="ground" type="fixture" x="12002.7" y="682.667">
+  <object id="81" name="ground" type="fixture" x="8895.45" y="699.455">
    <properties>
     <property name="body" value="environment"/>
     <property name="userData" value="ground"/>
    </properties>
-   <polyline points="0,0 2.66667,-58.6667 422.667,-57.3333 424,5.33333"/>
+   <polyline points="0,0 -5.63636,-4.54545 -5.70455,-174.455 65.0455,-174.455 168.795,-70.4545 169.545,-69.7045 659.545,-69.7273 659.545,0.454545"/>
   </object>
-  <object id="49" name="ground" type="fixture" x="12526.7" y="680">
+  <object id="82" name="ground" type="fixture" x="9729.5" y="699.5">
    <properties>
     <property name="body" value="environment"/>
     <property name="userData" value="ground"/>
    </properties>
-   <polyline points="0,0 5.33333,-58.6667 389.333,-52 389.333,5.33333"/>
+   <polyline points="0,0 0.3125,-69.6875 735.625,-69.625 735.625,0.375"/>
   </object>
-  <object id="50" name="ground" type="fixture" x="13053.3" y="684">
+  <object id="83" name="ground" type="fixture" x="10639.8" y="699.75">
    <properties>
     <property name="body" value="environment"/>
     <property name="userData" value="ground"/>
    </properties>
-   <polyline points="0,0 2.66667,-62.6667 386.667,-60 526.667,-201.333 801.333,-200 808,-198.667 809.333,-8"/>
+   <polyline points="0,0 0.25,-70 735.25,-69.9318 735.375,0.125"/>
   </object>
-  <object id="51" name="platform" type="fixture" x="14106.7" y="525.333" width="66.6667" height="38.6667">
+  <object id="84" name="ground" type="fixture" x="11520" y="699.636">
    <properties>
     <property name="body" value="environment"/>
     <property name="userData" value="ground"/>
    </properties>
+   <polyline points="0,0 -5.27273,-4.90909 -4.90909,-64.7273 -0.181818,-70 380,-69.8182 380.182,0"/>
   </object>
-  <object id="54" name="ground" type="fixture" x="14348" y="685.333">
+  <object id="85" name="ground" type="fixture" x="12009.6" y="699.455">
    <properties>
     <property name="body" value="environment"/>
     <property name="userData" value="ground"/>
    </properties>
-   <polyline points="0,0 4,-58.6667 244,-57.3333 316,-132 2448,-126.667"/>
+   <polyline points="0,0 -4.54545,-4.36364 -4.72727,-63.6364 -0.181818,-69.8182 415.636,-69.2727 415.455,0.545455"/>
   </object>
-  <object id="60" name="platform" type="fixture" x="13964" y="522" width="72" height="42">
+  <object id="86" name="ground" type="fixture" x="12535.1" y="699.5">
    <properties>
     <property name="body" value="environment"/>
     <property name="userData" value="ground"/>
    </properties>
+   <polyline points="0,0 -5.375,-4.25 -5.25,-64.75 -1.125,-69.375 -0.690217,-69.7174 380.125,-69.75 379.75,0.125"/>
+  </object>
+  <object id="88" name="ground" type="fixture" x="13059.5" y="700">
+   <properties>
+    <property name="body" value="environment"/>
+    <property name="userData" value="ground"/>
+   </properties>
+   <polyline points="0,0 -4.73913,-5.34783 -4.6087,-64.3913 -4.56522,-65.1739 0.217391,-70.2174 379.976,-70.3636 520.885,-210.545 800.522,-210 800.704,-0.363636"/>
+  </object>
+  <object id="90" name="platform" type="fixture" x="13965" y="564.913">
+   <properties>
+    <property name="body" value="environment"/>
+    <property name="userData" value="ground"/>
+   </properties>
+   <polyline points="0,0 0.021256,-39.9464 70.0879,-39.8908 70.0435,0.0202899 0.0434783,-0.163043"/>
+  </object>
+  <object id="91" name="platform" type="fixture" x="14105" y="524.938">
+   <properties>
+    <property name="body" value="environment"/>
+    <property name="userData" value="ground"/>
+   </properties>
+   <polyline points="0,0 0.0625,39.9688 70.0313,40.0938 70.0535,0.0180556 -0.09375,0.0625"/>
+  </object>
+  <object id="92" name="ground" type="fixture" x="14355.2" y="699.909">
+   <properties>
+    <property name="body" value="environment"/>
+    <property name="userData" value="ground"/>
+   </properties>
+   <polyline points="0,0 -5.45455,-5 -5.36364,-65.7273 0,-70.3636 238.818,-70.9091 309.818,-141.409 2439.32,-138.909"/>
+  </object>
+  <object id="93" name="bridge" type="fixture" x="1259.72" y="430.848" width="23" height="23">
+   <properties>
+    <property name="body" value="environment"/>
+    <property name="userData" value="ground"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="94" name="bridge" type="fixture" x="1283.54" y="431.326" width="23" height="23">
+   <properties>
+    <property name="body" value="environment"/>
+    <property name="userData" value="ground"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="95" name="bridge" type="fixture" x="1307.41" y="431.543" width="23" height="23">
+   <properties>
+    <property name="body" value="environment"/>
+    <property name="userData" value="ground"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="96" name="bridge" type="fixture" x="1434.86" y="430.955" width="23" height="23">
+   <properties>
+    <property name="body" value="environment"/>
+    <property name="userData" value="ground"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="97" name="bridge" type="fixture" x="1458.41" y="431.045" width="23" height="23">
+   <properties>
+    <property name="body" value="environment"/>
+    <property name="userData" value="ground"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="98" name="bridge" type="fixture" x="1505.43" y="431.407" width="23" height="23">
+   <properties>
+    <property name="body" value="environment"/>
+    <property name="userData" value="ground"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="99" name="bridge" type="fixture" x="1481.88" y="431.317" width="23" height="23">
+   <properties>
+    <property name="body" value="environment"/>
+    <property name="userData" value="ground"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="100" name="bridge" type="fixture" x="1552.37" y="431" width="23" height="23">
+   <properties>
+    <property name="body" value="environment"/>
+    <property name="userData" value="ground"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="101" name="bridge" type="fixture" x="1528.82" y="430.91" width="23" height="23">
+   <properties>
+    <property name="body" value="environment"/>
+    <property name="userData" value="ground"/>
+   </properties>
+   <ellipse/>
   </object>
  </objectgroup>
 </map>

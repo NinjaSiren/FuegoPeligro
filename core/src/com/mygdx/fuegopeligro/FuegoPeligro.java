@@ -51,7 +51,6 @@ public class FuegoPeligro extends Game implements Telegraph {
         assetsManager.load(Assets.SWORD);
         assetsManager.load(Assets.GAME_UI_SKIN);
         assetsManager.load(Assets.MENU_BG);
-        assetsManager.load(Assets.DIRECTIONAL_PAD);
         assetsManager.load(Assets.SPLASH_IMAGE);
         assetsManager.load(Assets.SPLASH_IMAGE_2);
         assetsManager.load(Assets.MENU_BACKGROUND);
@@ -114,7 +113,7 @@ public class FuegoPeligro extends Game implements Telegraph {
      * {@link TitleScreen} is shown.
      */
     private void reset() {
-        status.reset();
+        getPlayerStatus().reset();
         addListeners();
         setScreen(new TitleScreen(this));
     }
@@ -124,17 +123,15 @@ public class FuegoPeligro extends Game implements Telegraph {
      */
     private void resetLevel() {
         addListeners();
-        status.setCurrentLevel(1);
-        status.setCurrentWorld(1);
+        getPlayerStatus().setLevel(1);
+        getPlayerStatus().setWorld(1);
     }
 
     /**
      * Disposes of the current {@link Screen} and replaces it with a new {@link LevelStartScreen}.
      */
-    public void setLevel(int worldNumber, int levelNumber) {
+    void setLevel(int worldNumber, int levelNumber) {
         addListeners();
-        status.setCurrentWorld(worldNumber);
-        status.setCurrentLevel(levelNumber);
         setScreen(new LevelStartScreen(this, worldNumber, levelNumber));
     }
 
@@ -143,7 +140,7 @@ public class FuegoPeligro extends Game implements Telegraph {
      */
     private void nextLevel() {
         addListeners();
-        status.levelEndOver();
+        getPlayerStatus().levelEndOver();
         int levelNumber = getPlayerStatus().getLevel();
         int worldNumber = getPlayerStatus().getWorld();
         setScreen(new LevelStartScreen(this, worldNumber, levelNumber));
@@ -154,7 +151,7 @@ public class FuegoPeligro extends Game implements Telegraph {
      */
     private void newGame() {
         addListeners();
-        status.reset();
+        getPlayerStatus().reset();
         setScreen(new LevelStartScreen(this, 1, 1));
     }
 
@@ -169,7 +166,7 @@ public class FuegoPeligro extends Game implements Telegraph {
 
     private void loadGame() {
         addListeners();
-        status.resetGameOver();
+        getPlayerStatus().resetGameOver();
         int levelNumber = getPlayerStatus().getCurrentLevel();
         int worldNumber = getPlayerStatus().getCurrentWorld();
         setScreen(new LevelStartScreen(this, worldNumber, levelNumber));

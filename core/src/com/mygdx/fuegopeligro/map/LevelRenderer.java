@@ -19,9 +19,11 @@ public class LevelRenderer {
     private static final String BACKGROUND_PROPERTY = "background";
     private final OrthogonalTiledMapRenderer renderer;
     private final Array<CollectibleRenderer> collectibles;
+    private final Array<CoinsRenderer> coins;
 
     public LevelRenderer(final TiledMap map, final AssetManager assets, final Batch batch, final float unitScale) {
         collectibles = new Array<CollectibleRenderer>(3);
+        coins = new Array<CoinsRenderer>(3);
 
         Texture background = assets.get(map.getProperties().get(BACKGROUND_PROPERTY,
                 Assets.DEFAULT_BACKGROUND.fileName, String.class),
@@ -32,6 +34,10 @@ public class LevelRenderer {
 
     public void addCollectibleRenderer(final CollectibleRenderer renderer) {
         collectibles.add(renderer);
+    }
+
+    public void addCoinsRenderer(final CoinsRenderer renderer) {
+        coins.add(renderer);
     }
 
     /**
