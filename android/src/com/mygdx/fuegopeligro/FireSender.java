@@ -454,7 +454,7 @@ public class FireSender extends AppCompatActivity {
         int year = currentTime.getYear();
 
         try {
-            String email = "jdesguerra17@gmail.com";
+            String email = "fuegopeligromail@gmail.com";
             String subject =
                     "(ALERT) Fire Incident at: " + currentTime + " " + month + "/" + day + "/" + year +
                     ", on: " + lat + " N ," + lon + " E";
