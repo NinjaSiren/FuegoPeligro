@@ -15,18 +15,26 @@ public class MenuActivity extends AppCompatActivity {
         Button buttonGame = findViewById(R.id.button3);
         Button buttonApp = findViewById(R.id.button4);
         Button buttonExit = findViewById(R.id.buttonExit);
+        Button buttonFire = findViewById(R.id.button6);
 
         buttonGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MenuActivity.this, AndroidLauncher.class));
+                startActivity(new Intent(getApplicationContext(), AndroidLauncher.class));
             }
         });
 
         buttonApp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MenuActivity.this, MainActivity.class));
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            }
+        });
+
+        buttonFire.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), FireSender.class));
             }
         });
 

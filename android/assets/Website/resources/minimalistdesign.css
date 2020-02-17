@@ -61,7 +61,7 @@
 	height: 200%; max-width: 100%;
 	transform: translate(0%, -31%);}
  li.menuitem a {
-	font-family: MenuFont; font-size: 18px;}
+	font-family: MenuFont; font-size: 24px;}
  
  /* FOR JUMBOTRON */
  /* INDEX.HTML */
@@ -105,20 +105,20 @@
     text-shadow: 2px 2px 9px rgba(0,0,0,0.25);}
  div.jumbotron4 p {
 	margin: auto; position: relative;
-	font-family: ParagraphFont; font-size: 2vw;
+	font-family: ParagraphFont; font-size: 4vw;
 	text-align: center; vertical-align: middle;
-	color: rgba(244,244,244,1); line-height: 5vw;}
+	color: rgba(244,244,244,1); line-height: 8vw;}
  table.contacts {
 	position: relative; left: 50%;
-    transform: translate(-50%, -50%); margin-top: 15%; 
+    transform: translate(-50%, -50%); margin-top: 36vw; 
 	margin-left: 1vw; text-align: justify;}
  table.contacts th, td {
     padding-left: 4vw;}
  div.jumbotron4 p1 {
 	margin: auto; position: relative;
-	font-family: ParagraphFont; font-size: 2vw;
+	font-family: ParagraphFont; font-size: 4vw;
 	vertical-align: middle; color: rgba(244,244,244,1); 
-	line-height: 5vw;}	 
+	line-height: 8vw;}	 
 	
  /* ABOUT IMAGE */
  div.profile {
@@ -144,9 +144,9 @@
  div.jumbotron2 p {
 	margin: 4vw;
 	position: relative; bottom: auto; top: 1vw;
-	font-family: ParagraphFont; font-size: 2vw;
+	font-family: ParagraphFont; font-size: 4vw;
 	text-align: justify; vertical-align: middle;
-	color: rgba(244,244,244,1); line-height: 5vw;}	
+	color: rgba(244,244,244,1); line-height: 8vw;}	
   div.profile {
 	margin: auto;
     display: block;
@@ -157,35 +157,36 @@
 	display: inline;}
  div.gallery p {
 	margin: auto; position: relative;
-	font-family: ParagraphFont; font-size: 2vw;
+	font-family: ParagraphFont; font-size: 8vw;
 	text-align: center; vertical-align: middle;
-	color: rgba(244,244,244,1); line-height: 4vw;
+	color: rgba(244,244,244,1); line-height: 10vw;
 	padding-left: 2vw; padding-right: 2vw;}
  div.gallery p.small-header {
 	margin: auto; position: relative;
-	font-family: ParagraphFont; font-size: 3vw;
+	font-family: ParagraphFont; font-size: 6vw;
 	text-align: center; vertical-align: middle;
-	color: rgba(32,32,32,1); line-height: 4vw;
-	margin-top: 6vw; padding: 3vw;}
+	color: rgba(32,32,32,1); line-height: 8vw;
+	margin-top: 6vw; padding: 3vw;
+	padding-bottom: 12vw;}
  div.gallery p.small-header-text {
 	margin: auto; position: relative;
-	font-family: ParagraphFont; font-size: 2vw;
+	font-family: ParagraphFont; font-size: 4vw;
 	text-align: justify; vertical-align: middle;
-	color: rgba(244,244,244,1); line-height: 4vw;
+	color: rgba(244,244,244,1); line-height: 8vw;
 	padding-left: 2vw; padding-right: 2vw;}
  div.gallery p.table-header {
-	font-family: ParagraphFont; font-size: 3vw;
+	font-family: ParagraphFont; font-size: 6vw;
 	color: rgba(32,32,32,1); position: relative;
-	margin-bottom: -3vw; margin-top: 2vw;}
+	margin-bottom: -3vw; margin-top: 8vw;}
  div.gallery table.small-header-table {
 	position: relative; left: 50%; 
 	transform: translate(-50%, -50%); 
-	margin-top: 19vw; text-align: left;
-	margin-bottom: -13vw;}
+	margin-top: 60vw; text-align: left;
+	margin-bottom: -55vw;}
  div.gallery table.small-header-table th, td {
     padding-left: 4vw; font-family: ParagraphFont; 
-	font-size: 2vw; align: left; 
-	color: rgba(244,244,244,1); line-height: 4vw;}
+	font-size: 4vw; align: left; 
+	color: rgba(244,244,244,1); line-height: 8vw;}
  div.gallery img {
 	display: block; height: 50%%; 
 	width: 50%; margin-bottom: 5vw; 

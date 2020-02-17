@@ -12,5 +12,32 @@
     <string name="fuego_peligro_game">FUEGO PELIGRO GAME</string>
     <string name="fire_safety_and_hazards_app">FIRE SAFETY AND HAZARDS APP</string>
     <string name="exit">Exit</string>
+    <string name="fire_incident_sent">Fire Sent</string>
+    <string name="back_to_menu">back to menu</string>
+    <string name="send_another_incident">send another fire</string>
+    <string name="residential_fire">Residential Fire</string>
+    <string name="school_institution_fire">School/Institution Fire</string>
+    <string name="fire_location">Fire Location (Lattitude, Longitude)</string>
+    <string name="send_fire_incident">Send via E-mail</string>
+    <string name="open_camera">Open Camera</string>
+    <string name="reset_location">reset location</string>
+    <string name="find_on_google_maps">Find on Google Maps</string>
+    <string name="image_of_fire">Image of Fire</string>
+    <string name="fire_type">Fire Location Type</string>
+    <string name="enter_the_fire_location">Enter the fire location</string>
+    <string name="send_a_fire">Send-A-Fire</string>
+    <string name="grass_open_field_fire">Grass/Open Field Fire</string>
+    <string name="government_building_fire">Government Building Fire</string>
+    <string name="industrial_fire">Industrial Fire</string>
+    <string name="high_rise_building_fire">High Rise/Building Fire</string>
+    <string name="commercial_fire">Commercial Fire</string>
+    <string name="office_business_fire">Office/Business Fire</string>
+    <string name="fire_sent_fail">Fire Sent Fail</string>
+    <string name="re_send_incident">Re-send Incident</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="back">Back</string>
+    <string name="capture_photo">Capture Photo</string>
+    <string name="click_on_button_to_capture_image">Click on button to capture image</string>
+    <string name="send_via_mms">Send via MMS</string>
 
 </resources>

@@ -59,7 +59,7 @@ public class CoinsGraphicsProcessor implements GraphicsProcessor {
 
     @Override
     public void resize(final int width, final int height) {
-      
+
     }
 
     @Override
