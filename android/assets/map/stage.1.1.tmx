@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="320" height="20" tilewidth="35" tileheight="35" nextobjectid="215">
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="320" height="20" tilewidth="35" tileheight="35" nextobjectid="223">
  <properties>
   <property name="background" value="bg_grasslands.png"/>
  </properties>
@@ -1042,7 +1042,7 @@
  </objectgroup>
  <layer name="foreground" width="320" height="20">
   <data encoding="base64" compression="zlib">
-   eJzt2lsKwjAQBdBSQdyHiKJuyX346QpcsxQVRPpU24nNOTAEJIVJG64pWhQAAAAwT6voBgAAmNQ1ugGAIPIPyJX8AwDIw768j5sytg9g3tbRDQAESSH/qnNeUwFpO5T1Y585dXPbPv+1FPIPIIL8m4/j4ztz1zAy3LasH5mHqfLPu21/7g1Mw/kPyJX8A3L1bf55r+32+n/GT37nbrsu9fs9tOex5396zdNyUVz6zczX0L0aua+d/9JxqimArjPQGFU5v9VYvVSa8i9i7b9exz9W9P77h5r6eUc/i4j1Vm4AiFoH
+   eJzt2u0JwjAQANBSQdxDRFFXcg9/OoEzS1FBpJ9qezF9D45ASeGShmtCWxQAAACQp1V0AgAATOoanQBAEPUPmCv1DwBgHvblvd2UsXkAeVtHJwAQJIX6V+3zmgJI26Gsb/v0qevbdv3XUqh/ABHUv3wcH+/MXUPLcNuyviUPU9U/Z9v+zA1Mw/4PmCv1j6Gcr8nFt/XPubbb6/+Mn3znbrsv9fkemvPY/T+952m5KC79es7X0LUaua7t/9JxqgmArj3QGFE5v8VYuVSa6l/E2H89jn+M6PX3DzH1845+FhHjrdwAEjFahQ==
   </data>
  </layer>
  <objectgroup name="bodies">
@@ -1192,6 +1192,12 @@
     <property name="userData" value="ground"/>
    </properties>
    <polyline points="0,0 -280,0 -280,-70 -140,-70 -140,-91.9091 -130.455,-92 -90.6364,-131.182 -90.6364,-139.364 0,-140"/>
+  </object>
+  <object id="221" name="platform" type="fixture" x="3465.33" y="534.667" width="209.333" height="50">
+   <properties>
+    <property name="body" value="environment"/>
+    <property name="userData" value="ground"/>
+   </properties>
   </object>
  </objectgroup>
 </map>
