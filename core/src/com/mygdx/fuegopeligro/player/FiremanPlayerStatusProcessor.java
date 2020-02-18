@@ -94,21 +94,20 @@ public class FiremanPlayerStatusProcessor extends PlayerStatusProcessor implemen
         // getStatus().setScore(getStatus().getScore() + COLLECTIBLE_POINTS);
     }
 
-    private void doIfHintUsed() {
-        /* final int currentHints = getStatus().getCollectibles() - MINUS_HINTS;
-        getStatus().setCollectibles(currentHints); */
+    private void doIfCorrect() {
+        // getStatus().setScore(getStatus().getScore() + ADDITIONAL_SCORE);
     }
 
-    private void doIfCorrect() {
-        /* final int currentScore = getStatus().getScore() + ADDITIONAL_SCORE;
-        getStatus().setScore(getStatus().getScore() + currentScore); */
+    private void doIfHintUsed() {
+        if (getStatus().getCollectibles() > 0) {
+            getStatus().setCollectibles(getStatus().getCollectibles() - MINUS_HINTS);
+        }
     }
 
     private void doIfWrong() {
-        /* final int currentLives = getStatus().getLives() - MINUS_LIVES;
         if (getStatus().getLives() > 0) {
-            getStatus().setLives(currentLives);
-        } */
+            getStatus().setLives(getStatus().getLives() - MINUS_LIVES);
+        }
     }
 
     /*
