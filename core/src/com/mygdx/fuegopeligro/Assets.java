@@ -43,8 +43,6 @@ public final class Assets {
             Skin.class);
     public static final AssetDescriptor<Texture> MENU_BG = new AssetDescriptor<Texture>("menubg.png",
             Texture.class);
-    public static final AssetDescriptor<Texture> DIRECTIONAL_PAD = new AssetDescriptor<Texture>("arrow" + File.separator + "DPAD.png",
-            Texture.class);
     public static final AssetDescriptor<Texture> SPLASH_IMAGE = new AssetDescriptor<Texture>("delta_logo.png",
             Texture.class);
     public static final AssetDescriptor<Texture> SPLASH_IMAGE_2 = new AssetDescriptor<Texture>("libgdx_logo.png",

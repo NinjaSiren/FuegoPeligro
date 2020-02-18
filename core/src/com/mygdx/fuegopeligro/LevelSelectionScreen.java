@@ -211,7 +211,6 @@ public class LevelSelectionScreen extends AbstractScreen {
         table2.center().pad(50);
 
         table2.setFillParent(true);
-        table2.setDebug(true);
         stage.addActor(table2);
         stage.setKeyboardFocus(table);
         Gdx.input.setInputProcessor(stage);

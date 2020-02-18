@@ -14,18 +14,22 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.fuegopeligro.FuegoPeligro;
 import com.mygdx.fuegopeligro.audio.AudioProcessor;
 import com.mygdx.fuegopeligro.audio.CheckpointAudioProcessor;
+import com.mygdx.fuegopeligro.audio.CoinsAudioProcessor;
 import com.mygdx.fuegopeligro.audio.FiremanAudioProcessor;
 import com.mygdx.fuegopeligro.audio.LevelAudioProcessor;
 import com.mygdx.fuegopeligro.graphics.CheckpointGraphicsProcessor;
+import com.mygdx.fuegopeligro.graphics.CoinsGraphicsProcessor;
 import com.mygdx.fuegopeligro.graphics.FiremanGraphicsProcessor;
 import com.mygdx.fuegopeligro.graphics.GraphicsProcessor;
 import com.mygdx.fuegopeligro.graphics.LevelGraphicsProcessor;
+import com.mygdx.fuegopeligro.graphics.hud.StatusBar;
 import com.mygdx.fuegopeligro.input.FiremanControllerProcessor;
 import com.mygdx.fuegopeligro.input.FiremanInputProcessor;
 import com.mygdx.fuegopeligro.map.LevelRenderer;
 import com.mygdx.fuegopeligro.physics.BodyEditorLoader;
 import com.mygdx.fuegopeligro.physics.BodyProcessor;
 import com.mygdx.fuegopeligro.physics.CheckpointPhysicsProcessor;
+import com.mygdx.fuegopeligro.physics.CoinsPhysicsProcessor;
 import com.mygdx.fuegopeligro.physics.ContactListenerMultiplexer;
 import com.mygdx.fuegopeligro.physics.FiremanBodyProcessor;
 import com.mygdx.fuegopeligro.physics.FiremanPhysicsProcessor;
@@ -52,6 +56,29 @@ public final class EntityFactory {
     EntityFactory() {
 
     }
+
+
+    /**
+     * Creates a new instance of {@link Collectible}, defining its graphical, audio and physical
+     * properties.
+     *
+     * @param world
+     *            The Box2D {@link World} onto which to create the {@link Body} and {@link Fixture}
+     *            of the {@link Entity}.
+     * @param assets
+     *            The {@link AssetManager} from where to extract the graphical and audio resources.
+     *            Those resources should be loaded in the manager before calling this method.
+     * @return A ready to use instance of a new {@link Collectible}.
+     */
+    public static Entity createCoins(final World world, final AssetManager assets) {
+        PhysicsProcessor physics = new CoinsPhysicsProcessor();
+        CONTACT_LISTENER.add(physics);
+        world.setContactListener(CONTACT_LISTENER);
+        GraphicsProcessor graphics = new CoinsGraphicsProcessor(assets);
+        AudioProcessor audio = new CoinsAudioProcessor(assets);
+        return new Collectible(graphics, physics, audio);
+    }
+
     /**
      * Creates a new instance of {@link Collectible}, defining its graphical, audio and physical
      * properties.
@@ -75,7 +102,8 @@ public final class EntityFactory {
 
     private static Fireman fireman;
     public static Entity createNinjaRabbit(final FuegoPeligro game, final World world, final BodyEditorLoader loader, final AssetManager assets,
-                                           final CurrentPlayerStatus status, final PlayerStatusObserver... observers) {
+                                           final CurrentPlayerStatus status, final StatusBar lilScan,
+                                           final PlayerStatusObserver... observers) {
         PhysicsProcessor physics = new FiremanPhysicsProcessor();
         CONTACT_LISTENER.add(physics);
         world.setContactListener(CONTACT_LISTENER);
@@ -115,7 +143,7 @@ public final class EntityFactory {
             Controllers.clearListeners();
             Controllers.addListener(new FiremanControllerProcessor(fireman));
         } else {
-            Gdx.input.setInputProcessor(new FiremanInputProcessor(fireman, game, assets));
+            Gdx.input.setInputProcessor(new FiremanInputProcessor(fireman, lilScan));
         }
         return fireman;
     }
@@ -132,11 +160,12 @@ public final class EntityFactory {
      */
     public static Entity createEnvironment(final FuegoPeligro game, final World world,
                                            final LevelRenderer renderer, final AssetManager assets,
-                                           final CurrentPlayerStatus status, final PlayerStatusObserver... observers) {
+                                           final CurrentPlayerStatus status, final StatusBar lviScorn,
+                                           final PlayerStatusObserver... observers) {
         PhysicsProcessor physics = new LevelPhysicsProcessor(world, renderer.getTiledMap(), renderer.getUnitScale());
         CONTACT_LISTENER.add(physics);
         world.setContactListener(CONTACT_LISTENER);
-        GraphicsProcessor graphics = new LevelGraphicsProcessor(assets, renderer, game, fireman, status);
+        GraphicsProcessor graphics = new LevelGraphicsProcessor(assets, renderer, game, fireman, status, lviScorn);
         AudioProcessor audio = new LevelAudioProcessor(assets, renderer.getTiledMap().getProperties());
         PlayerStatusProcessor player = new LevelPlayerStatusProcessor(status);
         if (observers != null) {

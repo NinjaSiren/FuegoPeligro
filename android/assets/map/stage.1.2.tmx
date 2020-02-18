@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="480" height="20" tilewidth="35" tileheight="35" nextobjectid="169">
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="480" height="20" tilewidth="35" tileheight="35" nextobjectid="213">
  <properties>
   <property name="background" value="bg_grasslands.png"/>
  </properties>
@@ -1001,33 +1001,33 @@
    eJztW1ty2zAMtH2aXqfn6EF6nfz3ZLU/0iqxOuwGb4ISJWNnOHYskQQWC4KUnculUCgUCoVCoVAoFAqFQqFQKBQKhUKhUCgUCmfA7+tna99jk65F24gxj9SO7P+RbT87D6tN+FptDNf362ejrt+v8vU9dHHmdkQcIT4Z+vXiznDi4ZTqp/nCjeGZV/oswinnkxQniQvP/BZuNX4s/M7WZrKR4tMCySdvP+0e7n6rZimMrp2Z0Py3cGG2+3a5XG8+nke0x0A+twKnCcof1OqqX6tO7/CKn7X2eGz25hxlE46VpRFP/np51K5b4yT5612DRtR1Kd6tX9Lc1L0efY1suG/p5UzD1v5FdLQH9xqXGr/c9dZ36rPRvmlawHxQ9fWsv9rcHkT8O0v9pephj04Rkecwlvul63hN8tlrwzqGtVGce/pl3xttkoak/NO4ozjO2IegzZpeqGadhxpnnd+jfYtONGTFm8uhaB5zz5QkvyhOKT1pey9uji1qYHQObZ+YHW+L/dScWAe1eGj8fPj8rPGP5/hftHj7Os+s+PG3/Xw+L/hueG6A9XjkXk3TV8/8Us7iHC0X0fVXsz/qB4Uo32tfC+dcvkl8R3PQc4+XBy/nVj/QDs8e1esPtz/o3S94feDiEdWjNgf6ZcmnjJzTbIlqieMec8+jb2outPfRtHYeb7yR13ZcUWfMefnBNBy79aPte4T6K8Gjl6jOMrQ8Yg/A5bYlXyifsb+2b6R0jfdk+J0dU2/eeutrpg+zNUkjWXG01mpO85xWLbZgP8s4mbVSsj1SOz1rAgWtlmbvEzhfuTr3gPnX58pSXfXUXc42bXzLOGesv5oWe3XT20fb41v3jlj3rBpYIHHRmyfUniCaf1K8rDXR24/SlsTlijvT15uXFk17dJ/Z0D9uzyX167E9o9ZF+6Ldre+R9cljA8V51Ddc77m+0jrVwyHmjGUcrHeWpvX/EjvmO+G2vmflERULip8Z8Ov2/yuCyw/OH9RzBodUDbLmijcftfrtGQs5WNBb3yxzYNyyYqH5SOmmJ+aR9Qfznlr3rOtnb5P2TlYOPPqS7uPg8cGyD70zc0o2Z6+9GHvuupd7bj1vNdYDahxp3AxNurmF712pmtxz9tV+t2X5bRc11mxY6u3aJHCx457XezXQs0ZlNVybOf8XRNdvHIvqZ8176kykja81yt+M8UaMm6GXdRyN94xzIOpKuz+bM2uMqHhl5WOEy5F7Icv4kT7ZNm7BA+qB0odlDOmMjH3XManvcrW+qCmvfzMA669Uh98b+/+tETfaN0v8PWeAbM1RNnrsjq717Rzr+6gtEd5HtBY9tuAYkfmtc0uInE+pZyzaGuDhktMIh1Ex9vbTntuM0qHFXuoca/VpC/vaPj1naq/+JR/xc/xuGOPe2k/VV+o3y10aYM7FHyD+H3kUMGcQeObVzr9L7W3r78g88ugXfR6VO5wN1BnU01+7xzMm9/eRWobd1HqP/Hhjle2bFnvrNe95fatauGf8tVhG57DCGs+ZueN0wtVQ73fFe2tsJJY58EyL76XrFN6J+K5/L/sKPAd769KWGoysP5Zx23usvmv3IY/S/R6+94hNlMsM+zU99vLR05/rm21vRsyzdTPSjxn8pfqPzL0t83pvfqN9e/EmnFWX8aVnyvgZVY8L50KrVXzdM3+9uZKRO7Mgay0oyHg1jj35bB3j1TjsAVdfufdUo6Ct4do9ljGO0qw2b+0bF4+jYy8+t9bLVmMelUerX9zr+v6b4bem2RzNyLlk0yh7Z+AhE1IdtbZ1nELh1SGt2zMiw75ZfcQ1m3otnAeWeFP3jEBGXY3U36rDhUKhUHhlZNTTzHPwH4qLUus=
   </data>
  </layer>
- <layer name="background" width="480" height="20">
+ <layer name="background2" width="480" height="20">
   <data encoding="base64" compression="zlib">
    eJzt2UsKwyAQAFDNfXqpnsRtb9FFr5cDdFOCTaVp+oNEIoH3cBhkGBgEcWEIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP9dY+sJAAAAYLk+vmYAoJ1jDOecL917ANSW7otvUusB2Ex5f0/dM8q+tbSud017dYfHeZb/9ZxLTOtZ2nQy2Ifp3ZnnX7XavQCf3OIYAADs1wBOMSWf
   </data>
  </layer>
- <layer name="background" width="480" height="20">
+ <layer name="background1" width="480" height="20">
   <data encoding="base64" compression="zlib">
    eJztnEuO1DAQhuM5CxJHGJC6YaQGDbNgAUsemhGP2cwGadY8bsEWcQL2SByDNStYcQFWJEqs6bbi2FV+lZ3/kyKnM3F+V7nsijuZ7joAAAAA5OaPWu9Wg/0x2ijVzhLtkuqLUjbm8Ecpn1N1989vNU5S2CXFVzXyTMnaKG2aO3f/2MBDR788V2m3HBoufRuPiP6WsIW2d+C0cExIiZnWYqPlmMjd33rfjIGcMUHVWuLMsu/izChDz1sbT6d+2U3lRh0eXwMX8MEB8McNGB8ja4kJm50XjdlZC29U26WL12rc9H6LpYvSfYSYQGyULl3Ejgn0d5oSALAe/hUe9yH6S3VL2wXmSdXfIA+XpRsAABHMGwCAlrl7xKt3MtWjzJEcrRNiHa49HC2uHkenlGYt9sXQzx07IZrQi6cnfdyXiMtQ/Vy2Sr1Hf2t8fsLwx98Z22z2nvfXv+r/9luN5bmHnuQ6ubVqaWfKektjKUd91Esbr2b/zM0vsdvaWp2QerGuEUOf2ve18/1o3EyOmfcp9xj1fLTMMUrV4drD0eLqcXRKadZin03f5/5Yn5M7djiauq05+5OjF+pT6fEqfQwODH0QOha5+rltlY4t/4JDPiT2Uerrg3hI/W5r4EfhOJLsm1oxfQoft0Ps/Puu4TySKkeyryvU15S1JYhL6fxLQXoMtDyXmUjvCyoxnm/7ot9hPmXUxfqXRuwcLG3d6xqHrY3TFFwX1HblX/TfDJHHYC4foy/rh5t/bX3vdc9IfEeG2obULOVMytwrLffmRvr8wW3fdqr3oC/vqO7LsH9slLupjK2dfP0bcP0U/e19TUa7l+ay3LEbqid9rA3EbON9IXPrV0c7sP7lYcud+nfctmr+uKt+9bRqVyVw86+0+TlpeyqJ0ZrWJLmw2Vez3XP5d/aZv0fcpnhmkvIeNwSfHDr3O29Jc28lcwuZiuzSvxFM/q3gCDbmeP5b81xHwZzLYti9Ft+Vxmf9ezWV19O5l8bxfcz/243FkHt/4v2raLxQh6XmMcYdsPBKdb9iXaum969Ss+2395M/PvflZvq88ay/9rkMpMfnu+dPhOt9W2nMfjTWPPtrn9vIvavglloubSD/pmHT3eRcnX933ZiXAeDgep5LBc9/8/ASORgAAESh8x91i60PAAAArImSuXdfX/MfM90y/A==
   </data>
  </layer>
  <objectgroup name="checkpoints">
-  <object id="150" x="2800" y="560">
+  <object id="150" x="3080" y="595">
    <ellipse/>
   </object>
-  <object id="151" x="5600" y="420">
+  <object id="151" x="6055" y="595">
    <ellipse/>
   </object>
-  <object id="152" x="8435" y="560">
+  <object id="152" x="8820" y="595">
    <ellipse/>
   </object>
-  <object id="156" x="11200" y="420">
+  <object id="156" x="11865" y="595">
    <ellipse/>
   </object>
-  <object id="158" x="14000" y="560">
+  <object id="158" x="14210" y="560">
    <ellipse/>
   </object>
-  <object id="159" x="16555" y="210">
+  <object id="159" x="16345" y="385">
    <ellipse/>
   </object>
  </objectgroup>
@@ -1050,7 +1050,7 @@
  </objectgroup>
  <layer name="foreground" width="480" height="20">
   <data encoding="base64" compression="zlib">
-   eJzt2e1tgzAQANCEWaKmnSEdot0je2SRbtBdOk8VNUgNguI6/gLekyx+QMLZ3GEMux0AAACs02tXOwIAAADI72T9CwAAwAZY/wIAALB25+6nAQAAwBpcbmvc82ALAORxMdcCQFHmXmBJXvb3WwCgjk/rCBrSr2vfZ7YAQBreKW/X8fZO7nl/36bMHVN7/9hx/bFPmd8/zsVEesP8DVUyL8gv9Nq3VqPm3u06NpaLJeS617ZW11uQMn/Nwcs1VXuHP57hqed6XfpWY38LhveusfXiR7fMNtWfXup7rXoubyp/Q5XIiyUZ1kvIWMb8JrXYc6aO9S3w+63vuYSqPY8+Mv+WUOueAymkqLNWarEVX114K+H3WrBWu6o9J/S5+Ghfxp45c7RWxix2nEuN09xYlY7lv/HGxpfiP2rlbUvx1hrPUvWduy+x/YiJa+5cLfoGpFb1iw==
+   eJzt2f9RgzAUAODCLGrdQYfQPbpHF3EDd3Eez2s5lYMjTfML+L67HH9Ay0v6XkLK4QAAAADb9NrXjgAAAADye7H/BQAAYAfsfwEAANi6U39pAAAAsAXn6x73NDoCAHmcrbUAUJS1FwAAmPPYXdrYp30EDRn2te8LRwBo3dRzV4v8p7xfx2uOPnf/25yla2qfn7puuPYpcz0uxUR64/wNVTIvyC/0t2+tRq29+3VsLBdLyDXXtlbXe5Ayf63B63Vr7anVuh6631bjfAvGc9fUfvGjX2eb688g9Vyrnsuby99QJfJiTcb1EjKWMZ9JLfaeqWN9C3x/630uoWqvo/esvyXUmnMghRR11kottuKrD28l/N0L1mo/aq8JQy7e25epZ84crZUxix3nUuO0NFalY7k13tj4UnxHrbxtKd5a41mqvnP3JbYfMXEt3atF3wHT9YQ=
   </data>
  </layer>
  <objectgroup name="bodies">
@@ -1068,163 +1068,156 @@
     <property name="userData" value="exit"/>
    </properties>
   </object>
-  <object id="128" name="ground" type="fixture" x="2.66667" y="630.667">
+  <object id="170" name="ground" type="fixture" x="0.5" y="630.5">
    <properties>
     <property name="body" value="environment"/>
     <property name="userData" value="ground"/>
    </properties>
-   <polyline points="0,0 1088,-4 1190.67,-5.33333 1189.33,61.3333"/>
+   <polyline points="0,0 1189.44,-0.5 1189.5,69.3125"/>
   </object>
-  <object id="129" name="platform" type="fixture" x="1294.67" y="553.333" width="142.667" height="80">
+  <object id="175" name="ground" type="fixture" x="2379.64" y="699.818">
    <properties>
     <property name="body" value="environment"/>
     <property name="userData" value="ground"/>
    </properties>
+   <polyline points="0,0 0.363636,-69.8182 1190.09,-70.1818 1190,-91.9091 1200.36,-92.0909 1310.45,-209.731 1505.3,-209.818 1505.43,0.119318"/>
   </object>
-  <object id="130" name="platform" type="fixture" x="1574.67" y="554.667" width="141.333" height="76">
+  <object id="181" name="ground" type="fixture" x="5530" y="700">
    <properties>
     <property name="body" value="environment"/>
     <property name="userData" value="ground"/>
    </properties>
+   <polyline points="0,0 0,-210 194.636,-210.182 195,-201.636 337.636,-70.5455 875,-70 875,-105 945,-105 945,-140 980,-140 980,-175 1015,-175 1015,-210 1085,-210 1085,-140 1050,-140 1050,-105 1015,-105 1015,-70 980,-70 980,0"/>
   </object>
-  <object id="131" name="platform" type="fixture" x="1853.33" y="556" width="141.333" height="77.3333">
+  <object id="182" name="ground" type="fixture" x="6755" y="700">
    <properties>
     <property name="body" value="environment"/>
     <property name="userData" value="ground"/>
    </properties>
+   <polyline points="0,0 0,-70 805,-70 1295,-70 1295,0"/>
   </object>
-  <object id="132" name="platform" type="fixture" x="2132" y="558.667" width="144" height="70.6667">
+  <object id="183" name="ground" type="fixture" x="8155" y="700">
    <properties>
     <property name="body" value="environment"/>
     <property name="userData" value="ground"/>
    </properties>
+   <polyline points="0,0 0,-70 490,-70 490,0"/>
   </object>
-  <object id="133" name="ground" type="fixture" x="2372" y="693.333">
+  <object id="184" name="ground" type="fixture" x="8750" y="700">
    <properties>
     <property name="body" value="environment"/>
     <property name="userData" value="ground"/>
    </properties>
-   <polyline points="0,0 4,-72 768,-64 1194.67,-69.3333 1324,-206.667 1513.33,-209.333 1517.33,-5.33333 1517.33,5.33333"/>
+   <polyline points="0,0 0,-70 980,-70 979.818,-91.8182 990.182,-92 1100.5,-209 1225,-210 1225,0"/>
   </object>
-  <object id="134" name="platform" type="fixture" x="4060" y="486.667" width="140" height="77.3333">
+  <object id="186" name="ground" type="fixture" x="10290" y="700">
    <properties>
     <property name="body" value="environment"/>
     <property name="userData" value="ground"/>
    </properties>
+   <polyline points="0,0 0,-210 124.625,-210.25 245,-70 455,-70 491.333,-174.667 700,-175 770,-175 769.875,-190.125 789.75,-190.25 789.75,-204 1009.75,-204 1010,-197.25 1017.5,-197.25 1017.75,-190.75 1053,-190.75 1053.25,-184.75 1058.5,-184.5 1061,-71 1295,-70 1295,0"/>
   </object>
-  <object id="135" name="platform" type="fixture" x="4340" y="490.667" width="137.333" height="68">
+  <object id="187" name="ground" type="fixture" x="11690" y="700">
    <properties>
     <property name="body" value="environment"/>
     <property name="userData" value="ground"/>
    </properties>
+   <polyline points="0,0 0,-70 875,-70 875,0"/>
   </object>
-  <object id="136" name="platform" type="fixture" x="4616" y="486.667" width="148" height="73.3333">
+  <object id="190" name="ground" type="fixture" x="13475" y="700">
    <properties>
     <property name="body" value="environment"/>
     <property name="userData" value="ground"/>
    </properties>
+   <polyline points="0,0 0,-70 805,-70 805,-140 840,-140 840,-175 875,-175 875,-210 945,-210 945,-140 910,-140 910,-105 875,-105 875,-70 840,-70 840,0"/>
   </object>
-  <object id="137" name="platform" type="fixture" x="4896" y="485.333" width="148" height="77.3333">
+  <object id="192" name="ground" type="fixture" x="14805" y="698">
    <properties>
     <property name="body" value="environment"/>
     <property name="userData" value="ground"/>
    </properties>
+   <polyline points="0,0 0,-68 -35,-68 -35,-103 -70,-103 -70,-138 -105,-138 -105,-208 -35,-208 -35,-173 0,-173 0,-138 35,-138 35,-68 455,-68 455,2"/>
   </object>
-  <object id="138" name="platform" type="fixture" x="5174.67" y="486.667" width="149.333" height="74.6667">
+  <object id="193" name="ground" type="fixture" x="15540" y="700">
    <properties>
     <property name="body" value="environment"/>
     <property name="userData" value="ground"/>
    </properties>
+   <polyline points="0,0 0,-70 -35,-76 -49,-80 -65,-97 -70,-105 -70,-140 -35,-140 420,-140 560,-280 840,-280 980,-420 1050,-420 1120,-490 1225,-490"/>
   </object>
-  <object id="139" name="ground" type="fixture" x="5529.33" y="690.667">
-   <properties>
-    <property name="body" value="environment"/>
-    <property name="userData" value="ground"/>
-   </properties>
-   <polyline points="0,0 -2.66667,-206.667 188,-204 332,-61.3333 872,-58.6667 872,-101.333 940,-98.6667 940,-134.667 976,-132 976,-169.333 1013.33,-170.667 1012,-212 1012,-204 1086.67,-204 1086.67,-134.667 1053.33,-126.667 1049.33,-96 1014.67,-94.6667 1014.67,-68 982.667,-57.3333 981.333,2.66667"/>
-  </object>
-  <object id="140" name="ground" type="fixture" x="6750.67" y="688">
-   <properties>
-    <property name="body" value="environment"/>
-    <property name="userData" value="ground"/>
-   </properties>
-   <polyline points="0,0 1.33333,-64 786.667,-62.6667 1300,-60 1302.67,6.66667"/>
-  </object>
-  <object id="141" name="ground" type="fixture" x="8150.67" y="690.667">
-   <properties>
-    <property name="body" value="environment"/>
-    <property name="userData" value="ground"/>
-   </properties>
-   <polyline points="0,0 1.33333,-62.6667 494.667,-65.3333 494.667,4"/>
-  </object>
-  <object id="142" name="ground" type="fixture" x="8749.33" y="688">
-   <properties>
-    <property name="body" value="environment"/>
-    <property name="userData" value="ground"/>
-   </properties>
-   <polyline points="0,0 -4,-64 678.667,-62.6667 978.667,-61.3333 980,-81.3333 1106.67,-201.333 1228,-200 1229.33,4"/>
-  </object>
-  <object id="143" name="ground" type="fixture" x="10286.7" y="682.667">
-   <properties>
-    <property name="body" value="environment"/>
-    <property name="userData" value="ground"/>
-   </properties>
-   <polyline points="0,0 4,-192 128,-196 268,-52 446.667,-52 1301.33,-56 1300,16"/>
-  </object>
-  <object id="144" name="ground" type="fixture" x="11684" y="688">
-   <properties>
-    <property name="body" value="environment"/>
-    <property name="userData" value="ground"/>
-   </properties>
-   <polyline points="0,0 4,-69.3333 5.33333,-64 881.333,-56 881.333,5.33333"/>
-  </object>
-  <object id="145" name="platform" type="fixture" x="12669.3" y="556" width="212" height="62.6667">
+  <object id="196" name="platform" type="fixture" x="1295" y="560" width="140" height="70.3333">
    <properties>
     <property name="body" value="environment"/>
     <property name="userData" value="ground"/>
    </properties>
   </object>
-  <object id="146" name="platform" type="fixture" x="13126.7" y="557.333" width="209.333" height="65.3333">
+  <object id="199" name="platform" type="fixture" x="1574.5" y="559.5" width="140.5" height="70.5">
    <properties>
     <property name="body" value="environment"/>
     <property name="userData" value="ground"/>
    </properties>
   </object>
-  <object id="147" name="ground" type="fixture" x="13470.7" y="696">
-   <properties>
-    <property name="body" value="environment"/>
-    <property name="userData" value="ground"/>
-   </properties>
-   <polyline points="0,0 4,-69.3333 806.667,-66.6667 808,-140 840,-137.333 840,-169.333 877.333,-174.667 873.333,-205.333 950.667,-208 950.667,-136 914.667,-140 920,-106.667 885.333,-101.333 880,-73.3333 846.667,-62.6667 850.667,-2.66667"/>
-  </object>
-  <object id="148" name="ground" type="fixture" x="14801.3" y="696">
-   <properties>
-    <property name="body" value="environment"/>
-    <property name="userData" value="ground"/>
-   </properties>
-   <polyline points="0,0 2.66667,-62.6667 -36,-68 -37.3333,-102.667 -72,-105.333 -72,-140 -101.333,-133.333 -104,-210.667 -32,-208 -32,-176 6.66667,-170.667 6.66667,-140 38.6667,-137.333 38.6667,-69.3333 452,-62.6667 456,-2.66667"/>
-  </object>
-  <object id="149" name="ground" type="fixture" x="15534.7" y="694.667">
-   <properties>
-    <property name="body" value="environment"/>
-    <property name="userData" value="ground"/>
-   </properties>
-   <polyline points="0,0 4,-69.3333 -57.3333,-80 -62.6667,-96 -65.3333,-101.333 -72,-112 -66.6667,-134.667 -44,-137.333 421.333,-137.333 568,-280 845.333,-277.333 986.667,-421.333 1050.67,-417.333 1120,-488 1230.67,-481.333"/>
-  </object>
-  <object id="157" name="ground" type="fixture" x="10728" y="616">
-   <properties>
-    <property name="body" value="environment"/>
-    <property name="userData" value="ground"/>
-   </properties>
-   <polyline points="0,0 0,-96 322,-90 324,-128 622,-128 618,-4 614,12"/>
-  </object>
-  <object id="167" name="platform" type="fixture" x="10116" y="394" width="138.5" height="52.5">
+  <object id="200" name="platform" type="fixture" x="1855" y="560.5" width="140" height="69.5">
    <properties>
     <property name="body" value="environment"/>
     <property name="userData" value="ground"/>
    </properties>
   </object>
-  <object id="168" name="platform" type="fixture" x="14524.7" y="524.333" width="70" height="71.3333">
+  <object id="201" name="platform" type="fixture" x="2135.5" y="560" width="140.5" height="69.5">
+   <properties>
+    <property name="body" value="environment"/>
+    <property name="userData" value="ground"/>
+   </properties>
+  </object>
+  <object id="202" name="platform" type="fixture" x="4059.5" y="490" width="140" height="70">
+   <properties>
+    <property name="body" value="environment"/>
+    <property name="userData" value="ground"/>
+   </properties>
+  </object>
+  <object id="203" name="platform" type="fixture" x="4340.5" y="490" width="139" height="70.5">
+   <properties>
+    <property name="body" value="environment"/>
+    <property name="userData" value="ground"/>
+   </properties>
+  </object>
+  <object id="204" name="platform" type="fixture" x="4620" y="489" width="139" height="71.5">
+   <properties>
+    <property name="body" value="environment"/>
+    <property name="userData" value="ground"/>
+   </properties>
+  </object>
+  <object id="205" name="platform" type="fixture" x="4900" y="490.5" width="139" height="70.5">
+   <properties>
+    <property name="body" value="environment"/>
+    <property name="userData" value="ground"/>
+   </properties>
+  </object>
+  <object id="206" name="platform" type="fixture" x="5180" y="489.5" width="140.5" height="72">
+   <properties>
+    <property name="body" value="environment"/>
+    <property name="userData" value="ground"/>
+   </properties>
+  </object>
+  <object id="207" name="platform" type="fixture" x="10080" y="429.5" width="104" height="51.5">
+   <properties>
+    <property name="body" value="environment"/>
+    <property name="userData" value="ground"/>
+   </properties>
+  </object>
+  <object id="208" name="platform" type="fixture" x="12670.5" y="560.5" width="209" height="69.5">
+   <properties>
+    <property name="body" value="environment"/>
+    <property name="userData" value="ground"/>
+   </properties>
+  </object>
+  <object id="209" name="platform" type="fixture" x="13125" y="559.5" width="209.5" height="71.5">
+   <properties>
+    <property name="body" value="environment"/>
+    <property name="userData" value="ground"/>
+   </properties>
+  </object>
+  <object id="210" name="platform" type="fixture" x="14525" y="465.5" width="69.5" height="50">
    <properties>
     <property name="body" value="environment"/>
     <property name="userData" value="ground"/>

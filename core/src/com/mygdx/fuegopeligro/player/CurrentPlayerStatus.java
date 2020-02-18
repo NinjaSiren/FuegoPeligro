@@ -172,7 +172,7 @@ public final class CurrentPlayerStatus implements PlayerStatus, Poolable {
     }
 
     public void setCurrentWorld(int currentWorlds) {
-        this.currentWorld = currentWorlds;
+        this.world = currentWorlds;
     }
 
     /*
@@ -186,7 +186,7 @@ public final class CurrentPlayerStatus implements PlayerStatus, Poolable {
     }
 
     public void setCurrentLevel(int currentLevels) {
-        this.currentLevel = currentLevels;
+        this.level = currentLevels;
     }
 
     @Override

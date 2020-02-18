@@ -16,7 +16,7 @@ public class FiremanPlayerStatusProcessor extends PlayerStatusProcessor implemen
      * Points earned by gathering a collectible.
      */
     private static final int COLLECTIBLE_POINTS = 500;
-    private static final int ADDITIONAL_SCORE = 250;
+    private static final int ADDITIONAL_SCORE = 1000;
 
     public FiremanPlayerStatusProcessor(final CurrentPlayerStatus status) {
         super(status);
@@ -24,43 +24,59 @@ public class FiremanPlayerStatusProcessor extends PlayerStatusProcessor implemen
                 MessageType.COLLECTED.code(), MessageType.DEAD.code(),
                 MessageType.LOAD_NEXT_LEVEL.code(), MessageType.LOAD_NEW_GAME.code(),
                 MessageType.CORRECT_ANSWER.code(), MessageType.WRONG_ANSWER.code(),
-                MessageType.HINT_USED.code());
+                MessageType.HINT_USED.code(), MessageType.COINS_COLLECTED.code());
     }
 
     private void LoadEasy(int levelValue) {
-        if(levelValue == 1) {
-            getStatus().setEqavalue(new RandomNumberGenerator(1, 30).getGeneratedNumber());
-        } else if(levelValue == 2) {
-            getStatus().setEqavalue(new RandomNumberGenerator(7, 30).getGeneratedNumber());
-        } else if(levelValue == 3) {
-            getStatus().setEqavalue(new RandomNumberGenerator(13, 30).getGeneratedNumber());
-        } else if(levelValue == 4) {
-            getStatus().setEqavalue(new RandomNumberGenerator(19, 30).getGeneratedNumber());
-        } else if(levelValue == 5) {
-            getStatus().setEqavalue(new RandomNumberGenerator(25, 30).getGeneratedNumber());
+        switch (levelValue) {
+            case 1:
+                getStatus().setEqavalue(new RandomNumberGenerator(1, 30).getGeneratedNumber());
+                break;
+            case 2:
+                getStatus().setEqavalue(new RandomNumberGenerator(7, 30).getGeneratedNumber());
+                break;
+            case 3:
+                getStatus().setEqavalue(new RandomNumberGenerator(13, 30).getGeneratedNumber());
+                break;
+            case 4:
+                getStatus().setEqavalue(new RandomNumberGenerator(19, 30).getGeneratedNumber());
+                break;
+            case 5:
+                getStatus().setEqavalue(new RandomNumberGenerator(25, 30).getGeneratedNumber());
+                break;
         }
     }
 
     private void LoadHard(int levelValue) {
-        if(levelValue == 1) {
-            getStatus().setHqaValue(new RandomNumberGenerator(1, 40).getGeneratedNumber());
-        } else if(levelValue == 2) {
-            getStatus().setHqaValue(new RandomNumberGenerator(9, 40).getGeneratedNumber());
-        } else if(levelValue == 3) {
-            getStatus().setHqaValue(new RandomNumberGenerator(17, 40).getGeneratedNumber());
-        } else if(levelValue == 4) {
-            getStatus().setHqaValue(new RandomNumberGenerator(25, 40).getGeneratedNumber());
-        } else if(levelValue == 5) {
-            getStatus().setHqaValue(new RandomNumberGenerator(33, 40).getGeneratedNumber());
+        switch (levelValue) {
+            case 1:
+                getStatus().setHqaValue(new RandomNumberGenerator(1, 40).getGeneratedNumber());
+                break;
+            case 2:
+                getStatus().setHqaValue(new RandomNumberGenerator(9, 40).getGeneratedNumber());
+                break;
+            case 3:
+                getStatus().setHqaValue(new RandomNumberGenerator(17, 40).getGeneratedNumber());
+                break;
+            case 4:
+                getStatus().setHqaValue(new RandomNumberGenerator(25, 40).getGeneratedNumber());
+                break;
+            case 5:
+                getStatus().setHqaValue(new RandomNumberGenerator(33, 40).getGeneratedNumber());
+                break;
         }
     }
 
     private void Randomize() {
         getStatus().setMGValue(new RandomNumberGenerator(1, 8).getGeneratedNumber());
         getStatus().setCollectibles((short) (getStatus().getCollectibles() + 1));
-        getStatus().setScore(getStatus().getScore() + COLLECTIBLE_POINTS);
+        getStatus().setScore(getStatus().getScore() + ADDITIONAL_SCORE);
         LoadEasy(getStatus().getCurrentLevel());
         LoadHard(getStatus().getCurrentLevel());
+    }
+
+    private void coinsCaptured() {
+        getStatus().setScore(getStatus().getScore() + COLLECTIBLE_POINTS);
     }
 
     private void doIfDead() {
@@ -70,11 +86,19 @@ public class FiremanPlayerStatusProcessor extends PlayerStatusProcessor implemen
     }
 
     private void doIfHintUsed() {
-        getStatus().setCollectibles(getStatus().getCollectibles() - 1);
+        int value = 1;
+        while (value == 1) {
+            getStatus().setCollectibles(getStatus().getCollectibles() - value);
+            value--;
+        }
     }
 
     private void doIfCorrect() {
-        getStatus().setScore(getStatus().getScore() - ADDITIONAL_SCORE);
+        int value = 250;
+        while (value < 1) {
+            getStatus().setScore(getStatus().getScore() + value);
+            value = 0;
+        }
     }
 
     private void doIfWrong() {
@@ -107,6 +131,8 @@ public class FiremanPlayerStatusProcessor extends PlayerStatusProcessor implemen
             doIfWrong();
         } else if (msg.message == MessageType.HINT_USED.code()) {
             doIfHintUsed();
+        } else if (msg.message == MessageType.COINS_COLLECTED.code()) {
+            coinsCaptured();
         }
         return true;
     }

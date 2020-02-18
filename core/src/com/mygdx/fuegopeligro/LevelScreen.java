@@ -41,11 +41,11 @@ public class LevelScreen extends AbstractScreen {
         BodyEditorLoader bodyLoader = new BodyEditorLoader(Gdx.files.internal(BODIES_DEFINITION_FILE));
         hud = new StatusBar(game.getBatch(), game.getAssetsManager());
         ninjaRabbit = EntityFactory.createNinjaRabbit(game, world, bodyLoader, game.getAssetsManager(),
-                game.getPlayerStatus(), hud);
+                game.getPlayerStatus(), hud, hud);
         LevelRenderer mapRenderer = LevelFactory.create(world, bodyLoader, game.getBatch(),
                 game.getAssetsManager(), worldNumber, levelNumber, 1 / FuegoPeligro.PPM);
         environment = EntityFactory.createEnvironment(game, world, mapRenderer, game.getAssetsManager(),
-                game.getPlayerStatus(), (PlayerStatusObserver[]) null);
+                game.getPlayerStatus(), hud, (PlayerStatusObserver[]) null);
         viewport = new ScreenViewport();
         viewport.setUnitsPerPixel(1 / FuegoPeligro.PPM);
         viewport.setCamera(new BoundedCamera(0.0f,
@@ -80,6 +80,10 @@ public class LevelScreen extends AbstractScreen {
         MessageManager.getInstance().update();
 
         hud.render();
+    }
+
+    public StatusBar getHud() {
+        return hud;
     }
 
     /*

@@ -1,0 +1,195 @@
+/* Minimalist Design Stylesheet
+ * Created by John Daniel Esguerra
+ * For Nicole Andrea Solis portfolio website 
+ */
+
+ /* Start of stylesheet */
+
+ /* FONT FACES */
+ @font-face {
+	font-family: MenuFont;
+    src: url(comfortaa-regular.ttf);}
+ @font-face {
+	font-family: LogoFont;
+    src: url(caviardreams-bold.ttf);}
+ @font-face {
+	font-family: ParagraphFont;
+    src: url(skyeden.ttf);}
+ 
+ /* FOR BODY AND BACKGROUND */
+ *{ 
+    box-sizing: border-box;}
+ html {
+    margin: 0;}
+ body {
+    margin: 0;
+	background-color: rgba(0,0,0,0);}
+ body.index {
+    background: url("sunset.jpg");
+	background-position: center;
+	background-repeat: repeat;
+    background-size: 1% -1%;}
+ html.about {
+    background: url("sunset.jpg");
+	background-position: center;
+	background-repeat: repeat;
+    background-size: 1% -1%;}
+ html.images, html.contacts {
+    background: url("sunset.jpg");
+	background-position: top;
+	background-repeat: repeat;
+    background-size: 1% -1%;}
+ 
+ /* FOR NAVIGATION MENU */
+ nav.navbar, ul.dropdown-menu {
+	background-color: rgba(32,32,32,1);
+    border-style: solid; border-width: 0px; 
+	border-color: rgba(0,0,0,0);
+    -webkit-box-shadow: 2px 2px 9px rgba(0,0,0,0);
+    -moz-box-shadow: 2px 2px 9px rgba(0,0,0,0);
+    box-shadow: 2px 2px 9px rgba(0,0,0,0);}
+ ul.dropdown-menu li.dropdown-item a {
+	color: rgba(186,186,186,1);}
+ ul.dropdown-menu li.active a, ul.dropdown-menu li a:hover {
+	background-color: rgba(0,0,0,1);
+	color: rgba(244,244,244,1);}
+ ul.dropdown-menu li.active a:hover {
+	background-color: rgba(194,85,10,1);
+	color: rgba(244,244,244,1);}
+ a.navbar-brand img {
+	margin: 0; padding: 0; display: relative;
+	height: 200%; max-width: 100%;
+	transform: translate(0%, -31%);}
+ li.menuitem a {
+	font-family: MenuFont; font-size: 24px;}
+ 
+ /* FOR JUMBOTRON */
+ /* INDEX.HTML */
+ div.jumbotron {
+	background-color: rgba(0,0,0,0);
+	padding: 0; margin: 0;}
+ div.jumbotron img {
+    position: relative; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+	margin-top: 40%; margin-left: 1vw;
+	max-height: 100%; width: 75%;
+    border-radius: 0px;
+    -webkit-box-shadow: 2px 2px 9px rgba(0,0,0,0);
+    -moz-box-shadow: 2px 2px 9px rgba(0,0,0,0);
+    box-shadow: 2px 2px 9px rgba(0,0,0,0);}
+	
+ /* IMAGES.HTML */
+ div.jumbotron3 {
+    background-color: rgba(0,0,0,0);
+	margin: auto; padding: auto;
+	margin-top: 15vw;}
+ div.jumbotron3 h1 {
+	margin-top: 3vw; margin-bottom: 10vw;
+	position: relative; top: 5vw;
+	font-family: LogoFont; font-size: 10vw;
+	text-align: center; vertical-align: middle;
+	color: rgba(244,244,244,1);
+    text-shadow: 2px 2px 9px rgba(0,0,0,0.25);}
+	
+ /* CONTACTS.HTML */	
+ div.jumbotron4 {
+    background-color: rgba(0,0,0,0);
+	margin: auto; padding: auto;
+	margin-top: 15vw;}
+ div.jumbotron4 h1 {
+	margin-top: 3vw; margin-bottom: 10vw;
+	position: relative; top: 5vw;
+	font-family: LogoFont; font-size: 10vw;
+	text-align: center; vertical-align: middle;
+	color: rgba(244,244,244,1);
+    text-shadow: 2px 2px 9px rgba(0,0,0,0.25);}
+ div.jumbotron4 p {
+	margin: auto; position: relative;
+	font-family: ParagraphFont; font-size: 4vw;
+	text-align: center; vertical-align: middle;
+	color: rgba(244,244,244,1); line-height: 8vw;}
+ table.contacts {
+	position: relative; left: 50%;
+    transform: translate(-50%, -50%); margin-top: 36vw; 
+	margin-left: 1vw; text-align: justify;}
+ table.contacts th, td {
+    padding-left: 4vw;}
+ div.jumbotron4 p1 {
+	margin: auto; position: relative;
+	font-family: ParagraphFont; font-size: 4vw;
+	vertical-align: middle; color: rgba(244,244,244,1); 
+	line-height: 8vw;}	 
+	
+ /* ABOUT IMAGE */
+ div.profile {
+	display: absolute;}
+ img.profileimage {
+	display: block; height: auto; width: 25%; max-width: 100%;
+	margin: auto; position: relative;
+	border-radius: 10%; border-style: solid; border-width: 0px; border-color: rgba(0,0,0,0);
+    -webkit-box-shadow: 2px 2px 9px rgba(0,0,0,0);
+    -moz-box-shadow: 2px 2px 9px rgba(0,0,0,0);
+    box-shadow: 2px 2px 9px rgba(0,0,0,0);}
+	
+ /* ABOUT.HTML */
+ div.jumbotron2 {
+    background-color: rgba(0,0,0,0);}
+ div.jumbotron2 h1 {
+	margin-top: 3vw; margin-bottom: 10vw;
+	position: relative; top: 5vw;
+	font-family: LogoFont; font-size: 10vw;
+	text-align: center; vertical-align: middle;
+	color: rgba(244,244,244,1);
+    text-shadow: 2px 2px 9px rgba(0,0,0,0.25);}
+ div.jumbotron2 p {
+	margin: 4vw;
+	position: relative; bottom: auto; top: 1vw;
+	font-family: ParagraphFont; font-size: 4vw;
+	text-align: justify; vertical-align: middle;
+	color: rgba(244,244,244,1); line-height: 8vw;}	
+  div.profile {
+	margin: auto;
+    display: block;
+	margin-top: 14vw;}	
+	
+ /* FOR IMAGE GALLERY */
+ div.gallery {
+	display: inline;}
+ div.gallery p {
+	margin: auto; position: relative;
+	font-family: ParagraphFont; font-size: 8vw;
+	text-align: center; vertical-align: middle;
+	color: rgba(244,244,244,1); line-height: 10vw;
+	padding-left: 2vw; padding-right: 2vw;}
+ div.gallery p.small-header {
+	margin: auto; position: relative;
+	font-family: ParagraphFont; font-size: 6vw;
+	text-align: center; vertical-align: middle;
+	color: rgba(32,32,32,1); line-height: 8vw;
+	margin-top: 6vw; padding: 3vw;
+	padding-bottom: 12vw;}
+ div.gallery p.small-header-text {
+	margin: auto; position: relative;
+	font-family: ParagraphFont; font-size: 4vw;
+	text-align: justify; vertical-align: middle;
+	color: rgba(244,244,244,1); line-height: 8vw;
+	padding-left: 2vw; padding-right: 2vw;}
+ div.gallery p.table-header {
+	font-family: ParagraphFont; font-size: 6vw;
+	color: rgba(32,32,32,1); position: relative;
+	margin-bottom: -3vw; margin-top: 8vw;}
+ div.gallery table.small-header-table {
+	position: relative; left: 50%; 
+	transform: translate(-50%, -50%); 
+	margin-top: 60vw; text-align: left;
+	margin-bottom: -55vw;}
+ div.gallery table.small-header-table th, td {
+    padding-left: 4vw; font-family: ParagraphFont; 
+	font-size: 4vw; align: left; 
+	color: rgba(244,244,244,1); line-height: 8vw;}
+ div.gallery img {
+	display: block; height: 50%%; 
+	width: 50%; margin-bottom: 5vw; 
+	margin-top: 5vw; margin-left: auto;
+	margin-right: auto;}
+	

@@ -56,7 +56,8 @@ public enum MessageType {
     CORRECT_ANSWER(19),
     WRONG_ANSWER(20),
     HINT_USED(21),
-    SET_LEVEL(22);
+    SET_LEVEL(22),
+    COINS_COLLECTED(23);
 
     /**
      * The inner code of the message.

@@ -7,11 +7,9 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.ai.msg.MessageManager;
 import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.input.GestureDetector.GestureListener;
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.fuegopeligro.FuegoPeligro;
 import com.mygdx.fuegopeligro.ai.fsm.FiremanState;
 import com.mygdx.fuegopeligro.ai.msg.MessageType;
 import com.mygdx.fuegopeligro.entity.Entity;
@@ -31,7 +29,7 @@ public class FiremanInputProcessor implements Telegraph, GestureListener, InputP
 
     private final Entity character;
 
-    public FiremanInputProcessor(final Fireman fireman, final FuegoPeligro game, final AssetManager assets) {
+    public FiremanInputProcessor(final Fireman fireman, final StatusBar lvlScrn) {
         if (fireman == null) {
             throw new IllegalArgumentException("'character' cannot be null"); }
         character = fireman;
@@ -44,7 +42,7 @@ public class FiremanInputProcessor implements Telegraph, GestureListener, InputP
         GestureDetector gd = new GestureDetector(this);
         im.addProcessor(gd);
         im.addProcessor(this);
-        im.addProcessor(new StatusBar(game.getBatch(), assets));
+        im.addProcessor(lvlScrn);
         Gdx.input.setInputProcessor(im);
     }
 
@@ -101,17 +99,6 @@ public class FiremanInputProcessor implements Telegraph, GestureListener, InputP
         return false;
     }
 
-    private void moveLeftRight(int value) {
-        switch (value) {
-            case 1:
-                character.changeState(FiremanState.LEFT);
-                break;
-            case 2:
-                character.changeState(FiremanState.RIGHT);
-                break;
-        }
-    }
-
     @Override
     public boolean touchDown(float x, float y, int pointer, int button) {
         return false;
@@ -119,17 +106,16 @@ public class FiremanInputProcessor implements Telegraph, GestureListener, InputP
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        int leftRight;
         if (Gdx.input.isTouched()) {
             if (Gdx.input.getX() < Gdx.graphics.getWidth() / 2){
                 //left
-                leftRight = 1;
-                moveLeftRight(leftRight);
+                character.changeState(FiremanState.LEFT);
             } else {
                 //right
-                leftRight = 2;
-                moveLeftRight(leftRight);
+                character.changeState(FiremanState.RIGHT);
             }
+        } else {
+            character.changeState(FiremanState.IDLE);
         }
         return false;
     }
@@ -137,7 +123,7 @@ public class FiremanInputProcessor implements Telegraph, GestureListener, InputP
 
     @Override
     public boolean tap(float x, float y, int count, int button) {
-        if (count == 2) {
+        if (count > 1) {
             character.changeState(FiremanState.JUMP);
             return true;
         }

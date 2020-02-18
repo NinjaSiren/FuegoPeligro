@@ -17,6 +17,7 @@ import com.mygdx.fuegopeligro.entity.Entity;
  */
 public class CheckpointPhysicsProcessor implements PhysicsProcessor {
     public static final String CARROT_IDENTIFIER = "carrot";
+
     private static final float MAX_DISTANCE = 0.18f;
     private static final float VERTICAL_VELOCITY = 0.21f;
     private float origin;
@@ -30,9 +31,6 @@ public class CheckpointPhysicsProcessor implements PhysicsProcessor {
         }
     }
 
-    /**
-     * @param contact
-     */
     private void collectCarrot(final Fixture fixture) {
         Collectible carrot = (Collectible) fixture.getBody().getUserData();
         if (!carrot.isCollected()) {

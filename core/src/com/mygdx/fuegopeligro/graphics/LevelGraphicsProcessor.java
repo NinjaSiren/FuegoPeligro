@@ -18,9 +18,11 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.fuegopeligro.FuegoPeligro;
 import com.mygdx.fuegopeligro.GameOverOverlay;
 import com.mygdx.fuegopeligro.LevelEndOverlay;
+import com.mygdx.fuegopeligro.ai.fsm.FiremanState;
 import com.mygdx.fuegopeligro.ai.msg.MessageType;
 import com.mygdx.fuegopeligro.entity.Entity;
 import com.mygdx.fuegopeligro.entity.Fireman;
+import com.mygdx.fuegopeligro.graphics.hud.StatusBar;
 import com.mygdx.fuegopeligro.graphics.minigames.FourPicsOneWord;
 import com.mygdx.fuegopeligro.graphics.minigames.FourPicsOneWord2;
 import com.mygdx.fuegopeligro.graphics.minigames.LetterPuzzle;
@@ -61,14 +63,16 @@ public class LevelGraphicsProcessor extends Table implements GraphicsProcessor, 
     private final CurrentPlayerStatus status;
     private List<String> line;
     private final InputMultiplexer im;
+    private final Entity character;
 
     public LevelGraphicsProcessor(final AssetManager assets, final LevelRenderer mapRenderer,
                                   final FuegoPeligro game, final Fireman fireman,
-                                  final CurrentPlayerStatus player) {
+                                  final CurrentPlayerStatus player, final StatusBar lvlScrn) {
         if (fireman == null) {
             throw new IllegalArgumentException("'character' cannot be null");
         }
         status = player;
+        character = fireman;
 
         gameOver = new GameOverOverlay(assets, game);
         levelEnd = new LevelEndOverlay(assets, game);
@@ -89,9 +93,10 @@ public class LevelGraphicsProcessor extends Table implements GraphicsProcessor, 
         MessageManager.getInstance().addListeners(this, MessageType.COLLECTED.code());
         
         im = new InputMultiplexer();
-        GestureDetector gd = new GestureDetector(new FiremanInputProcessor(fireman, game, assets));
-        im.addProcessor(new FiremanInputProcessor(fireman, game, assets));
+        GestureDetector gd = new GestureDetector(new FiremanInputProcessor(fireman, lvlScrn));
+        im.addProcessor(new FiremanInputProcessor(fireman, lvlScrn));
         im.addProcessor(gd);
+        im.addProcessor(lvlScrn);
     }
 
     @Override
@@ -473,6 +478,8 @@ public class LevelGraphicsProcessor extends Table implements GraphicsProcessor, 
         fourPicsOneWord.getAnswer2().setDrawable(myTexRegionDrawable_2);
         fourPicsOneWord.getAnswer3().setDrawable(myTexRegionDrawable_3);
         fourPicsOneWord.getAnswer4().setDrawable(myTexRegionDrawable_4);
+
+        character.changeState(FiremanState.IDLE);
 
         fourPicsOneWord.render(Gdx.graphics.getDeltaTime());
         fourPicsOneWord.getTable().setVisible(true);
