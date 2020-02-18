@@ -1,6 +1,7 @@
 package com.mygdx.fuegopeligro;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
@@ -16,6 +17,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
@@ -39,7 +41,7 @@ public class FireSender extends AppCompatActivity {
     private Uri imageUri;
     private Uri imageSend;
 
-    private static String fireType;
+    private String fireType;
     private double lattitude;
     private double longitude;
     private final static int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1;
@@ -115,16 +117,16 @@ public class FireSender extends AppCompatActivity {
             public void onClick(View v) {
                 if(!(lattitude == 0.0)) {
                     if(!(longitude == 0.0)) {
-                        if(!(fireType == null)) {
-                            if(!(imageSend == null)) {
+                        if(!(imageSend == null)) {
+                            if(!(fireType == null)) {
                                 sendEmail(lattitude, longitude, fireType, imageSend);
                             } else {
-                                Toast.makeText(FireSender.this, "Your fire image is not set, " +
-                                        "please click the Open Camera button.", Toast.LENGTH_LONG).show();
+                                Toast.makeText(FireSender.this, "Your location type is not set, " +
+                                        "please select one of the Fire Location types.", Toast.LENGTH_LONG).show();
                             }
                         } else {
-                            Toast.makeText(FireSender.this, "Your location type is not set, " +
-                                    "please select one of the Fire Location types.", Toast.LENGTH_LONG).show();
+                            Toast.makeText(FireSender.this, "Your fire image is not set, " +
+                                    "please click the Open Camera button.", Toast.LENGTH_LONG).show();
                         }
                     } else {
                         Toast.makeText(FireSender.this, "Your location longitude is not set, " +
@@ -143,16 +145,16 @@ public class FireSender extends AppCompatActivity {
             public void onClick(View v) {
                 if (!(lattitude == 0.0)) {
                     if (!(longitude == 0.0)) {
-                        if (!(fireType == null)) {
-                            if(!(imageSend == null)) {
+                        if (!(imageSend == null)) {
+                            if(!(fireType == null)) {
                                 sendMMS(lattitude, longitude, fireType, imageSend);
                             } else {
-                                Toast.makeText(FireSender.this, "Your fire image is not set, " +
-                                        "please click the Open Camera button.", Toast.LENGTH_LONG).show();
+                                Toast.makeText(FireSender.this, "Your location type is not set, " +
+                                        "please select one of the Fire Location types.", Toast.LENGTH_LONG).show();
                             }
                         } else {
-                            Toast.makeText(FireSender.this, "Your location type is not set, " +
-                                    "please select one of the Fire Location types.", Toast.LENGTH_LONG).show();
+                            Toast.makeText(FireSender.this, "Your fire image is not set, " +
+                                    "please click the Open Camera button.", Toast.LENGTH_LONG).show();
                         }
                     } else {
                         Toast.makeText(FireSender.this, "Your location longitude is not set, " +
@@ -222,52 +224,47 @@ public class FireSender extends AppCompatActivity {
     }
 
     /************ Convert Image Uri path to physical path **************/
-    public static String convertImageUriToFile (Uri imageUri, Activity activity )  {
+    public static String convertImageUriToFile (Uri imageUri, Activity activity)  {
         Cursor cursor = null;
         int imageID = 0;
 
         try {
             /* Which columns values want to get *******/
-            String [] proj={
+            String [] proj = {
                     MediaStore.Images.Media.DATA,
                     MediaStore.Images.Media._ID,
                     MediaStore.Images.Thumbnails._ID,
                     MediaStore.Images.ImageColumns.ORIENTATION
             };
 
-            cursor = activity.managedQuery(
+            cursor = activity.getContentResolver().query(
                     imageUri,         //  Get data for specific image URI
                     proj,             //  Which columns to return
                     null,             //  WHERE clause; which rows to return (all rows)
                     null,             //  WHERE clause selection arguments (none)
                     null              //  Order-by clause (ascending by name)
-
             );
 
             //  Get Query Data
-            int columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media._ID);
-            int columnIndexThumb = cursor.getColumnIndexOrThrow(MediaStore.Images.Thumbnails._ID);
-            int file_ColumnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            int columnIndex = 0;
+            if (cursor != null) {
+                columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media._ID);
+            }
 
             //int orientation_ColumnIndex = cursor.
             //getColumnIndexOrThrow(MediaStore.Images.ImageColumns.ORIENTATION);
-            int size = cursor.getCount();
+            int size = 0;
+            if (cursor != null) {
+                size = cursor.getCount();
+            }
 
             /* If size is 0, there are no images on the SD Card. *****/
             if (size != 0) {
-                int thumbID;
                 if (cursor.moveToFirst()) {
                     /* Captured image details ************/
                     /* Used to show image on view in LoadImagesFromSDCard class ******/
-                    imageID     = cursor.getInt(columnIndex);
-                    thumbID     = cursor.getInt(columnIndexThumb);
-                    String Path = cursor.getString(file_ColumnIndex);
-
+                    imageID = cursor.getInt(columnIndex);
                     //String orientation =  cursor.getString(orientation_ColumnIndex);
-                    String capturedImageDetails = " CapturedImageDetails : \n\n"
-                            + " ImageID :" + imageID + "\n"
-                            + " ThumbID :" + thumbID + "\n"
-                            + " Path :" + Path + "\n";
                 }
             }
         } finally {
@@ -277,7 +274,7 @@ public class FireSender extends AppCompatActivity {
         }
 
         // Return Captured Image ImageID ( By this ImageID Image will load from sdcard )
-        return "" + imageID;
+        return String.valueOf(imageID);
     }
 
     /**
@@ -287,6 +284,7 @@ public class FireSender extends AppCompatActivity {
      *
      */
     // Class with extends AsyncTask class
+    @SuppressLint("StaticFieldLeak")
     public class LoadImagesFromSDCard  extends AsyncTask<String, Void, Void> {
         private ProgressDialog Dialog = new ProgressDialog(FireSender.this);
         Bitmap mBitmap;
@@ -333,7 +331,6 @@ public class FireSender extends AppCompatActivity {
             return null;
         }
 
-
         protected void onPostExecute(Void unused) {
             // NOTE: You can call UI Element here.
             // Close progress dialog
@@ -347,7 +344,6 @@ public class FireSender extends AppCompatActivity {
     }
 
     public static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 123;
-
     public boolean checkPermissionREAD_EXTERNAL_STORAGE(
             final Context context) {
         int currentAPIVersion = Build.VERSION.SDK_INT;
@@ -357,7 +353,7 @@ public class FireSender extends AppCompatActivity {
                 if (ActivityCompat.shouldShowRequestPermissionRationale(
                         (Activity) context,
                         Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                    showDialog("External storage", context,
+                    showDialog(context,
                             Manifest.permission.READ_EXTERNAL_STORAGE);
 
                 } else {
@@ -378,7 +374,6 @@ public class FireSender extends AppCompatActivity {
     }
 
     public static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 456;
-
     public boolean checkPermissionWRITE_EXTERNAL_STORAGE(
             final Context context) {
         int currentAPIVersion = Build.VERSION.SDK_INT;
@@ -388,7 +383,7 @@ public class FireSender extends AppCompatActivity {
                 if (ActivityCompat.shouldShowRequestPermissionRationale(
                         (Activity) context,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                    showDialog("External storage", context,
+                    showDialog(context,
                             Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
                 } else {
@@ -410,12 +405,13 @@ public class FireSender extends AppCompatActivity {
 
     @Override
     public void onRequestPermissionsResult(int requestCode,
-                                           String[] permissions, int[] grantResults) {
+                                           @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode) {
             case MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE:
             case MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE:
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // do your stuff
+                    Toast.makeText(FireSender.this, "GET_ACCOUNTS Allowed",
+                            Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(FireSender.this, "GET_ACCOUNTS Denied",
                             Toast.LENGTH_SHORT).show();
@@ -427,11 +423,11 @@ public class FireSender extends AppCompatActivity {
         }
     }
 
-    private void showDialog(final String msg, final Context context, final String permission) {
+    private void showDialog(final Context context, final String permission) {
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(context);
         alertBuilder.setCancelable(true);
         alertBuilder.setTitle("Permission necessary");
-        alertBuilder.setMessage(msg + " permission is necessary");
+        alertBuilder.setMessage("External storage" + " permission is necessary");
         alertBuilder.setPositiveButton(android.R.string.yes,
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
@@ -444,20 +440,23 @@ public class FireSender extends AppCompatActivity {
         alert.show();
     }
 
-    public void sendEmail(double lat, double lon, String ftype, Uri data, String... urls) {
+    /**
+     * @param lat = Latitude value
+     * @param lon = Longitude value
+     * @param ftype = Fire Type value
+     * @param data = Image value
+     */
+    @SuppressWarnings("deprecation")
+    public void sendEmail(double lat, double lon, String ftype, Uri data) {
         Date currentTime = Calendar.getInstance().getTime();
         int hours = currentTime.getHours();
         int minutes = currentTime.getMinutes();
         int seconds = currentTime.getSeconds();
-        int day = currentTime.getDay();
-        int month = currentTime.getMonth();
-        int year = currentTime.getYear();
 
         try {
             String email = "fuegopeligromail@gmail.com";
             String subject =
-                    "(ALERT) Fire Incident at: " + currentTime + " " + month + "/" + day + "/" + year +
-                    ", on: " + lat + " N ," + lon + " E";
+                    "(ALERT) Fire Incident at: " + currentTime + ", on: " + lat + " N ," + lon + " E";
             String message =
                     "ALERT: Fire Incident" +
                     "\nLocation type is a " + ftype +
@@ -467,18 +466,28 @@ public class FireSender extends AppCompatActivity {
                     "\nFire image is included as an attachment below.";
             Intent emailIntent = new Intent(Intent.ACTION_SEND);
             emailIntent.setPackage("com.google.android.gm");
-            emailIntent.setDataAndType(Uri.parse(email), "image/jpeg");
+            emailIntent.setDataAndType(Uri.parse(email), "*/*");
+
+            //For CC and BCC
             /*emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[] { email });*/
+
             emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, subject);
             emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, message);
             emailIntent.putExtra(Intent.EXTRA_STREAM, data);
-            startActivity(emailIntent);
+            if (emailIntent.resolveActivity(getPackageManager()) != null) { startActivity(emailIntent); }
         } catch (Throwable t) {
             Toast.makeText(this, "Request failed try again: " + t.toString(),Toast.LENGTH_LONG).show();
         }
     }
 
-    public void sendMMS(double lat, double lon, String ftype, Uri data, String... urls) {
+    /**
+     * @param lat = Latitude value
+     * @param lon = Longitude value
+     * @param ftype = Fire Type value
+     * @param data = Image value
+     */
+    @SuppressWarnings("deprecation")
+    public void sendMMS(double lat, double lon, String ftype, Uri data) {
         Date currentTime = Calendar.getInstance().getTime();
         int hours = currentTime.getHours();
         int minutes = currentTime.getMinutes();
@@ -496,12 +505,15 @@ public class FireSender extends AppCompatActivity {
                             "\nLocated at " + lat + " N ," + lon + " E" +
                             "\nGoogle Maps: https://www.google.com/maps/@" + lat + "," + lon + ",17z" +
                             "\nFire image is included as an attachment below.";
-            Intent mmsIntent = new Intent(android.content.Intent.ACTION_SEND, data);
-            mmsIntent.setDataAndType(Uri.parse("smsto:" + number), "image/*");
-            mmsIntent.putExtra("address", new String[] { number });
+            Intent mmsIntent = new Intent(android.content.Intent.ACTION_SEND);
+            mmsIntent.setData(Uri.parse("sms:"));
+
+            //For mass messaging only
+            mmsIntent.putExtra("subject", new String[] { number });
+
             mmsIntent.putExtra("sms_body", message);
             mmsIntent.putExtra(Intent.EXTRA_STREAM, data);
-            startActivity(mmsIntent);
+            if (mmsIntent.resolveActivity(getPackageManager()) != null) { startActivity(mmsIntent); }
         } catch (Throwable t) {
             Toast.makeText(this, "Request failed try again: " + t.toString(),Toast.LENGTH_LONG).show();
         }

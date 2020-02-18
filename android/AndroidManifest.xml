@@ -21,12 +21,24 @@
         -->
 
         <activity android:name=".FireSender">
-            <intent-filter>
-                <action android:name="android.intent.action.SENDTO" />
 
+            <!-- Intent for E-mail services -->
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                    <data android:mimeType="*/*" />
+                    <data android:scheme="mailto" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+            <!-- Intent for SMS/MMS services -->
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <data android:mimeType="image/*" />
+                <data android:scheme="mmsto" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".MenuActivity">
             <intent-filter>
@@ -35,6 +47,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".MainActivity" />
         <activity
@@ -47,6 +60,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
     </application>
+
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.INTERNET" />
