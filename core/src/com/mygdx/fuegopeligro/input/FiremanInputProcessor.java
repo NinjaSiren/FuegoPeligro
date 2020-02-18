@@ -100,11 +100,6 @@ public class FiremanInputProcessor implements Telegraph, GestureListener, InputP
     }
 
     @Override
-    public boolean touchDown(float x, float y, int pointer, int button) {
-        return false;
-    }
-
-    @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         if (Gdx.input.isTouched()) {
             if (Gdx.input.getX() < Gdx.graphics.getWidth() / 2){
@@ -114,55 +109,43 @@ public class FiremanInputProcessor implements Telegraph, GestureListener, InputP
                 //right
                 character.changeState(FiremanState.RIGHT);
             }
-        } else {
-            character.changeState(FiremanState.IDLE);
         }
         return false;
     }
 
+    @Override
+    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        if (Gdx.input.isTouched()) {
+            if (Gdx.input.getX() < Gdx.graphics.getWidth() / 2){
+                //left
+                character.changeState(FiremanState.LEFT);
+                if (Gdx.input.getX() > Gdx.graphics.getWidth() / 2) {
+                    character.changeState(FiremanState.RIGHT);
+                } else {
+                    character.changeState(FiremanState.IDLE);
+                }
+            } else {
+                //right
+                character.changeState(FiremanState.RIGHT);
+                if (Gdx.input.getX() < Gdx.graphics.getWidth() / 2) {
+                    character.changeState(FiremanState.LEFT);
+                } else {
+                    character.changeState(FiremanState.IDLE);
+                }
+            }
+        }
+        return false;
+    }
 
     @Override
     public boolean tap(float x, float y, int count, int button) {
         if (count > 1) {
             character.changeState(FiremanState.JUMP);
             return true;
+        } else {
+            character.changeState(FiremanState.IDLE);
         }
         return false;
-    }
-
-    @Override
-    public boolean longPress(float x, float y) {
-        return false;
-    }
-
-    @Override
-    public boolean fling(float velocityX, float velocityY, int button) {
-        return false;
-    }
-
-    @Override
-    public boolean pan(float x, float y, float deltaX, float deltaY) {
-        return false;
-    }
-
-    @Override
-    public boolean panStop(float x, float y, int pointer, int button) {
-        return false;
-    }
-
-    @Override
-    public boolean zoom(float initialDistance, float distance) {
-        return false;
-    }
-
-    @Override
-    public boolean pinch(Vector2 initialPointer1, Vector2 initialPointer2, Vector2 pointer1, Vector2 pointer2) {
-        return false;
-    }
-
-    @Override
-    public void pinchStop() {
-
     }
 
     @Override
@@ -182,27 +165,38 @@ public class FiremanInputProcessor implements Telegraph, GestureListener, InputP
     }
 
     @Override
-    public boolean keyTyped(char character) {
-        return false;
-    }
+    public boolean touchDown(float x, float y, int pointer, int button) { return false; }
 
     @Override
-    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        return false;
-    }
+    public boolean longPress(float x, float y) { return false; }
 
     @Override
-    public boolean touchDragged(int screenX, int screenY, int pointer) {
-        return false;
-    }
+    public boolean fling(float velocityX, float velocityY, int button) { return false; }
 
     @Override
-    public boolean mouseMoved(int screenX, int screenY) {
-        return false;
-    }
+    public boolean pan(float x, float y, float deltaX, float deltaY) { return false; }
 
     @Override
-    public boolean scrolled(int amount) {
-        return false;
-    }
+    public boolean panStop(float x, float y, int pointer, int button) { return false; }
+
+    @Override
+    public boolean zoom(float initialDistance, float distance) { return false; }
+
+    @Override
+    public boolean pinch(Vector2 initialPointer1, Vector2 initialPointer2, Vector2 pointer1, Vector2 pointer2) { return false; }
+
+    @Override
+    public void pinchStop() { /* Do nothing */ }
+
+    @Override
+    public boolean keyTyped(char character) { return false; }
+
+    @Override
+    public boolean touchDragged(int screenX, int screenY, int pointer) { return false; }
+
+    @Override
+    public boolean mouseMoved(int screenX, int screenY) { return false; }
+
+    @Override
+    public boolean scrolled(int amount) { return false; }
 }
