@@ -64,9 +64,9 @@ public class LevelStartScreen extends AbstractScreen {
 
         Label controls = new Label("CONTROLS", style);
         controls.setAlignment(Align.center);
-        Label left = new Label("TAP LEFT to go LEFT,", style);
+        Label left = new Label("HOLD LEFT to go LEFT,", style);
         left.setAlignment(Align.right);
-        Label right = new Label("TAP RIGHT to go RIGHT.", style);
+        Label right = new Label("HOLD RIGHT to go RIGHT.", style);
         right.setAlignment(Align.left);
         Label jump = new Label("DOUBLE TAP to JUMP,", style);
         jump.setAlignment(Align.center);

@@ -39,9 +39,6 @@ public class StatusBar implements PlayerStatusObserver, InputProcessor {
     private final Label livesLabel;
     private final Label scoreLabel;
     private final Label timeLabel;
-    private final Label miniGame;
-    private final Label easyQA;
-    private final Label hardQA;
     private final TextButton pause;
 
     public StatusBar(final Batch batch, final AssetManager assets) {
@@ -57,9 +54,6 @@ public class StatusBar implements PlayerStatusObserver, InputProcessor {
         livesLabel = new Label(String.format(TWO_DIGITS, 0), style);
         scoreLabel = new Label(String.format(EIGHT_DIGITS, 0), style);
         timeLabel = new Label(String.format(THREE_DIGITS, 0), style);
-        miniGame = new Label(String.format(TWO_DIGITS, 0), style);
-        easyQA = new Label(String.format(TWO_DIGITS, 0), style);
-        hardQA = new Label(String.format(TWO_DIGITS, 0), style);
 
         pause = new TextButton("||", skin);
 
@@ -68,9 +62,6 @@ public class StatusBar implements PlayerStatusObserver, InputProcessor {
         Table table = new Table();
         table.add(new Image(hudAtlas.findRegion(SMALL_CARROT_REGION))).padRight(8.0f);
         table.add(collectiblesLabel).bottom();
-        table.add(miniGame).bottom().padLeft(1f);
-        table.add(easyQA).bottom().padLeft(1f);
-        table.add(hardQA).bottom().padLeft(1f);
         table.add(new Image(hudAtlas.findRegion(LIVES_REGION))).padLeft(15.0f);
         table.add(livesLabel).bottom();
         table.add(scoreLabel).expandX();
@@ -90,9 +81,6 @@ public class StatusBar implements PlayerStatusObserver, InputProcessor {
         scoreLabel.setText(String.format(EIGHT_DIGITS, event.getScore()));
         timeLabel.setText(String.format(THREE_DIGITS, event.getTime()));
         livesLabel.setText(String.format(TWO_DIGITS, event.getLives()));
-        miniGame.setText(String.format(TWO_DIGITS, event.getMGValue()));
-        easyQA.setText(String.format(TWO_DIGITS, event.getEqaValue()));
-        hardQA.setText(String.format(TWO_DIGITS, event.getHqaValue()));
     }
 
     public void resize(final int width, final int height) {
