@@ -2,7 +2,7 @@
   <component name="FileTypeManager" version="17">
     <extensionMap>
       <mapping pattern="C:\Users\NinjaSiren\Documents\Textbooks\bookbg" type="Image" />
-      <mapping ext="webp" type="Image" />
+      <mapping ext="main.kts" type="Kotlin" />
     </extensionMap>
   </component>
 </application>
