@@ -7,10 +7,6 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -30,6 +26,11 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.Objects;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 public class MapsActivity extends AppCompatActivity
         implements OnMapReadyCallback,
@@ -56,7 +57,7 @@ public class MapsActivity extends AppCompatActivity
             backButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(getApplicationContext(), FireSender.class);
+                    Intent intent = new Intent(getBaseContext(), FireSender.class);
                     intent.putExtra("lattitude", lattitude);
                     intent.putExtra("longitude", longitude);
                     startActivity(intent);
@@ -114,10 +115,10 @@ public class MapsActivity extends AppCompatActivity
 
         @Override
         public void onConnected(Bundle bundle) {
-            LocationRequest mLocationRequest = new LocationRequest();
+            LocationRequest mLocationRequest = LocationRequest.create();
+            mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
             mLocationRequest.setInterval(1000);
             mLocationRequest.setFastestInterval(1000);
-            mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
             if (ContextCompat.checkSelfPermission(this,
                     Manifest.permission.ACCESS_FINE_LOCATION)
                     == PackageManager.PERMISSION_GRANTED) {

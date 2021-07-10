@@ -10,8 +10,8 @@ buildscript {
         google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.0'
-
+        classpath 'com.android.tools.build:gradle:3.6.4'
+        classpath 'com.google.gms:google-services:4.3.4'
 
     }
 }
@@ -85,7 +85,6 @@ project(":android") {
         api "com.badlogicgames.gdx:gdx-ai:$aiVersion"
         api "com.badlogicgames.gdx:gdx-controllers:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-controllers-android:$gdxVersion"
-        
     }
 }
 
