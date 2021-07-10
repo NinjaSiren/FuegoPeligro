@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.ArrayList;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
@@ -17,6 +19,8 @@ public class FireLister extends AppCompatActivity {
 
         CardView fireInfo = findViewById(R.id.cardView);
         Button back = findViewById(R.id.button9);
+
+        fireInfo.addTouchables(new ArrayList<View>());
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
