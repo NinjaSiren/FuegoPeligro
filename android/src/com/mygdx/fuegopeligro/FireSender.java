@@ -17,11 +17,6 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,9 +24,26 @@ import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 public class FireSender extends AppCompatActivity {
 
@@ -46,15 +58,28 @@ public class FireSender extends AppCompatActivity {
     private double longitude;
     private final static int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1;
 
+    private FirebaseFirestore db;
+    private StorageReference imageDB;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fire_sender);
+        startDB();
 
         fireImage = findViewById(R.id.fireImage);
         location = findViewById(R.id.locationField);
-
         RadioGroup radioGroup = findViewById(R.id.radioGroup);
+        Button gmaps = findViewById(R.id.gmapsButton);
+        Button reset = findViewById(R.id.resetButton);
+        Button camera = findViewById(R.id.cameraButton);
+        Button submit = findViewById(R.id.sendButton);
+        Button back = findViewById(R.id.sendButton2);
+
+        Intent intent = getIntent();
+        final String name = intent.getStringExtra("senderName");
+        final String number = intent.getStringExtra("senderNumber");
+
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -81,21 +106,18 @@ public class FireSender extends AppCompatActivity {
             }
         });
 
-        Button gmaps = findViewById(R.id.gmapsButton);
         gmaps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
+                Intent intent = new Intent(getBaseContext(), MapsActivity.class);
                 startActivity(intent);
             }
         });
 
-        Intent intent = getIntent();
         lattitude = intent.getDoubleExtra("lattitude", 0);
         longitude = intent.getDoubleExtra("longitude", 0);
         location.setText(String.format("%s, %s", lattitude, longitude));
 
-        Button reset = findViewById(R.id.resetButton);
         reset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -103,7 +125,6 @@ public class FireSender extends AppCompatActivity {
             }
         });
 
-        Button camera = findViewById(R.id.cameraButton);
         camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -111,7 +132,6 @@ public class FireSender extends AppCompatActivity {
             }
         });
 
-        Button submit = findViewById(R.id.sendButton);
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -119,7 +139,7 @@ public class FireSender extends AppCompatActivity {
                     if(!(longitude == 0.0)) {
                         if(!(imageSend == null)) {
                             if(!(fireType == null)) {
-                                sendEmail(lattitude, longitude, fireType, imageSend);
+                                sendDataToDB(lattitude, longitude, fireType, imageSend, name, number);
                             } else {
                                 Toast.makeText(FireSender.this, "Your location type is not set, " +
                                         "please select one of the Fire Location types.", Toast.LENGTH_LONG).show();
@@ -139,35 +159,6 @@ public class FireSender extends AppCompatActivity {
             }
         });
 
-        Button mms = findViewById(R.id.mmsButton);
-        mms.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!(lattitude == 0.0)) {
-                    if (!(longitude == 0.0)) {
-                        if (!(imageSend == null)) {
-                            if(!(fireType == null)) {
-                                sendMMS(lattitude, longitude, fireType, imageSend);
-                            } else {
-                                Toast.makeText(FireSender.this, "Your location type is not set, " +
-                                        "please select one of the Fire Location types.", Toast.LENGTH_LONG).show();
-                            }
-                        } else {
-                            Toast.makeText(FireSender.this, "Your fire image is not set, " +
-                                    "please click the Open Camera button.", Toast.LENGTH_LONG).show();
-                        }
-                    } else {
-                        Toast.makeText(FireSender.this, "Your location longitude is not set, " +
-                                "please click the Find on Google Maps button.", Toast.LENGTH_LONG).show();
-                    }
-                } else {
-                    Toast.makeText(FireSender.this, "Your location latitude is not set, " +
-                            "please click the Find on Google Maps button.", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
-
-        Button back = findViewById(R.id.sendButton2);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -205,8 +196,9 @@ public class FireSender extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if ( requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
-            if ( resultCode == RESULT_OK) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
 
                 /* Load Captured Image And Data Start ****************/
                 String imageId = convertImageUriToFile(imageUri, FireSender.this);
@@ -215,7 +207,7 @@ public class FireSender extends AppCompatActivity {
                 new LoadImagesFromSDCard().execute("" + imageId);
                 /* Load Captured Image And Data End ****************/
 
-            } else if ( resultCode == RESULT_CANCELED) {
+            } else if (resultCode == RESULT_CANCELED) {
                 Toast.makeText(this, " Picture was not taken ", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(this, " Picture was not taken ", Toast.LENGTH_SHORT).show();
@@ -230,7 +222,7 @@ public class FireSender extends AppCompatActivity {
 
         try {
             /* Which columns values want to get *******/
-            String [] proj = {
+            @SuppressLint("InlinedApi") String [] proj = {
                     MediaStore.Images.Media.DATA,
                     MediaStore.Images.Media._ID,
                     MediaStore.Images.Thumbnails._ID,
@@ -446,76 +438,72 @@ public class FireSender extends AppCompatActivity {
      * @param ftype = Fire Type value
      * @param data = Image value
      */
-    @SuppressWarnings("deprecation")
-    public void sendEmail(double lat, double lon, String ftype, Uri data) {
-        Date currentTime = Calendar.getInstance().getTime();
-        int hours = currentTime.getHours();
-        int minutes = currentTime.getMinutes();
-        int seconds = currentTime.getSeconds();
+    private void sendDataToDB(
+            double lat, double lon, String ftype, final Uri data, String name, String number) {
+        Calendar currentTime = Calendar.getInstance();
+        Date dates = currentTime.getTime();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+        int hours = currentTime.get(Calendar.HOUR_OF_DAY);
+        int minutes = currentTime.get(Calendar.MINUTE);
+        int seconds = currentTime.get(Calendar.SECOND);
+        int milliseconds = currentTime.get(Calendar.MILLISECOND);
+        String date = simpleDateFormat.format(dates);
 
-        try {
-            String email = "fuegopeligromail@gmail.com";
-            String subject =
-                    "(ALERT) Fire Incident at: " + currentTime + ", on: " + lat + " N ," + lon + " E";
-            String message =
-                    "ALERT: Fire Incident" +
-                    "\nLocation type is a " + ftype +
-                    "\nTime sent is at " + hours + " hours, " + minutes + " minutes, " + seconds + " seconds" +
-                    "\nLocated at " + lat + " N ," + lon + " E" +
-                    "\nGoogle Maps: https://www.google.com/maps/@" + lat + "," + lon + ",17z" +
-                    "\nFire image is included as an attachment below.";
-            Intent emailIntent = new Intent(Intent.ACTION_SEND);
-            emailIntent.setPackage("com.google.android.gm");
-            emailIntent.setDataAndType(Uri.parse(email), "*/*");
+        sha1Hashing sha1 = new sha1Hashing();
+        final String fireID = "" + sha1.sha1Hashing(data.toString());
 
-            //For CC and BCC
-            /*emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[] { email });*/
+        // Firestore info
+        Map<String, Object> fireInfo = new HashMap<>();
+        fireInfo.put("fire_id", fireID);
+        fireInfo.put("fireType", ftype);
+        fireInfo.put("senderName", name);
+        fireInfo.put("senderNumber", number);
+        fireInfo.put("lattitude", lat);
+        fireInfo.put("longitude", lon);
+        fireInfo.put("date", date);
+        fireInfo.put("hour", hours);
+        fireInfo.put("minute", minutes);
+        fireInfo.put("second", seconds);
+        fireInfo.put("milliseconds", milliseconds);
+        fireInfo.put("imageLink", "gs://fuegopeligro-4109e.appspot.com/images/" + fireID + ".jpg");
 
-            emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, subject);
-            emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, message);
-            emailIntent.putExtra(Intent.EXTRA_STREAM, data);
-            if (emailIntent.resolveActivity(getPackageManager()) != null) { startActivity(emailIntent); }
-        } catch (Throwable t) {
-            Toast.makeText(this, "Request failed try again: " + t.toString(),Toast.LENGTH_LONG).show();
-        }
+        db.collection("FIRES")
+                .document(date + " " + hours + ":" + minutes + ":" + seconds + ":" + milliseconds)
+                .set(fireInfo)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        UploadTask uploadTask = imageDB
+                                .child("images/" + fireID + ".jpg")
+                                .putFile(data);
+
+                        // Register observers to listen for when the download is done or if it fails
+                        uploadTask.addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception exception) {
+                                Toast.makeText(FireSender.this, "Failed to upload image to database, please check your internet connection.",
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                Toast.makeText(FireSender.this, "Data submitted, please wait for further instructions.",
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(FireSender.this, "Failed to upload info to database, please check your internet connection.",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
-    /**
-     * @param lat = Latitude value
-     * @param lon = Longitude value
-     * @param ftype = Fire Type value
-     * @param data = Image value
-     */
-    @SuppressWarnings("deprecation")
-    public void sendMMS(double lat, double lon, String ftype, Uri data) {
-        Date currentTime = Calendar.getInstance().getTime();
-        int hours = currentTime.getHours();
-        int minutes = currentTime.getMinutes();
-        int seconds = currentTime.getSeconds();
-        int day = currentTime.getDay();
-        int month = currentTime.getMonth();
-        int year = currentTime.getYear();
-
-        try {
-            String number = "09564735728";
-            String message = "ALERT: Fire Incident" +
-                            "\nLocation type: " + ftype +
-                            "\nTime sent: " + hours + " hours, " + minutes + " minutes, " + seconds + " seconds" +
-                            "\nDate sent: " + month + "/" + day + "/" + year +
-                            "\nLocated at " + lat + " N ," + lon + " E" +
-                            "\nGoogle Maps: https://www.google.com/maps/@" + lat + "," + lon + ",17z" +
-                            "\nFire image is included as an attachment below.";
-            Intent mmsIntent = new Intent(android.content.Intent.ACTION_SEND);
-            mmsIntent.setData(Uri.parse("sms:"));
-
-            //For mass messaging only
-            mmsIntent.putExtra("subject", new String[] { number });
-
-            mmsIntent.putExtra("sms_body", message);
-            mmsIntent.putExtra(Intent.EXTRA_STREAM, data);
-            if (mmsIntent.resolveActivity(getPackageManager()) != null) { startActivity(mmsIntent); }
-        } catch (Throwable t) {
-            Toast.makeText(this, "Request failed try again: " + t.toString(),Toast.LENGTH_LONG).show();
-        }
+    private void startDB() {
+        db = FirebaseFirestore.getInstance();
+        imageDB = FirebaseStorage.getInstance().getReference();
     }
 }
