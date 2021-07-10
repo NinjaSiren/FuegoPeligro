@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "284373829278",
+    "firebase_url": "https://fuegopeligro-4109e.firebaseio.com",
+    "project_id": "fuegopeligro-4109e",
+    "storage_bucket": "fuegopeligro-4109e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:284373829278:android:99cdac464cd7928d83dd8f",
+        "android_client_info": {
+          "package_name": "com.mygdx.fuegopeligro"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "284373829278-hjjghh1trpk62hscvpbkicaus9rpoq36.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mygdx.fuegopeligro",
+            "certificate_hash": "ed25b9134da657c6c063770c6f48bcd1bbc5fa7e"
+          }
+        },
+        {
+          "client_id": "284373829278-8jc0obh044t58uiosgicu5d909edvnrf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDEAvOCrOchDfNjgj25yj8ONvrhnCGZfe4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "284373829278-2h9ogbsif4rqq8746cm8u204o3cue2dc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
