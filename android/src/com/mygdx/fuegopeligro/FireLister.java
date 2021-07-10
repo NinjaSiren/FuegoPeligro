@@ -26,6 +26,10 @@ import java.util.Objects;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+/*
+* Final
+*/
+
 public class FireLister extends AppCompatActivity {
 
     private FirebaseFirestore db;
